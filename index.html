@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Matri Rush — Snap the bricks. Beat the clock.</title>
+  <meta name="description" content="Matri Rush is a fast, satisfying brick-puzzle game: snap colourful bricks onto the board and tile every gap before the timer hits zero. 80 worlds, 4,000 levels. Free on the App Store and Google Play." />
+  <meta name="theme-color" content="#141c30" />
+  <!-- Open Graph / social preview -->
+  <meta property="og:title" content="Matri Rush: Brick Puzzle" />
+  <meta property="og:description" content="Snap the bricks. Beat the clock. 80 worlds, 4,000 timed brick puzzles." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og.png" />
+  <link rel="icon" type="image/png" href="assets/icon.png" />
+  <link rel="apple-touch-icon" href="assets/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --c-red: #ff5a5f; --c-blue: #3aa0ff; --c-yellow: #ffc62e;
+      --c-green: #39c66d; --c-purple: #a259ff; --c-orange: #ff8c3a;
+      --ink: #141c30; --muted: #6b7280; --card: #ffffff; --line: #e6e9f2;
+      --display: 'Fredoka', system-ui, sans-serif;
+      --body: 'Nunito', system-ui, sans-serif;
+      --snap: cubic-bezier(.34, 1.56, .64, 1); /* the board-snap easing, used everywhere */
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--body); color: var(--ink); background: #f4f6fb; line-height: 1.6; font-size: 16px; }
+    h1, h2, h3, .display { font-family: var(--display); }
+    :focus-visible { outline: 3px solid var(--c-blue); outline-offset: 3px; border-radius: 6px; }
+
+    /* ── Scroll reveals (JS adds .in; no-JS users see everything) ── */
+    .js .rv { opacity: 0; transform: translateY(26px); }
+    .js .rv-l { transform: translateX(-30px) translateY(0); }
+    .js .rv-r { transform: translateX(30px) translateY(0); }
+    .js .rv-pop { transform: scale(.85); }
+    .js .rv.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .65s var(--snap); transition-delay: var(--d, 0s); }
+
+    /* ── Hero ─────────────────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden; color: #fff; text-align: center;
+      background: radial-gradient(130% 120% at 50% -10%, #24345c 0%, #16203a 55%, #0e1424 100%);
+      padding: 60px 20px 120px;
+    }
+    /* ambient: three bricks adrift in the deep, slow and faint */
+    .drift { position: absolute; border-radius: 22%; opacity: .11; pointer-events: none; }
+    .drift.d1 { width: 130px; height: 130px; background: var(--c-blue); top: -20px; left: -34px; animation: drift1 13s ease-in-out infinite alternate; }
+    .drift.d2 { width: 100px; height: 100px; background: var(--c-red); bottom: 30px; right: -26px; animation: drift2 11s ease-in-out infinite alternate; }
+    .drift.d3 { width: 58px; height: 58px; background: var(--c-yellow); top: 34%; right: 8%; animation: drift3 16s ease-in-out infinite alternate; }
+    @keyframes drift1 { from { transform: rotate(14deg) translateY(0); } to { transform: rotate(26deg) translateY(26px); } }
+    @keyframes drift2 { from { transform: rotate(-12deg) translate(0,0); } to { transform: rotate(-24deg) translate(-18px,-22px); } }
+    @keyframes drift3 { from { transform: rotate(8deg) translateY(0) scale(1); } to { transform: rotate(-10deg) translateY(-30px) scale(1.12); } }
+    .hero > * { position: relative; z-index: 1; }
+
+    .appicon {
+      width: 92px; height: 92px; border-radius: 22px; margin: 0 auto 20px;
+      display: block; box-shadow: 0 12px 30px rgba(0,0,0,.4), inset 0 2px 0 rgba(255,255,255,.15);
+    }
+    .js .appicon { animation: icon-in .7s var(--snap) both; }
+    @keyframes icon-in { from { opacity: 0; transform: translateY(-46px) scale(.7) rotate(-8deg); } }
+
+    /* ── The signature: MATRI RUSH snaps onto the page letter by letter ── */
+    .wordmark {
+      font-weight: 700; font-size: clamp(40px, 11vw, 62px); letter-spacing: .5px;
+      margin: 0; line-height: 1; display: flex; justify-content: center; gap: .28em; flex-wrap: wrap;
+    }
+    .wordmark span { display: inline-flex; }
+    .wordmark .L { display: inline-block; transform: rotate(var(--r)); }
+    .wordmark .wa .L { color: var(--c-blue); text-shadow: 0 3px 0 #1d63a3, 0 8px 16px rgba(0,0,0,.35); }
+    .wordmark .wb .L { color: var(--c-red); text-shadow: 0 3px 0 #b83b3f, 0 8px 16px rgba(0,0,0,.35); }
+    .js .wordmark .L { animation: snap-in .62s var(--snap) both; animation-delay: calc(.25s + var(--i) * .075s); }
+    @keyframes snap-in {
+      0% { opacity: 0; transform: translateY(-70px) rotate(calc(var(--r) * 4)) scale(1.25); }
+      70% { opacity: 1; transform: translateY(5px) rotate(var(--r)) scale(.96); }
+      100% { opacity: 1; transform: translateY(0) rotate(var(--r)) scale(1); }
+    }
+
+    .tagline { font-family: var(--display); font-weight: 600; font-size: clamp(18px, 5vw, 24px); margin: 18px 0 4px; color: #fff; }
+    .sub { font-size: 16px; color: #c7d0e6; margin: 0 auto; max-width: 440px; }
+    .js .tagline, .js .sub, .js .clockbar, .js .stores { animation: rise-in .7s ease both; }
+    .js .tagline { animation-delay: 1.05s; } .js .sub { animation-delay: 1.15s; }
+    .js .clockbar { animation-delay: 1.3s; } .js .stores { animation-delay: 1.45s; }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } }
+
+    /* the level timer, filling up — you're ready to play */
+    .clockbar { width: 170px; height: 8px; border-radius: 999px; background: rgba(255,255,255,.14); margin: 22px auto 0; overflow: hidden; }
+    .clockbar i {
+      display: block; height: 100%; width: 0; border-radius: inherit;
+      background: linear-gradient(90deg, #2fd96f, #8ee94f);
+      box-shadow: 0 0 10px rgba(57,198,109,.7);
+    }
+    .js .clockbar i { animation: clock-fill 2.4s cubic-bezier(.2,.7,.3,1) 1.5s forwards; }
+    @keyframes clock-fill { to { width: 100%; } }
+
+    /* store badges — App Store first (that's where we launch) */
+    .stores { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 10px; text-decoration: none; text-align: left;
+      padding: 10px 20px 10px 16px; border-radius: 14px; line-height: 1.15;
+      transition: transform .15s var(--snap), box-shadow .15s ease;
+    }
+    .badge .s1 { display: block; font-size: 11px; font-weight: 600; opacity: .75; }
+    .badge .s2 { display: block; font-family: var(--display); font-weight: 600; font-size: 18px; }
+    .badge.apple { background: #fff; color: #10162a; box-shadow: 0 6px 0 #b9c2d8, 0 14px 26px rgba(0,0,0,.35); }
+    .badge.play { background: rgba(255,255,255,.07); color: #fff; border: 1.5px solid rgba(255,255,255,.28); box-shadow: 0 6px 0 rgba(0,0,0,.28); }
+    .badge:hover { transform: translateY(-3px); }
+    .badge.apple:hover { box-shadow: 0 9px 0 #b9c2d8, 0 18px 30px rgba(0,0,0,.4); }
+    .badge:active { transform: translateY(3px); }
+    .badge.apple:active { box-shadow: 0 2px 0 #b9c2d8; }
+    .badge.play:active { box-shadow: 0 1px 0 rgba(0,0,0,.28); }
+    .badge svg { flex: none; }
+
+    /* ── Screenshot rail — leans out of the hero into the page ── */
+    .shots {
+      display: flex; gap: 18px; overflow-x: auto; padding: 0 20px 18px;
+      max-width: 880px; margin: -78px auto 0; position: relative; z-index: 2;
+      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    }
+    .shots img {
+      width: 230px; flex: none; border-radius: 20px; scroll-snap-align: center;
+      box-shadow: 0 18px 40px rgba(20,26,48,.32); border: 1px solid var(--line);
+      transition: transform .35s var(--snap);
+    }
+    .shots img:nth-child(1) { transform: rotate(-2.4deg); }
+    .shots img:nth-child(2) { transform: rotate(1.6deg) translateY(10px); }
+    .shots img:nth-child(3) { transform: rotate(-1.4deg); }
+    .shots img:hover { transform: rotate(0) translateY(0) scale(1.02); }
+    .shots::-webkit-scrollbar { height: 6px; }
+    .shots::-webkit-scrollbar-thumb { background: #cfd6ea; border-radius: 999px; }
+
+    /* ── World ticker — the road ahead, always rolling ── */
+    .ticker { background: var(--ink); overflow: hidden; margin-top: 34px; padding: 13px 0; }
+    .ticker .lane { display: flex; width: max-content; gap: 38px; animation: roll 36s linear infinite; }
+    .ticker .w { display: inline-flex; align-items: center; gap: 9px; color: #eef1fb; font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 2.2px; text-transform: uppercase; white-space: nowrap; }
+    .ticker .w i { width: 11px; height: 11px; border-radius: 3.5px; display: inline-block; }
+    @keyframes roll { to { transform: translateX(-50%); } }
+
+    /* ── Feature mosaic — one wide, one tall, nothing uniform ── */
+    main { max-width: 860px; margin: 0 auto; padding: 46px 18px 8px; }
+    .mosaic {
+      display: grid; gap: 14px; margin: 0 0 52px;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-areas: "worlds worlds snap" "clock bolt snap" "offline easy easy";
+    }
+    .feat {
+      background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px;
+      transition: transform .25s var(--snap), box-shadow .25s ease;
+    }
+    .feat:hover { transform: translateY(-4px) rotate(-.4deg); box-shadow: 0 14px 30px rgba(20,26,48,.1); }
+    .feat .t { font-family: var(--display); font-weight: 600; font-size: 17px; margin: 12px 0 3px; }
+    .feat .d { font-size: 14.5px; color: var(--muted); }
+    .f-worlds { grid-area: worlds; } .f-snap { grid-area: snap; display: flex; flex-direction: column; }
+    .f-clock { grid-area: clock; } .f-bolt { grid-area: bolt; }
+    .f-offline { grid-area: offline; } .f-easy { grid-area: easy; }
+    @media (max-width: 640px) {
+      .mosaic { grid-template-columns: 1fr; grid-template-areas: "worlds" "snap" "clock" "bolt" "offline" "easy"; }
+      .shots img { width: 200px; }
+      .shots { margin-top: -64px; }
+      .hero { padding-bottom: 104px; }
+    }
+
+    /* the wide card: the journey */
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .chip { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); background: #f8f9fd; }
+    .chip i { width: 9px; height: 9px; border-radius: 3px; }
+
+    /* the tall card: a board mid-level — one gap left, one brick incoming */
+    /* padding-top % resolves against width, so the hover clearance scales with brick size */
+    .board { margin: auto auto 0; width: 100%; max-width: 250px; padding-top: calc((100% - 14px) / 3 + 26px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; position: relative; }
+    .board b { display: block; aspect-ratio: 1; border-radius: 8px; opacity: .9; }
+    .board .gap { background: none; border: 2px dashed #cfd6ea; opacity: 1; }
+    .board .next { position: absolute; width: calc((100% - 14px) / 3); aspect-ratio: 1; border-radius: 8px; background: var(--c-green); right: 0; top: 0; box-shadow: 0 8px 16px rgba(57,198,109,.4); animation: hover-next 2.2s ease-in-out infinite; }
+    @keyframes hover-next { 0%, 100% { transform: translateY(0) rotate(3deg); } 50% { transform: translateY(-7px) rotate(-2deg); } }
+
+    .sec-label { font-family: var(--display); font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); margin: 0 0 14px; }
+
+    /* ── Legal & support — one quiet card, four rows ── */
+    .support { background: var(--card); border: 1px solid var(--line); border-radius: 18px; margin-bottom: 44px; overflow: hidden; }
+    .row {
+      display: flex; align-items: center; gap: 14px; padding: 15px 18px; text-decoration: none; color: var(--ink);
+      border-bottom: 1px solid var(--line); transition: background .15s ease;
+    }
+    .row:last-child { border-bottom: 0; }
+    .row:hover { background: #f8f9fd; }
+    .row .t { font-family: var(--display); font-weight: 600; font-size: 15px; }
+    .row .s { font-size: 13px; color: var(--muted); }
+    .row .arrow { margin-left: auto; color: #b9c2d8; font-weight: 800; transition: transform .2s var(--snap), color .2s; }
+    .row:hover .arrow { transform: translateX(5px); color: var(--c-blue); }
+
+    footer { text-align: center; color: var(--muted); font-size: 13px; padding: 26px 18px 48px; border-top: 1px solid var(--line); }
+    footer a { color: #2b59c9; }
+
+    /* ── Reduced motion: everything lands instantly, nothing loops ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .rv, .js .rv-l, .js .rv-r, .js .rv-pop { opacity: 1; transform: none; }
+      .js .clockbar i { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Shared rigging for the enamel-pin icons (same recipe as the in-game set:
+       gold rim, glossy enamel face, white inlaid glyph) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="pinRim" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffe9a8" /><stop offset="1" stop-color="#d9a72b" />
+      </linearGradient>
+      <radialGradient id="pinGloss" cx="0.36" cy="0.26" r="0.72">
+        <stop offset="0" stop-color="#fff" stop-opacity="0.55" /><stop offset="0.55" stop-color="#fff" stop-opacity="0" />
+      </radialGradient>
+      <filter id="pinEmb" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="0.7" stdDeviation="0.3" flood-color="#141a2e" flood-opacity="0.45" />
+      </filter>
+      <linearGradient id="faceRed" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7a7e"/><stop offset="1" stop-color="#e8434a"/></linearGradient>
+      <linearGradient id="faceBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5cb3ff"/><stop offset="1" stop-color="#2b8ae6"/></linearGradient>
+      <linearGradient id="faceGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#63d68b"/><stop offset="1" stop-color="#2aa457"/></linearGradient>
+      <linearGradient id="faceGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd76a"/><stop offset="1" stop-color="#f0a91f"/></linearGradient>
+      <linearGradient id="facePurple" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b57bff"/><stop offset="1" stop-color="#8a3ff0"/></linearGradient>
+      <linearGradient id="faceOrange" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffab5c"/><stop offset="1" stop-color="#f07d20"/></linearGradient>
+    </defs>
+  </svg>
+
+  <header class="hero">
+    <span class="drift d1"></span><span class="drift d2"></span><span class="drift d3"></span>
+    <img class="appicon" src="assets/icon.png" alt="Matri Rush app icon" />
+    <h1 class="wordmark" aria-label="Matri Rush">
+      <span class="wa" aria-hidden="true">
+        <span class="L" style="--i:0;--r:-3deg">M</span><span class="L" style="--i:1;--r:2deg">A</span><span class="L" style="--i:2;--r:-2deg">T</span><span class="L" style="--i:3;--r:3deg">R</span><span class="L" style="--i:4;--r:-2deg">I</span>
+      </span>
+      <span class="wb" aria-hidden="true">
+        <span class="L" style="--i:5;--r:2deg">R</span><span class="L" style="--i:6;--r:-3deg">U</span><span class="L" style="--i:7;--r:2deg">S</span><span class="L" style="--i:8;--r:-2deg">H</span>
+      </span>
+    </h1>
+    <p class="tagline">Snap the bricks. Beat the clock.</p>
+    <p class="sub">A fast, satisfying brick puzzle — tile every gap before the timer hits zero. 80 worlds, 4,000 levels.</p>
+    <div class="clockbar" role="presentation"><i></i></div>
+    <div class="stores">
+      <!-- TODO: replace # with the App Store listing URL once the app is live -->
+      <a class="badge apple" href="#">
+        <svg width="22" height="26" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+        <span><span class="s1">Download on the</span><span class="s2">App Store</span></span>
+      </a>
+      <!-- TODO: replace # with the Google Play listing URL once the app is live -->
+      <a class="badge play" href="#">
+        <svg width="22" height="24" viewBox="0 0 512 512" aria-hidden="true">
+          <polygon points="70,40 70,472 286,256" fill="#00d7fe"/>
+          <polygon points="70,40 353,189 286,256" fill="#00f076"/>
+          <polygon points="286,256 353,189 424,256 353,323" fill="#ffce00"/>
+          <polygon points="70,472 353,323 286,256" fill="#ff3a44"/>
+        </svg>
+        <span><span class="s1">Get it on</span><span class="s2">Google Play</span></span>
+      </a>
+    </div>
+  </header>
+
+  <section class="shots" aria-label="Game screenshots">
+    <img class="rv rv-pop" style="--d:.05s" src="assets/shot1.png" alt="Matri Rush gameplay — snapping bricks onto the board" loading="lazy" />
+    <img class="rv rv-pop" style="--d:.15s" src="assets/shot2.png" alt="Matri Rush — winning a level and earning Gold Bolts" loading="lazy" />
+    <img class="rv rv-pop" style="--d:.25s" src="assets/shot3.png" alt="Matri Rush — the world map across 80 worlds" loading="lazy" />
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="lane">
+      <!-- lane content ×2 for a seamless loop -->
+      <span class="w"><i style="background:#b07a45"></i>Wood Village</span><span class="w"><i style="background:#7fd4ff"></i>Ice Fields</span><span class="w"><i style="background:#9aa3b5"></i>Rock Quarry</span><span class="w"><i style="background:#ff8bd0"></i>Candy Coast</span><span class="w"><i style="background:#ff6b3a"></i>Lava Forge</span><span class="w"><i style="background:#b07a45"></i>Wood Village</span><span class="w"><i style="background:#7fd4ff"></i>Ice Fields</span><span class="w"><i style="background:#9aa3b5"></i>Rock Quarry</span><span class="w"><i style="background:#ff8bd0"></i>Candy Coast</span><span class="w"><i style="background:#ff6b3a"></i>Lava Forge</span>
+      <span class="w"><i style="background:#b07a45"></i>Wood Village</span><span class="w"><i style="background:#7fd4ff"></i>Ice Fields</span><span class="w"><i style="background:#9aa3b5"></i>Rock Quarry</span><span class="w"><i style="background:#ff8bd0"></i>Candy Coast</span><span class="w"><i style="background:#ff6b3a"></i>Lava Forge</span><span class="w"><i style="background:#b07a45"></i>Wood Village</span><span class="w"><i style="background:#7fd4ff"></i>Ice Fields</span><span class="w"><i style="background:#9aa3b5"></i>Rock Quarry</span><span class="w"><i style="background:#ff8bd0"></i>Candy Coast</span><span class="w"><i style="background:#ff6b3a"></i>Lava Forge</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="mosaic">
+      <div class="feat f-worlds rv rv-l">
+        <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Worlds" style="overflow:visible">
+          <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.16"/>
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceGreen)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <circle cx="15" cy="33.5" r="3" fill="#fff"/><circle cx="24" cy="26.5" r="3" fill="#fff"/><circle cx="33" cy="19.5" r="3" fill="#fff"/>
+            <rect x="32.1" y="9.5" width="1.9" height="8.5" rx="0.9" fill="#fff"/>
+            <path d="M34.3 10 L41 12.6 L34.3 15.2 Z" fill="#fff"/>
+          </g>
+        </svg>
+        <div class="t">80 worlds · 4,000 levels</div>
+        <div class="d">Every village twists the rules — new bricks, new boards, new tricks.</div>
+        <div class="chips">
+          <span class="chip"><i style="background:#b07a45"></i>Wood</span>
+          <span class="chip"><i style="background:#7fd4ff"></i>Ice</span>
+          <span class="chip"><i style="background:#9aa3b5"></i>Rock</span>
+          <span class="chip"><i style="background:#ff8bd0"></i>Candy</span>
+          <span class="chip"><i style="background:#ff6b3a"></i>Lava</span>
+        </div>
+      </div>
+
+      <div class="feat f-snap rv rv-r" style="--d:.1s">
+        <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Snap bricks" style="overflow:visible">
+          <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.16"/>
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceRed)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <rect x="17" y="18.5" width="14" height="6.5" rx="1.8" fill="#fff"/>
+            <rect x="12.5" y="27" width="9" height="6.5" rx="1.8" fill="#fff"/>
+            <rect x="23" y="27" width="12.5" height="6.5" rx="1.8" fill="#fff"/>
+            <path d="M33 12 Q33.4 15.6 37 16 Q33.4 16.4 33 20 Q32.6 16.4 29 16 Q32.6 15.6 33 12 Z" fill="#fff3c4"/>
+          </g>
+        </svg>
+        <div class="t">Snap, fit, win</div>
+        <div class="d">Every level is a tiny timed puzzle with a satisfying click. One gap left…</div>
+        <div class="board" aria-hidden="true">
+          <span class="next"></span>
+          <b style="background:var(--c-red)"></b><b style="background:var(--c-blue)"></b><b style="background:var(--c-yellow)"></b>
+          <b style="background:var(--c-blue)"></b><b style="background:var(--c-yellow)"></b><b class="gap"></b>
+        </div>
+      </div>
+
+      <div class="feat f-clock rv" style="--d:.15s">
+        <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Timer" style="overflow:visible">
+          <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.16"/>
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceBlue)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <circle cx="24" cy="25" r="11" fill="#fff"/>
+            <rect x="22.9" y="16.5" width="2.2" height="9.5" rx="1.1" fill="#1f5da0"/>
+            <rect x="23" y="24" width="8" height="2.2" rx="1.1" fill="#1f5da0"/>
+            <rect x="20" y="10.5" width="8" height="3" rx="1.5" fill="#fff"/>
+          </g>
+        </svg>
+        <div class="t">Beat the clock</div>
+        <div class="d">The countdown is always ticking — chase that three-star finish.</div>
+      </div>
+
+      <div class="feat f-bolt rv" style="--d:.25s">
+        <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Boosters" style="overflow:visible">
+          <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.16"/>
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceGold)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <path d="M26.5 9.5 L14.5 27.5 H22 L20 38.5 L33.5 20.5 H25.5 Z" fill="#fff"/>
+          </g>
+        </svg>
+        <div class="t">Boosters &amp; Gold Bolts</div>
+        <div class="d">Hints, Wildcards, +15s and Auto-place for the tough ones.</div>
+      </div>
+
+      <div class="feat f-offline rv rv-l" style="--d:.1s">
+        <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Offline play" style="overflow:visible">
+          <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.16"/>
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#facePurple)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <path d="M24 9.5 c1.6 0 2.6 3.2 2.6 6.2 v3.8 l9.4 6.2 v3.2 l-9.4 -3.1 v6.2 l3.1 2.6 v2.6 l-5.7 -1.6 -5.7 1.6 v-2.6 l3.1 -2.6 v-6.2 l-9.4 3.1 v-3.2 l9.4 -6.2 v-3.8 c0 -3 1 -6.2 2.6 -6.2 z" fill="#fff"/>
+          </g>
+        </svg>
+        <div class="t">Play offline</div>
+        <div class="d">Quick levels, anywhere — perfect for a spare minute.</div>
+      </div>
+
+      <div class="feat f-easy rv rv-r" style="--d:.2s">
+        <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="One-finger controls" style="overflow:visible">
+          <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.16"/>
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceOrange)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <circle cx="24" cy="28.5" r="4.2" fill="#fff"/>
+            <path d="M17 21 a7.5 7.5 0 0 1 14 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M12.5 18.5 a12.5 12.5 0 0 1 23 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".55"/>
+          </g>
+        </svg>
+        <div class="t">Easy to pick up</div>
+        <div class="d">One-finger controls and colourblind-friendly patterns.</div>
+      </div>
+    </div>
+
+    <p class="sec-label rv">Legal &amp; support</p>
+    <div class="support rv" style="--d:.1s">
+      <a class="row" href="privacy.html">
+        <svg width="34" height="34" viewBox="0 0 48 48" role="img" aria-label="" style="overflow:visible">
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceBlue)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <path d="M18.5 22 v-4.5 a5.5 5.5 0 0 1 11 0 V22" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
+            <rect x="14.5" y="21.5" width="19" height="14.5" rx="3.5" fill="#fff"/>
+            <circle cx="24" cy="27.5" r="2.2" fill="#1f5da0"/><rect x="23" y="28" width="2" height="4.5" rx="1" fill="#1f5da0"/>
+          </g>
+        </svg>
+        <span><span class="t">Privacy Policy</span><br /><span class="s">How we handle your data</span></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="row" href="terms.html">
+        <svg width="34" height="34" viewBox="0 0 48 48" role="img" aria-label="" style="overflow:visible">
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#facePurple)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <rect x="16" y="11.5" width="16" height="25" rx="2.8" fill="#fff"/>
+            <rect x="19.5" y="17" width="9" height="2.1" rx="1" fill="#5b2fa8"/>
+            <rect x="19.5" y="22" width="9" height="2.1" rx="1" fill="#5b2fa8"/>
+            <rect x="19.5" y="27" width="6" height="2.1" rx="1" fill="#5b2fa8"/>
+          </g>
+        </svg>
+        <span><span class="t">Terms of Service</span><br /><span class="s">The rules of play</span></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="row" href="help.html">
+        <svg width="34" height="34" viewBox="0 0 48 48" role="img" aria-label="" style="overflow:visible">
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceGreen)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <path d="M18.8 18.6 a5.4 5.4 0 1 1 8 4.7 c-1.9 1.1 -2.8 2.2 -2.8 4.3" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
+            <circle cx="24" cy="33.5" r="2.3" fill="#fff"/>
+          </g>
+        </svg>
+        <span><span class="t">Help Center</span><br /><span class="s">Answers &amp; contact</span></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="row" href="delete-account.html">
+        <svg width="34" height="34" viewBox="0 0 48 48" role="img" aria-label="" style="overflow:visible">
+          <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceRed)"/>
+          <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+          <g filter="url(#pinEmb)">
+            <rect x="20.5" y="11.5" width="7" height="3" rx="1.5" fill="#fff"/>
+            <rect x="15" y="14.8" width="18" height="3" rx="1.5" fill="#fff"/>
+            <path d="M17 20 h14 l-1.1 13.6 a2.6 2.6 0 0 1 -2.6 2.4 h-6.6 a2.6 2.6 0 0 1 -2.6 -2.4 Z" fill="#fff"/>
+            <rect x="20.7" y="23" width="1.9" height="9" rx="0.95" fill="#a82c31"/>
+            <rect x="25.4" y="23" width="1.9" height="9" rx="0.95" fill="#a82c31"/>
+          </g>
+        </svg>
+        <span><span class="t">Delete Your Account</span><br /><span class="s">Remove your data</span></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    © <span id="y">2026</span> tobyart · Matri Rush · Ikeja, Lagos, Nigeria ·
+    <a href="mailto:amootobi22@gmail.com">amootobi22@gmail.com</a>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // staggered scroll reveals — each element carries its own delay via --d
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+  </script>
+</body>
+</html>
