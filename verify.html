@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Matri Rush · Confirm your email</title>
   <meta name="robots" content="noindex, nofollow" />
+  <!-- The URL carries a single-use auth token in its query string. Browsers
+       default to strict-origin-when-cross-origin, which would already withhold
+       it from the font CDN, but a one-time credential should not depend on a
+       default: send no Referer at all, to anyone. -->
+  <meta name="referrer" content="no-referrer" />
+  <!-- Belt and braces: the only host this page may talk to is the auth API. An
+       injected <script src> or a beacon exfiltrating the token has nowhere to go.
+       'unsafe-inline' is unavoidable for the inline script/styles below, but it
+       still blocks every *external* origin. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; connect-src https://rjrzpyaytjotdslmzgxa.supabase.co; base-uri 'none'; form-action 'none'" />
   <meta name="theme-color" content="#141c30" />
   <link rel="icon" type="image/png" href="assets/icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -113,8 +123,14 @@
 
     const q = new URLSearchParams(location.search);
     const tokenHash = q.get('token_hash');
-    const type = q.get('type') || 'signup';
     const redirectTo = q.get('redirect_to');
+
+    // `type` decides whether we POST the token or hand it to GoTrue's redirecting
+    // GET. It arrives from the URL, so it is checked against the four link kinds
+    // the templates actually send rather than forwarded to the API as-is.
+    const TYPES = ['signup', 'email_change', 'recovery', 'magiclink'];
+    const rawType = q.get('type') || 'signup';
+    const type = TYPES.includes(rawType) ? rawType : null;
 
     const show = (id) => {
       for (const s of ['idle', 'busy', 'done', 'fail']) {
@@ -144,13 +160,13 @@
       },
     };
 
-    const c = COPY[type] || COPY.signup;
+    const c = (type && COPY[type]) || COPY.signup;
     if (c.idleTitle) setText('idle-title', c.idleTitle);
     if (c.idleCopy) setText('idle-copy', c.idleCopy);
     if (c.go) setText('go', c.go);
     if (c.doneCopy) setText('done-copy', c.doneCopy);
 
-    if (!tokenHash) {
+    if (!tokenHash || !type) {
       setText('fail-title', 'Something is missing');
       setText('fail-copy', 'This link is incomplete. Open Matri Rush and try again.');
       show('fail');
@@ -164,7 +180,7 @@
     const HANDOFF = type === 'recovery' || type === 'magiclink';
 
     document.getElementById('go').addEventListener('click', async () => {
-      if (!tokenHash) return;
+      if (!tokenHash || !type) return;
 
       if (HANDOFF) {
         const url = new URL(SUPABASE_URL + '/auth/v1/verify');
