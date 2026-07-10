@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Matri Rush — Snap the bricks. Beat the clock.</title>
-  <meta name="description" content="Matri Rush is a fast, satisfying brick-puzzle game: snap colourful bricks onto the board and tile every gap before the timer hits zero. 80 worlds, 4,000 levels. Free on the App Store and Google Play." />
+  <title>Matri Rush · Snap the bricks. Beat the clock.</title>
+  <meta name="description" content="Matri Rush is a fast, satisfying brick-puzzle game: snap colourful bricks onto the board and tile every gap before the timer hits zero. 112 villages, 6,000 levels. Free on the App Store and Google Play." />
   <meta name="theme-color" content="#141c30" />
   <!-- Open Graph / social preview -->
   <meta property="og:title" content="Matri Rush: Brick Puzzle" />
-  <meta property="og:description" content="Snap the bricks. Beat the clock. 80 worlds, 4,000 timed brick puzzles." />
+  <meta property="og:description" content="Snap the bricks. Beat the clock. 112 villages, 6,000 timed brick puzzles." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/og.png" />
   <link rel="icon" type="image/png" href="assets/icon.png" />
@@ -131,9 +131,9 @@
     .shots::-webkit-scrollbar { height: 6px; }
     .shots::-webkit-scrollbar-thumb { background: #cfd6ea; border-radius: 999px; }
 
-    /* ── World ticker — the road ahead, always rolling ── */
+    /* ── Village ticker — the road ahead, always rolling ── */
     .ticker { background: var(--ink); overflow: hidden; margin-top: 34px; padding: 13px 0; }
-    .ticker .lane { display: flex; width: max-content; gap: 38px; animation: roll 36s linear infinite; }
+    .ticker .lane { display: flex; width: max-content; gap: 38px; animation: roll 48s linear infinite; }
     .ticker .w { display: inline-flex; align-items: center; gap: 9px; color: #eef1fb; font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 2.2px; text-transform: uppercase; white-space: nowrap; }
     .ticker .w i { width: 11px; height: 11px; border-radius: 3.5px; display: inline-block; }
     @keyframes roll { to { transform: translateX(-50%); } }
@@ -141,7 +141,7 @@
     /* ── Feature mosaic — one wide, one tall, nothing uniform ── */
     main { max-width: 860px; margin: 0 auto; padding: 46px 18px 8px; }
     .mosaic {
-      display: grid; gap: 14px; margin: 0 0 52px;
+      display: grid; gap: 14px; margin: 0 0 56px;
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-areas: "worlds worlds snap" "clock bolt snap" "offline easy easy";
     }
@@ -155,17 +155,11 @@
     .f-worlds { grid-area: worlds; } .f-snap { grid-area: snap; display: flex; flex-direction: column; }
     .f-clock { grid-area: clock; } .f-bolt { grid-area: bolt; }
     .f-offline { grid-area: offline; } .f-easy { grid-area: easy; }
-    @media (max-width: 640px) {
-      .mosaic { grid-template-columns: 1fr; grid-template-areas: "worlds" "snap" "clock" "bolt" "offline" "easy"; }
-      .shots img { width: 200px; }
-      .shots { margin-top: -64px; }
-      .hero { padding-bottom: 104px; }
-    }
 
     /* the wide card: the journey */
     .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
     .chip { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); background: #f8f9fd; }
-    .chip i { width: 9px; height: 9px; border-radius: 3px; }
+    .chip i { width: 9px; height: 9px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(20,26,48,.14); }
 
     /* the tall card: a board mid-level — one gap left, one brick incoming */
     /* padding-top % resolves against width, so the hover clearance scales with brick size */
@@ -176,6 +170,70 @@
     @keyframes hover-next { 0%, 100% { transform: translateY(0) rotate(3deg); } 50% { transform: translateY(-7px) rotate(-2deg); } }
 
     .sec-label { font-family: var(--display); font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); margin: 0 0 14px; }
+
+    /* ── The climb — six eras as a rising stack of bricks ────────────────────
+       Not a card grid: a baseline with columns growing out of it, so the shape
+       of the page says "it gets harder" before you read a single word. ── */
+    .climb { margin: 0 0 56px; }
+    .climb h2 { font-size: clamp(22px, 5vw, 30px); margin: 0 0 6px; }
+    .climb .lede { color: var(--muted); font-size: 15px; margin: 0 0 26px; max-width: 520px; }
+    /* Two fixed rows per column: a 72px plot the bricks stand in, then the label.
+       Fixing the plot height is what keeps all six baselines on one line — the
+       label blocks wrap to different heights and must not push the bricks. */
+    .eras { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; position: relative; }
+    .eras::after { content: ''; position: absolute; left: 0; right: 0; top: 72px; height: 2px; border-radius: 2px; background: var(--line); }
+    .era { text-align: left; display: grid; grid-template-rows: 72px auto; }
+    .era .stack { align-self: end; display: flex; flex-direction: column-reverse; gap: 4px; }
+    .era .txt { min-width: 0; }
+    /* one brick per fused rule — era 1 stacks one, era 6 stacks four */
+    .era .stack b { display: block; height: 13px; border-radius: 4px; background: var(--e); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 2px 0 rgba(20,26,48,.13); transform-origin: bottom center; }
+    .js .era.in .stack b { animation: brick-drop .5s var(--snap) both; animation-delay: calc(var(--d, 0s) + var(--bi) * .07s); }
+    @keyframes brick-drop { from { opacity: 0; transform: translateY(-22px) scaleY(.6); } }
+    .era .n { font-family: var(--display); font-weight: 600; font-size: 14px; line-height: 1.25; margin-top: 12px; }
+    .era .m { font-size: 11.5px; color: var(--muted); letter-spacing: .2px; }
+    .era .f { font-size: 12px; color: var(--ink); opacity: .62; margin-top: 3px; font-style: italic; }
+    .era-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+    .era-foot b { font-family: var(--display); color: var(--ink); font-weight: 600; }
+
+    /* ── Collect — asymmetric split, deliberately unequal ── */
+    .collect { display: grid; grid-template-columns: 1.15fr .85fr; gap: 14px; margin: 0 0 56px; align-items: stretch; }
+    /* the two panels stretch to match, so each pins its last row to the bottom
+       rather than leaving a pool of dead space under the shorter one */
+    .panel { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px; display: flex; flex-direction: column; }
+    .panel .cats, .panel .pity { margin-top: auto; }
+    .panel h3 { margin: 0 0 4px; font-size: 19px; }
+    .panel .d { font-size: 14.5px; color: var(--muted); margin: 0; }
+    .panel .big { font-family: var(--display); font-weight: 700; font-size: clamp(38px, 8vw, 52px); line-height: 1; color: var(--ink); }
+    .panel .big span { font-size: 18px; color: var(--muted); font-weight: 600; margin-left: 6px; }
+
+    /* awards: three pins, three tiers — real metals, not three pastel chips */
+    .pins { display: flex; gap: 10px; margin: 18px 0 4px; }
+    .pins svg { transition: transform .3s var(--snap); }
+    .pins svg:nth-child(2) { transform: translateY(-6px); }
+    .panel:hover .pins svg:nth-child(1) { transform: rotate(-7deg) translateY(-3px); }
+    .panel:hover .pins svg:nth-child(2) { transform: translateY(-11px); }
+    .panel:hover .pins svg:nth-child(3) { transform: rotate(7deg) translateY(-3px); }
+    .cats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .cat { font-size: 12px; font-weight: 700; color: var(--muted); border: 1px solid var(--line); background: #f8f9fd; border-radius: 7px; padding: 3px 9px; }
+
+    /* collection: published odds, drawn as the bars they actually are */
+    .odds { margin: 18px 0 0; display: grid; gap: 9px; }
+    .odd { display: grid; grid-template-columns: 74px 1fr 38px; align-items: center; gap: 10px; font-size: 12.5px; }
+    .odd .k { font-weight: 700; }
+    .odd .track { height: 9px; border-radius: 999px; background: #eef1f7; overflow: hidden; }
+    .odd .track i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--m1), var(--m2)); }
+    .js .odds.in .odd .track i { animation: odds-fill .8s cubic-bezier(.2,.7,.3,1) both; animation-delay: calc(var(--oi) * .09s); }
+    @keyframes odds-fill { to { width: var(--w); } }
+    .odd .v { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 700; }
+    .pity { margin-top: 16px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; }
+    .pity b { color: var(--ink); font-family: var(--display); font-weight: 600; }
+
+    /* ── Languages — one flat statement, no card, no icon ── */
+    .langs { margin: 0 0 52px; text-align: center; padding: 6px 0; }
+    .langs .line { font-family: var(--display); font-weight: 600; font-size: clamp(19px, 4.4vw, 26px); margin: 0 0 12px; }
+    .langs .list { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; font-size: 14px; color: var(--muted); }
+    .langs .list span { white-space: nowrap; }
+    .langs .rtl { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); }
 
     /* ── Legal & support — one quiet card, four rows ── */
     .support { background: var(--card); border: 1px solid var(--line); border-radius: 18px; margin-bottom: 44px; overflow: hidden; }
@@ -193,11 +251,29 @@
     footer { text-align: center; color: var(--muted); font-size: 13px; padding: 26px 18px 48px; border-top: 1px solid var(--line); }
     footer a { color: #2b59c9; }
 
+    @media (max-width: 760px) {
+      .collect { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .mosaic { grid-template-columns: 1fr; grid-template-areas: "worlds" "snap" "clock" "bolt" "offline" "easy"; }
+      .shots img { width: 200px; }
+      .shots { margin-top: -64px; }
+      .hero { padding-bottom: 104px; }
+      /* the bar chart stops being legible below ~6 columns — become a list, keep the bricks */
+      .eras { grid-template-columns: 1fr; gap: 0; }
+      .eras::after { display: none; } /* no shared baseline once the columns unstack */
+      .era { grid-template-columns: 46px 1fr; grid-template-rows: auto; gap: 14px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+      .era .stack { align-self: center; flex-direction: column; }
+      .era .n { margin-top: 0; }
+      .era-foot { flex-direction: column; gap: 4px; }
+    }
+
     /* ── Reduced motion: everything lands instantly, nothing loops ── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
       .js .rv, .js .rv-l, .js .rv-r, .js .rv-pop { opacity: 1; transform: none; }
       .js .clockbar i { width: 100%; }
+      .js .odds .odd .track i { width: var(--w); }
     }
   </style>
 </head>
@@ -209,6 +285,13 @@
     <defs>
       <linearGradient id="pinRim" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stop-color="#ffe9a8" /><stop offset="1" stop-color="#d9a72b" />
+      </linearGradient>
+      <!-- award tiers use their own metals, so a gold pin reads as gold -->
+      <linearGradient id="rimBronze" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#e7b98d" /><stop offset="1" stop-color="#a86a34" />
+      </linearGradient>
+      <linearGradient id="rimSilver" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#eef2f8" /><stop offset="1" stop-color="#98a2b6" />
       </linearGradient>
       <radialGradient id="pinGloss" cx="0.36" cy="0.26" r="0.72">
         <stop offset="0" stop-color="#fff" stop-opacity="0.55" /><stop offset="0.55" stop-color="#fff" stop-opacity="0" />
@@ -222,6 +305,7 @@
       <linearGradient id="faceGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd76a"/><stop offset="1" stop-color="#f0a91f"/></linearGradient>
       <linearGradient id="facePurple" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b57bff"/><stop offset="1" stop-color="#8a3ff0"/></linearGradient>
       <linearGradient id="faceOrange" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffab5c"/><stop offset="1" stop-color="#f07d20"/></linearGradient>
+      <linearGradient id="faceSlate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9bb0"/><stop offset="1" stop-color="#5b6880"/></linearGradient>
     </defs>
   </svg>
 
@@ -237,7 +321,7 @@
       </span>
     </h1>
     <p class="tagline">Snap the bricks. Beat the clock.</p>
-    <p class="sub">A fast, satisfying brick puzzle — tile every gap before the timer hits zero. 80 worlds, 4,000 levels.</p>
+    <p class="sub">A fast, satisfying brick puzzle. Tile every gap before the timer hits zero. 112 villages, 6,000 levels.</p>
     <div class="clockbar" role="presentation"><i></i></div>
     <div class="stores">
       <!-- TODO: replace # with the App Store listing URL once the app is live -->
@@ -259,23 +343,23 @@
   </header>
 
   <section class="shots" aria-label="Game screenshots">
-    <img class="rv rv-pop" style="--d:.05s" src="assets/shot1.png" alt="Matri Rush gameplay — snapping bricks onto the board" loading="lazy" />
-    <img class="rv rv-pop" style="--d:.15s" src="assets/shot2.png" alt="Matri Rush — winning a level and earning Gold Bolts" loading="lazy" />
-    <img class="rv rv-pop" style="--d:.25s" src="assets/shot3.png" alt="Matri Rush — the world map across 80 worlds" loading="lazy" />
+    <img class="rv rv-pop" style="--d:.05s" src="assets/shot1.png" alt="Matri Rush gameplay: snapping bricks onto the board in the Clockwork Yard" loading="lazy" />
+    <img class="rv rv-pop" style="--d:.15s" src="assets/shot2.png" alt="Matri Rush: winning a level and earning Gold Bolts" loading="lazy" />
+    <img class="rv rv-pop" style="--d:.25s" src="assets/shot3.png" alt="Matri Rush: a late-game glass board across 112 villages" loading="lazy" />
   </section>
 
   <div class="ticker" aria-hidden="true">
     <div class="lane">
-      <!-- lane content ×2 for a seamless loop -->
-      <span class="w"><i style="background:#b07a45"></i>Wood Village</span><span class="w"><i style="background:#7fd4ff"></i>Ice Fields</span><span class="w"><i style="background:#9aa3b5"></i>Rock Quarry</span><span class="w"><i style="background:#ff8bd0"></i>Candy Coast</span><span class="w"><i style="background:#ff6b3a"></i>Lava Forge</span><span class="w"><i style="background:#b07a45"></i>Wood Village</span><span class="w"><i style="background:#7fd4ff"></i>Ice Fields</span><span class="w"><i style="background:#9aa3b5"></i>Rock Quarry</span><span class="w"><i style="background:#ff8bd0"></i>Candy Coast</span><span class="w"><i style="background:#ff6b3a"></i>Lava Forge</span>
-      <span class="w"><i style="background:#b07a45"></i>Wood Village</span><span class="w"><i style="background:#7fd4ff"></i>Ice Fields</span><span class="w"><i style="background:#9aa3b5"></i>Rock Quarry</span><span class="w"><i style="background:#ff8bd0"></i>Candy Coast</span><span class="w"><i style="background:#ff6b3a"></i>Lava Forge</span><span class="w"><i style="background:#b07a45"></i>Wood Village</span><span class="w"><i style="background:#7fd4ff"></i>Ice Fields</span><span class="w"><i style="background:#9aa3b5"></i>Rock Quarry</span><span class="w"><i style="background:#ff8bd0"></i>Candy Coast</span><span class="w"><i style="background:#ff6b3a"></i>Lava Forge</span>
+      <!-- the ten village skins, in the order you meet them; lane content ×2 for a seamless loop -->
+      <span class="w"><i style="background:#e9eef4"></i>Clockwork Yard</span><span class="w"><i style="background:#8a5a2b"></i>Timberyard</span><span class="w"><i style="background:#cde8f6"></i>Frostworks</span><span class="w"><i style="background:#9aa1ac"></i>Stone Quarry</span><span class="w"><i style="background:#ffc2e0"></i>Sugar Depot</span><span class="w"><i style="background:#ff6b3a"></i>The Forge</span><span class="w"><i style="background:#3fa9c9"></i>Tidepool</span><span class="w"><i style="background:#bfd8e8"></i>The Atrium</span><span class="w"><i style="background:#8a8f98"></i>Foundry Deck</span><span class="w"><i style="background:#d5c4f7"></i>The Geode</span>
+      <span class="w"><i style="background:#e9eef4"></i>Clockwork Yard</span><span class="w"><i style="background:#8a5a2b"></i>Timberyard</span><span class="w"><i style="background:#cde8f6"></i>Frostworks</span><span class="w"><i style="background:#9aa1ac"></i>Stone Quarry</span><span class="w"><i style="background:#ffc2e0"></i>Sugar Depot</span><span class="w"><i style="background:#ff6b3a"></i>The Forge</span><span class="w"><i style="background:#3fa9c9"></i>Tidepool</span><span class="w"><i style="background:#bfd8e8"></i>The Atrium</span><span class="w"><i style="background:#8a8f98"></i>Foundry Deck</span><span class="w"><i style="background:#d5c4f7"></i>The Geode</span>
     </div>
   </div>
 
   <main>
     <div class="mosaic">
       <div class="feat f-worlds rv rv-l">
-        <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Worlds" style="overflow:visible">
+        <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Villages" style="overflow:visible">
           <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.16"/>
           <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
           <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceGreen)"/>
@@ -286,14 +370,19 @@
             <path d="M34.3 10 L41 12.6 L34.3 15.2 Z" fill="#fff"/>
           </g>
         </svg>
-        <div class="t">80 worlds · 4,000 levels</div>
-        <div class="d">Every village twists the rules — new bricks, new boards, new tricks.</div>
+        <div class="t">112 villages · 6,000 levels</div>
+        <div class="d">Ten material skins, eleven rules that twist them, and villages that fuse up to four rules at once.</div>
         <div class="chips">
-          <span class="chip"><i style="background:#b07a45"></i>Wood</span>
-          <span class="chip"><i style="background:#7fd4ff"></i>Ice</span>
-          <span class="chip"><i style="background:#9aa3b5"></i>Rock</span>
-          <span class="chip"><i style="background:#ff8bd0"></i>Candy</span>
-          <span class="chip"><i style="background:#ff6b3a"></i>Lava</span>
+          <span class="chip"><i style="background:#e9eef4"></i>Clockwork Yard</span>
+          <span class="chip"><i style="background:#8a5a2b"></i>Timberyard</span>
+          <span class="chip"><i style="background:#cde8f6"></i>Frostworks</span>
+          <span class="chip"><i style="background:#9aa1ac"></i>Stone Quarry</span>
+          <span class="chip"><i style="background:#ffc2e0"></i>Sugar Depot</span>
+          <span class="chip"><i style="background:#ff6b3a"></i>The Forge</span>
+          <span class="chip"><i style="background:#3fa9c9"></i>Tidepool</span>
+          <span class="chip"><i style="background:#bfd8e8"></i>The Atrium</span>
+          <span class="chip"><i style="background:#8a8f98"></i>Foundry Deck</span>
+          <span class="chip"><i style="background:#d5c4f7"></i>The Geode</span>
         </div>
       </div>
 
@@ -333,7 +422,7 @@
           </g>
         </svg>
         <div class="t">Beat the clock</div>
-        <div class="d">The countdown is always ticking — chase that three-star finish.</div>
+        <div class="d">The countdown is always ticking. Chase that three-star finish.</div>
       </div>
 
       <div class="feat f-bolt rv" style="--d:.25s">
@@ -347,7 +436,7 @@
           </g>
         </svg>
         <div class="t">Boosters &amp; Gold Bolts</div>
-        <div class="d">Hints, Wildcards, +15s and Auto-place for the tough ones.</div>
+        <div class="d">Hint, +15s, Auto-place and Calm. All bought with bolts you earn by winning.</div>
       </div>
 
       <div class="feat f-offline rv rv-l" style="--d:.1s">
@@ -361,7 +450,7 @@
           </g>
         </svg>
         <div class="t">Play offline</div>
-        <div class="d">Quick levels, anywhere — perfect for a spare minute.</div>
+        <div class="d">Quick levels, anywhere. Perfect for a spare minute.</div>
       </div>
 
       <div class="feat f-easy rv rv-r" style="--d:.2s">
@@ -380,6 +469,137 @@
         <div class="d">One-finger controls and colourblind-friendly patterns.</div>
       </div>
     </div>
+
+    <!-- ── The climb ─────────────────────────────────────────────────────────── -->
+    <section class="climb">
+      <h2 class="rv">It gets harder. On purpose.</h2>
+      <p class="lede rv" style="--d:.06s">
+        Six eras, each fusing more rules into the same board. You meet every mechanic
+        alone before anything combines. By the Infinite Forge, four are running at once.
+      </p>
+      <div class="eras">
+        <!-- bricks stacked = rules fused in that era; they stand on a shared baseline -->
+        <div class="era rv" style="--e:#3aa0ff;--d:0s">
+          <div class="stack"><b style="--bi:0"></b></div>
+          <div class="txt">
+            <div class="n">Foundational</div>
+            <div class="m">20 villages · 1–700</div>
+            <div class="f">One mechanic. Pure fundamentals.</div>
+          </div>
+        </div>
+        <div class="era rv" style="--e:#39c66d;--d:.08s">
+          <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b></div>
+          <div class="txt">
+            <div class="n">Fusion Duals</div>
+            <div class="m">24 villages · 701–1,780</div>
+            <div class="f">Two rules, fused.</div>
+          </div>
+        </div>
+        <div class="era rv" style="--e:#ffc62e;--d:.16s">
+          <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b><b style="--bi:2"></b></div>
+          <div class="txt">
+            <div class="n">Fusion Trios</div>
+            <div class="m">22 villages · 1,781–2,990</div>
+            <div class="f">Three rules at once.</div>
+          </div>
+        </div>
+        <div class="era rv" style="--e:#a259ff;--d:.24s">
+          <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b></div>
+          <div class="txt">
+            <div class="n">Masked Mutations</div>
+            <div class="m">20 villages · 2,991–4,190</div>
+            <div class="f">The board hides its shape.</div>
+          </div>
+        </div>
+        <div class="era rv" style="--e:#ff5a5f;--d:.32s">
+          <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b><b style="--bi:2"></b></div>
+          <div class="txt">
+            <div class="n">Master Gates</div>
+            <div class="m">16 villages · 4,191–5,230</div>
+            <div class="f">Only masters pass.</div>
+          </div>
+        </div>
+        <div class="era rv" style="--e:#ff7a1a;--d:.4s">
+          <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b><b style="--bi:2"></b><b style="--bi:3"></b></div>
+          <div class="txt">
+            <div class="n">Infinite Forge</div>
+            <div class="m">10 villages · 5,231–6,000</div>
+            <div class="f">Four rules. No mercy.</div>
+          </div>
+        </div>
+      </div>
+      <div class="era-foot rv" style="--d:.2s">
+        <span>Each brick above is <b>one rule</b> fused into that era's boards.</span>
+        <span>Masked eras add <b>obstacles</b>. The board stops being a rectangle.</span>
+      </div>
+    </section>
+
+    <!-- ── Collect ───────────────────────────────────────────────────────────── -->
+    <div class="collect">
+      <div class="panel rv rv-l">
+        <div class="big">93<span>awards</span></div>
+        <h3>Something to chase</h3>
+        <p class="d">
+          Bronze, silver and gold pins for the levels you clear, the combos you land,
+          the twists you survive, and a few you'll only find by accident.
+        </p>
+        <div class="pins" aria-hidden="true">
+          <svg width="44" height="44" viewBox="0 0 48 48" style="overflow:visible">
+            <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.14"/>
+            <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#rimBronze)"/>
+            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceOrange)"/>
+            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+            <g filter="url(#pinEmb)"><path d="M24 13 l3.2 6.9 7.3 .9 -5.4 5 1.4 7.4 -6.5 -3.6 -6.5 3.6 1.4 -7.4 -5.4 -5 7.3 -.9 Z" fill="#fff"/></g>
+          </svg>
+          <svg width="44" height="44" viewBox="0 0 48 48" style="overflow:visible">
+            <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.14"/>
+            <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#rimSilver)"/>
+            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceSlate)"/>
+            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+            <g filter="url(#pinEmb)"><path d="M26.5 9.5 L14.5 27.5 H22 L20 38.5 L33.5 20.5 H25.5 Z" fill="#fff"/></g>
+          </svg>
+          <svg width="44" height="44" viewBox="0 0 48 48" style="overflow:visible">
+            <rect x="4" y="6" width="40" height="40" rx="13" fill="#141a2e" opacity="0.14"/>
+            <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
+            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceGold)"/>
+            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
+            <g filter="url(#pinEmb)">
+              <path d="M12 18 l5 6 7 -10 7 10 5 -6 -2.5 17 h-19 Z" fill="#fff"/>
+            </g>
+          </svg>
+        </div>
+        <div class="cats">
+          <span class="cat">Progression</span><span class="cat">Mastery</span><span class="cat">Exploration</span><span class="cat">Dedication</span><span class="cat">Secrets</span>
+        </div>
+      </div>
+
+      <div class="panel rv rv-r" style="--d:.1s">
+        <div class="big">28<span>cards</span></div>
+        <h3>The Collection</h3>
+        <p class="d">Pull cards for 100 Gold Bolts, earned in-game, never sold for cash. Odds are published, right here and in the app.</p>
+        <div class="odds">
+          <div class="odd" style="--m1:#cdd6e4;--m2:#8a93ac;--w:60%;--oi:0"><span class="k">Common</span><span class="track"><i></i></span><span class="v">60%</span></div>
+          <div class="odd" style="--m1:#7fe3c0;--m2:#22a37a;--w:27%;--oi:1"><span class="k">Rare</span><span class="track"><i></i></span><span class="v">27%</span></div>
+          <div class="odd" style="--m1:#c79bff;--m2:#8a3ff0;--w:10%;--oi:2"><span class="k">Epic</span><span class="track"><i></i></span><span class="v">10%</span></div>
+          <div class="odd" style="--m1:#ffe9a8;--m2:#d9a72b;--w:3%;--oi:3"><span class="k">Legendary</span><span class="track"><i></i></span><span class="v">3%</span></div>
+        </div>
+        <p class="pity">
+          Unlucky ten times? The tenth pull is a <b>guaranteed Epic or better</b>.
+          Duplicates melt into shards, and shards craft any card you're missing,
+          so no card is ever out of reach.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Languages ─────────────────────────────────────────────────────────── -->
+    <section class="langs rv">
+      <p class="line">Matri Rush speaks your language.</p>
+      <div class="list">
+        <span>English</span><span>Español</span><span>Français</span><span>Deutsch</span>
+        <span>Português</span><span>Русский</span><span>Türkçe</span><span>العربية</span>
+      </div>
+      <span class="rtl">It follows your phone's language automatically. Arabic included, laid out right-to-left.</span>
+    </section>
 
     <p class="sec-label rv">Legal &amp; support</p>
     <div class="support rv" style="--d:.1s">
@@ -458,6 +678,14 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+
+    // the odds bars fill once, when the panel is actually on screen
+    var oddsIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); oddsIo.unobserve(e.target); }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.odds').forEach(function (el) { oddsIo.observe(el); });
   </script>
 </body>
 </html>
