@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Matri Rush · Reset your password</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <!-- The URL carries a single-use recovery token in its query string. Send no
+       Referer to anyone so the token can't leak to the font CDN or elsewhere. -->
+  <meta name="referrer" content="no-referrer" />
+  <!-- The only host this page may talk to is the auth API. An injected script or
+       beacon trying to exfiltrate the token or the new password has nowhere to go. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; connect-src https://rjrzpyaytjotdslmzgxa.supabase.co; base-uri 'none'; form-action 'none'" />
+  <meta name="theme-color" content="#141c30" />
+  <link rel="icon" type="image/png" href="assets/icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --c-red: #ff5a5f; --c-blue: #3aa0ff; --c-green: #39c66d;
+      --ink: #141c30; --muted: #6b7280; --card: #ffffff; --line: #e6e9f2;
+      --display: 'Fredoka', system-ui, sans-serif;
+      --body: 'Nunito', system-ui, sans-serif;
+      --snap: cubic-bezier(.34, 1.56, .64, 1);
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px;
+      font-family: var(--body); color: var(--ink); line-height: 1.6;
+      background: radial-gradient(130% 120% at 50% -10%, #24345c 0%, #16203a 55%, #0e1424 100%);
+    }
+    .card {
+      width: 100%; max-width: 460px; background: var(--card); border-radius: 22px;
+      padding: 40px 34px 34px; text-align: center;
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    }
+    .mark { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: .5px; margin-bottom: 26px; }
+    .mark .a { color: var(--c-blue); } .mark .b { color: var(--c-red); margin-left: 6px; }
+    h1 { font-family: var(--display); font-size: 27px; line-height: 1.25; margin: 0 0 10px; }
+    p { margin: 0 0 6px; font-size: 15px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .field { text-align: left; margin: 22px 0 0; }
+    .field label { display: block; font-size: 13px; font-weight: 700; color: var(--ink); margin: 0 0 6px; }
+    .field input {
+      width: 100%; font-family: var(--body); font-size: 16px; color: var(--ink);
+      padding: 13px 14px; border: 2px solid var(--line); border-radius: 12px; background: #fff;
+      transition: border-color .15s ease;
+    }
+    .field input:focus { outline: none; border-color: var(--c-blue); }
+    .show { display: flex; align-items: center; gap: 8px; margin: 14px 2px 0; font-size: 13px; color: var(--muted); cursor: pointer; }
+    .show input { width: 16px; height: 16px; accent-color: var(--c-blue); cursor: pointer; }
+    .err { color: var(--c-red); font-size: 13px; text-align: left; margin: 12px 2px 0; min-height: 18px; }
+    .btn {
+      display: inline-block; border: 0; cursor: pointer; width: 100%; margin: 18px 0 4px;
+      font-family: var(--body); font-size: 17px; font-weight: 800; color: #fff;
+      padding: 16px 34px 14px; border-radius: 14px; text-decoration: none;
+      background: var(--c-green); border-bottom: 4px solid #239a4f;
+      transition: transform .18s var(--snap);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+    .btn[disabled] { opacity: .6; cursor: default; transform: none; }
+    .btn--blue { background: var(--c-blue); border-bottom-color: #1f6fc0; }
+    :focus-visible { outline: 3px solid var(--c-blue); outline-offset: 3px; border-radius: 6px; }
+    .glyph { font-size: 46px; line-height: 1; margin-bottom: 12px; }
+    .ok { color: var(--c-green); } .bad { color: var(--c-red); }
+    .links { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; }
+    .links a { color: var(--c-blue); text-decoration: none; }
+    [hidden] { display: none !important; }
+    .spin { display: inline-block; width: 22px; height: 22px; border-radius: 50%;
+      border: 3px solid var(--line); border-top-color: var(--c-blue); animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .btn, .spin { transition: none; animation: none; } }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="mark"><span class="a">MATRI</span><span class="b">RUSH</span></div>
+
+    <!-- Idle: the form. The recovery token is only spent when the player submits,
+         so corporate mail scanners that pre-fetch the link can't burn it. -->
+    <section id="idle">
+      <h1>Choose a new password</h1>
+      <p class="muted">Pick a new password for your Matri Rush account. Your stars, bolts and villages are untouched.</p>
+
+      <form id="form" autocomplete="off">
+        <div class="field">
+          <label for="pw1">New password</label>
+          <input id="pw1" type="password" autocomplete="new-password" placeholder="At least 6 characters" minlength="6" />
+        </div>
+        <div class="field">
+          <label for="pw2">Confirm new password</label>
+          <input id="pw2" type="password" autocomplete="new-password" placeholder="Type it again" minlength="6" />
+        </div>
+        <label class="show"><input id="reveal" type="checkbox" /> Show password</label>
+        <p class="err" id="err" role="alert"></p>
+        <button class="btn" id="go" type="submit">Save new password</button>
+      </form>
+      <p class="muted" style="margin-top:10px;">Links expire 10 minutes after they are sent.</p>
+    </section>
+
+    <section id="busy" hidden>
+      <div class="glyph"><span class="spin" role="status" aria-label="Working"></span></div>
+      <h1>One moment</h1>
+      <p class="muted">Saving your new password.</p>
+    </section>
+
+    <section id="done" hidden>
+      <div class="glyph ok">✓</div>
+      <h1>Password updated</h1>
+      <p>Open Matri Rush and sign in with your new password.</p>
+      <a class="btn" href="matricrush://">Open Matri Rush</a>
+    </section>
+
+    <section id="fail" hidden>
+      <div class="glyph bad">✕</div>
+      <h1 id="fail-title">That link has expired</h1>
+      <p id="fail-copy">Reset links last 10 minutes and work once. Open Matri Rush, tap "Forgot password", and we will send you a fresh one.</p>
+      <a class="btn btn--blue" href="matricrush://">Open Matri Rush</a>
+    </section>
+
+    <nav class="links">
+      <a href="/privacy.html">Privacy</a> ·
+      <a href="/terms.html">Terms</a> ·
+      <a href="/help.html">Help</a>
+    </nav>
+  </main>
+
+  <script>
+    // The recovery email links straight here. This page trades the recovery token
+    // for a short-lived session, then sets the new password — all against the auth
+    // API on our own domain, so the player never sees a supabase.co URL.
+    //
+    // The publishable key below is the same one the app ships; it is safe in a
+    // client (Row Level Security guards the data). It is NOT the service key.
+    const SUPABASE_URL = 'https://rjrzpyaytjotdslmzgxa.supabase.co';
+    const ANON_KEY = 'sb_publishable_ngBtr6PKqAdy0WoKJPGcJA_QW94OR8c';
+
+    const q = new URLSearchParams(location.search);
+    const tokenHash = q.get('token_hash');
+    const type = q.get('type') || 'recovery';
+
+    const $ = (id) => document.getElementById(id);
+    const show = (id) => {
+      for (const s of ['idle', 'busy', 'done', 'fail']) $(s).hidden = s !== id;
+    };
+    const fail = (title, copy) => {
+      if (title) $('fail-title').textContent = title;
+      if (copy) $('fail-copy').textContent = copy;
+      show('fail');
+    };
+
+    // A recovery link with no token, or the wrong type, can't do anything.
+    if (!tokenHash || type !== 'recovery') {
+      fail('Something is missing', 'This reset link is incomplete. Open Matri Rush and request a new one.');
+    }
+
+    $('reveal').addEventListener('change', (e) => {
+      const t = e.target.checked ? 'text' : 'password';
+      $('pw1').type = t; $('pw2').type = t;
+    });
+
+    $('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!tokenHash) return;
+      const pw1 = $('pw1').value;
+      const pw2 = $('pw2').value;
+      const err = $('err');
+
+      // Validate here so we don't spend the one-time token on a password the
+      // server would reject (the token can't be reused for a second attempt).
+      if (pw1.length < 6) { err.textContent = 'Password must be at least 6 characters.'; return; }
+      if (pw1 !== pw2) { err.textContent = 'Those passwords do not match.'; return; }
+      err.textContent = '';
+
+      show('busy');
+      try {
+        // 1. Trade the recovery token for a session. This consumes the token.
+        const vr = await fetch(SUPABASE_URL + '/auth/v1/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', apikey: ANON_KEY },
+          body: JSON.stringify({ type: 'recovery', token_hash: tokenHash }),
+        });
+        if (!vr.ok) throw new Error('token'); // expired, already used, or invalid
+        const session = await vr.json();
+        const token = session.access_token;
+        if (!token) throw new Error('token');
+
+        // 2. Set the new password using that session.
+        const ur = await fetch(SUPABASE_URL + '/auth/v1/user', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: ANON_KEY,
+            Authorization: 'Bearer ' + token,
+          },
+          body: JSON.stringify({ password: pw1 }),
+        });
+        if (!ur.ok) {
+          // The token was already spent above, so we can't reuse it — the player
+          // has to request a fresh link. Tell them why rather than a bare error.
+          fail('Could not save that password', 'Please open Matri Rush, tap "Forgot password" for a new link, and choose a different password.');
+          return;
+        }
+        show('done');
+      } catch (_) {
+        show('fail'); // default copy: expired / already used
+      }
+    });
+  </script>
+</body>
+</html>
