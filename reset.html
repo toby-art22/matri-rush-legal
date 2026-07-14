@@ -41,6 +41,7 @@
     h1 { font-family: var(--display); font-size: 27px; line-height: 1.25; margin: 0 0 10px; }
     p { margin: 0 0 6px; font-size: 15px; }
     .muted { color: var(--muted); font-size: 13px; }
+    .ink { color: var(--ink); }
     .field { text-align: left; margin: 22px 0 0; }
     .field label { display: block; font-size: 13px; font-weight: 700; color: var(--ink); margin: 0 0 6px; }
     .field input {
@@ -79,11 +80,26 @@
   <main class="card">
     <div class="mark"><span class="a">MATRI</span><span class="b">RUSH</span></div>
 
-    <!-- Idle: the form. The recovery token is only spent when the player submits,
-         so corporate mail scanners that pre-fetch the link can't burn it. -->
-    <section id="idle">
+    <!-- Step 1: confirm. The recovery token is only spent on a real click here
+         (never on page load), so a corporate mail scanner that pre-fetches the
+         link can't burn it — and a player who didn't request this can just
+         close the tab with nothing consumed and nothing changed. -->
+    <section id="confirm">
+      <h1>Reset your password?</h1>
+      <p class="muted">Someone used this link to start a password reset for a Matri Rush account. If that was you, continue below.</p>
+      <button class="btn" id="continue">Continue</button>
+      <p class="muted" style="margin-top:14px;">
+        Didn't request this? Just close this page — nothing changes unless you tap Continue.
+      </p>
+      <p class="muted" style="margin-top:10px;">Links expire 4 minutes after they are sent.</p>
+    </section>
+
+    <!-- Step 2: the actual form, shown only once the link has been verified —
+         so the player sees which account they're about to change before typing
+         anything, and can back out if it's not the one they expected. -->
+    <section id="setpw" hidden>
       <h1>Choose a new password</h1>
-      <p class="muted">Pick a new password for your Matri Rush account. Your stars, bolts and villages are untouched.</p>
+      <p class="muted">Setting a new password for <strong id="setpw-email" class="ink"></strong>. Your stars, bolts and villages are untouched.</p>
 
       <form id="form" autocomplete="off">
         <div class="field">
@@ -98,13 +114,12 @@
         <p class="err" id="err" role="alert"></p>
         <button class="btn" id="go" type="submit">Save new password</button>
       </form>
-      <p class="muted" style="margin-top:10px;">Links expire 10 minutes after they are sent.</p>
     </section>
 
     <section id="busy" hidden>
       <div class="glyph"><span class="spin" role="status" aria-label="Working"></span></div>
-      <h1>One moment</h1>
-      <p class="muted">Saving your new password.</p>
+      <h1 id="busy-title">One moment</h1>
+      <p class="muted" id="busy-copy">Saving your new password.</p>
     </section>
 
     <section id="done" hidden>
@@ -117,7 +132,7 @@
     <section id="fail" hidden>
       <div class="glyph bad">✕</div>
       <h1 id="fail-title">That link has expired</h1>
-      <p id="fail-copy">Reset links last 10 minutes and work once. Open Matri Rush, tap "Forgot password", and we will send you a fresh one.</p>
+      <p id="fail-copy">Reset links last 4 minutes and work once. Open Matri Rush, tap "Forgot password", and we will send you a fresh one.</p>
       <a class="btn btn--blue" href="matricrush://">Open Matri Rush</a>
     </section>
 
@@ -144,13 +159,22 @@
 
     const $ = (id) => document.getElementById(id);
     const show = (id) => {
-      for (const s of ['idle', 'busy', 'done', 'fail']) $(s).hidden = s !== id;
+      for (const s of ['confirm', 'setpw', 'busy', 'done', 'fail']) $(s).hidden = s !== id;
     };
     const fail = (title, copy) => {
       if (title) $('fail-title').textContent = title;
       if (copy) $('fail-copy').textContent = copy;
       show('fail');
     };
+    const busy = (title, copy) => {
+      $('busy-title').textContent = title;
+      $('busy-copy').textContent = copy;
+      show('busy');
+    };
+
+    // Holds the session traded for the recovery token — set once Continue is
+    // tapped, used later when the form actually submits the new password.
+    let accessToken = null;
 
     // A recovery link with no token, or the wrong type, can't do anything.
     if (!tokenHash || type !== 'recovery') {
@@ -162,22 +186,14 @@
       $('pw1').type = t; $('pw2').type = t;
     });
 
-    $('form').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    // Step 1: Continue. This is the ONLY place the recovery token is spent —
+    // a real click, immune to mail-scanner prefetch — and it's a separate
+    // gesture from actually saving a new password, so the player sees which
+    // account they're touching (the email below) before typing anything.
+    $('continue').addEventListener('click', async () => {
       if (!tokenHash) return;
-      const pw1 = $('pw1').value;
-      const pw2 = $('pw2').value;
-      const err = $('err');
-
-      // Validate here so we don't spend the one-time token on a password the
-      // server would reject (the token can't be reused for a second attempt).
-      if (pw1.length < 6) { err.textContent = 'Password must be at least 6 characters.'; return; }
-      if (pw1 !== pw2) { err.textContent = 'Those passwords do not match.'; return; }
-      err.textContent = '';
-
-      show('busy');
+      busy('Verifying your link', 'Just a moment.');
       try {
-        // 1. Trade the recovery token for a session. This consumes the token.
         const vr = await fetch(SUPABASE_URL + '/auth/v1/verify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', apikey: ANON_KEY },
@@ -185,28 +201,47 @@
         });
         if (!vr.ok) throw new Error('token'); // expired, already used, or invalid
         const session = await vr.json();
-        const token = session.access_token;
-        if (!token) throw new Error('token');
+        if (!session.access_token) throw new Error('token');
+        accessToken = session.access_token;
+        $('setpw-email').textContent = (session.user && session.user.email) || 'your account';
+        show('setpw');
+        $('pw1').focus();
+      } catch (_) {
+        fail(); // default copy: expired / already used
+      }
+    });
 
-        // 2. Set the new password using that session.
+    $('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!accessToken) return;
+      const pw1 = $('pw1').value;
+      const pw2 = $('pw2').value;
+      const err = $('err');
+
+      if (pw1.length < 6) { err.textContent = 'Password must be at least 6 characters.'; return; }
+      if (pw1 !== pw2) { err.textContent = 'Those passwords do not match.'; return; }
+      err.textContent = '';
+
+      busy('One moment', 'Saving your new password.');
+      try {
         const ur = await fetch(SUPABASE_URL + '/auth/v1/user', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             apikey: ANON_KEY,
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + accessToken,
           },
           body: JSON.stringify({ password: pw1 }),
         });
         if (!ur.ok) {
-          // The token was already spent above, so we can't reuse it — the player
-          // has to request a fresh link. Tell them why rather than a bare error.
+          // The recovery token was already spent when Continue was tapped, so it
+          // can't be replayed — the player needs a fresh link either way.
           fail('Could not save that password', 'Please open Matri Rush, tap "Forgot password" for a new link, and choose a different password.');
           return;
         }
         show('done');
       } catch (_) {
-        show('fail'); // default copy: expired / already used
+        fail('Could not save that password', 'Please check your connection and try again from Matri Rush.');
       }
     });
   </script>

@@ -80,7 +80,7 @@
       <h1 id="idle-title">Confirm your email</h1>
       <p id="idle-copy">One tap and your stars, bolts and villages start saving to the cloud.</p>
       <button class="btn" id="go">Confirm my email</button>
-      <p class="muted">Links expire 10 minutes after they are sent.</p>
+      <p class="muted">Links expire 4 minutes after they are sent.</p>
     </section>
 
     <section id="busy" hidden>
@@ -99,7 +99,7 @@
     <section id="fail" hidden>
       <div class="glyph bad">✕</div>
       <h1 id="fail-title">That link has expired</h1>
-      <p id="fail-copy">Links last 10 minutes. Open Matri Rush and sign in again, and we will send you a fresh one.</p>
+      <p id="fail-copy">Links last 4 minutes. Open Matri Rush and sign in again, and we will send you a fresh one.</p>
       <a class="btn btn--blue" href="matricrush://">Open Matri Rush</a>
     </section>
 
@@ -126,9 +126,18 @@
     const redirectTo = q.get('redirect_to');
 
     // `type` decides whether we POST the token or hand it to GoTrue's redirecting
-    // GET. It arrives from the URL, so it is checked against the four link kinds
-    // the templates actually send rather than forwarded to the API as-is.
-    const TYPES = ['signup', 'email_change', 'recovery', 'magiclink'];
+    // GET. It arrives from the URL, so it is checked against the link kinds this
+    // page actually handles rather than forwarded to the API as-is.
+    //
+    // 'recovery' is deliberately NOT in this list. Password reset now links
+    // straight to reset.html's dedicated confirm-then-set-password flow — that
+    // page is the only place a recovery token may be spent. If this page still
+    // accepted type=recovery, a valid recovery token would complete a reset via
+    // EITHER page (GoTrue only checks the token, not which page presented it),
+    // reopening the weaker one-click handoff this file used to do (no explicit
+    // "whose account is this" confirmation) as a standing alternate path for the
+    // exact same token. Rejecting it here means reset.html is the only door.
+    const TYPES = ['signup', 'email_change', 'magiclink'];
     const rawType = q.get('type') || 'signup';
     const type = TYPES.includes(rawType) ? rawType : null;
 
@@ -147,11 +156,6 @@
         idleCopy: 'Confirm the change and every star, bolt and village comes with you.',
         go: 'Confirm the change',
         doneCopy: 'Your new email is confirmed.',
-      },
-      recovery: {
-        idleTitle: 'Reset your password',
-        idleCopy: 'Tap below to choose a new password. Your progress is untouched.',
-        go: 'Choose a new password',
       },
       magiclink: {
         idleTitle: 'Sign in to Matri Rush',
@@ -172,12 +176,12 @@
       show('fail');
     }
 
-    // Recovery and magic-link have to END somewhere with a session: the app (via
-    // the matricrush:// deep link) or the web origin. So they are handed back to
+    // Magic-link has to END somewhere with a session: the app (via the
+    // matricrush:// deep link) or the web origin. So it's handed back to
     // GoTrue's redirecting GET endpoint, which finishes the hop for us. Signup
     // and email-change need no session, so they are verified right here and the
     // player simply lands on a confirmation.
-    const HANDOFF = type === 'recovery' || type === 'magiclink';
+    const HANDOFF = type === 'magiclink';
 
     document.getElementById('go').addEventListener('click', async () => {
       if (!tokenHash || !type) return;
