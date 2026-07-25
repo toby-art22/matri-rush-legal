@@ -1,0 +1,93 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Shared styling for the legal and support pages.
+
+   These four pages used to carry four near-identical light-mode style blocks,
+   which left them reading as a different site from the dark stage on the
+   landing page. They now share this sheet and the same grade: theatre black,
+   the reel's mono slate voice for the header strip, and Fredoka + Nunito so
+   the type matches too.
+
+   Dense legal prose on black is only readable if the text stays light and the
+   line length stays short, so the body keeps its 720px measure and the ink
+   never drops to a mid grey for anything that has to be read.
+   ══════════════════════════════════════════════════════════════════════ */
+:root {
+  --stage: #07090f;
+  --ink: #eef1f8;
+  --body-ink: #c3cbe0;
+  --muted: #8b95ae;
+  --panel: rgba(255, 255, 255, .045);
+  --line: rgba(255, 255, 255, .10);
+  --line-hi: rgba(255, 255, 255, .22);
+  --act: #ffc62e;
+  --display: 'Fredoka', system-ui, sans-serif;
+  --body: 'Nunito', system-ui, sans-serif;
+  --slate: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Consolas, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0; padding: 0 18px 64px;
+  font-family: var(--body); font-size: 16px; line-height: 1.68;
+  color: var(--body-ink); background: var(--stage);
+}
+:focus-visible { outline: 3px solid var(--act); outline-offset: 3px; border-radius: 6px; }
+
+/* the slate strip, same voice as the act slates on the landing page */
+.pagebar {
+  margin: 0 -18px 34px; padding: 12px 18px;
+  display: flex; align-items: baseline; gap: 14px 20px; flex-wrap: wrap;
+  background: #000; border-bottom: 1px solid var(--line-hi);
+  font-family: var(--slate); font-size: 11.5px; letter-spacing: 2.4px; text-transform: uppercase;
+}
+.pagebar a { color: var(--act); text-decoration: none; border-bottom: 1px solid transparent; }
+.pagebar a:hover { border-color: var(--act); }
+.pagebar span { color: var(--muted); }
+
+/* the readable column */
+.pagebar + h1, body > h1 { margin-inline: auto; }
+body > *:not(.pagebar) { max-width: 720px; margin-inline: auto; }
+
+h1, h2, h3 { font-family: var(--display); color: var(--ink); }
+h1 { font-size: clamp(27px, 6vw, 34px); line-height: 1.14; margin: 0 0 6px; }
+h2 { font-size: 19px; margin: 34px 0 6px; }
+h3 { font-size: 16px; margin: 20px 0 2px; }
+p, li { font-size: 16px; }
+strong { color: var(--ink); }
+
+.meta { color: var(--muted); font-family: var(--slate); font-size: 11.5px; letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 10px; }
+
+a { color: #7cc0ff; }
+a:hover { color: #a9d6ff; }
+
+/* the callout keeps its amber identity, tuned for a dark ground */
+.note {
+  background: rgba(255, 198, 46, .07); border: 1px solid rgba(255, 198, 46, .3);
+  border-radius: 12px; padding: 12px 15px; font-size: 14.5px; color: #ffdd8a; margin: 16px 0;
+}
+
+code {
+  background: var(--panel); border: 1px solid var(--line); color: var(--ink);
+  padding: 1px 6px; border-radius: 5px; font-family: var(--slate); font-size: 13.5px;
+}
+
+table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 14.5px; }
+th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: var(--panel); color: var(--ink); font-family: var(--display); font-weight: 600; }
+
+/* the 3D press, same as the store badges on the landing page */
+.btn {
+  display: inline-block; margin: 10px 0 4px; padding: 12px 22px;
+  background: var(--act); color: #2a1d00; border-radius: 13px;
+  font-family: var(--display); font-weight: 600; font-size: 16px; text-decoration: none;
+  box-shadow: 0 5px 0 #b8871a;
+  transition: transform .15s cubic-bezier(.34, 1.56, .64, 1), box-shadow .15s ease;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #b8871a; color: #2a1d00; }
+.btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #b8871a; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
