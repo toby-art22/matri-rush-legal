@@ -192,6 +192,25 @@
     .stores { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
     /* the acts run left-aligned, so their badge pair does too */
     .stores--act { justify-content: flex-start; margin: 4px 0 20px; }
+
+    /* ── Play now: the one button on the page that works today ──────────
+       Neither game is listed yet, so the store badges are still dead ends.
+       This is the live route, and it is styled to win the row: the act's own
+       accent, a pressable 3D edge, and a nudge on the arrow. ── */
+    .play-now {
+      display: inline-flex; align-items: center; gap: 11px; text-decoration: none;
+      font-family: var(--display); font-weight: 600; font-size: 17px; line-height: 1.15;
+      color: #12161f; background: var(--act); padding: 13px 22px; border-radius: 15px;
+      box-shadow: 0 6px 0 rgba(0, 0, 0, .45), 0 16px 30px -6px var(--act);
+      transition: transform .15s var(--snap), box-shadow .15s ease;
+    }
+    .play-now .sm { display: block; font-family: var(--body); font-size: 11.5px; font-weight: 700; opacity: .62; letter-spacing: .3px; }
+    .play-now .arw { font-size: 19px; transition: transform .2s var(--snap); }
+    .play-now:hover { transform: translateY(-3px); box-shadow: 0 9px 0 rgba(0, 0, 0, .45), 0 22px 38px -6px var(--act); }
+    .play-now:hover .arw { transform: translateX(4px); }
+    .play-now:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0, 0, 0, .45); }
+    /* the hero's row centres, and the button leads the badges rather than joining them */
+    .hero .play-now { margin: 26px auto 0; }
     .badge {
       display: inline-flex; align-items: center; gap: 10px; text-decoration: none; text-align: left;
       padding: 10px 20px 10px 16px; border-radius: 14px; line-height: 1.15;
@@ -836,6 +855,11 @@
     <p class="tagline">Snap the bricks. Beat the clock.</p>
     <p class="sub">A fast, satisfying brick puzzle. Tile every gap before the timer hits zero. 112 villages, 6,000 levels.</p>
     <div class="clockbar" role="presentation"><i></i></div>
+    <!-- TODO: replace # with the Matri Rush store link once the app is live -->
+    <a class="play-now" href="#">
+      <span><span class="sm">Free · iOS and Android</span>Play Matri Rush</span>
+      <span class="arw" aria-hidden="true">&#8594;</span>
+    </a>
     <div class="stores">
       <!-- TODO: replace # with the App Store listing URL once the app is live -->
       <a class="badge apple" href="#">
@@ -1232,7 +1256,12 @@
               <li style="--si:2"><b>Only the front boards</b>The queue loads strictly from the front, so the wrong colour in a bay is a bay you have lost.</li>
               <li style="--si:3"><b>Break your own rule</b>The heli airlifts a customer out of the middle of the queue. It is the one thing on the board that ignores the front-of-line rule.</li>
             </ol>
-            <div class="stores stores--act rv" style="--d:.14s">
+            <!-- TODO: replace # with the Rush Delivery 3D store link once it lists -->
+            <a class="play-now rv" style="--d:.12s" href="#">
+              <span><span class="sm">Free · iOS first</span>Play Rush Delivery 3D</span>
+              <span class="arw" aria-hidden="true">&#8594;</span>
+            </a>
+            <div class="stores stores--act rv" style="--d:.16s">
               <!-- TODO: replace # with the Rush Delivery 3D App Store URL once it lists -->
               <a class="badge apple" href="#">
                 <svg width="22" height="26" aria-hidden="true"><use href="#glyphApple" /></svg>
@@ -1297,7 +1326,12 @@
               Each one repaints the whole app in its own flag colour, so switching what you
               are learning changes how the app looks.
             </p>
-            <div class="stores stores--act rv" style="--d:.24s;margin-top:22px">
+            <!-- TODO: replace # with the TicTacTalk store link once it lists -->
+            <a class="play-now rv" style="--d:.24s;margin-top:24px" href="#">
+              <span><span class="sm">Free · iOS and Android</span>Play TicTacTalk</span>
+              <span class="arw" aria-hidden="true">&#8594;</span>
+            </a>
+            <div class="stores stores--act rv" style="--d:.28s;margin-top:18px">
               <!-- TODO: replace # with the TicTacTalk App Store URL once it lists -->
               <a class="badge apple" href="#">
                 <svg width="22" height="26" aria-hidden="true"><use href="#glyphApple" /></svg>
