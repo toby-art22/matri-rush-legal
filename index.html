@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Matri Rush · Brain-boosting brick puzzle, and the rest of the reel</title>
-  <meta name="description" content="Matri Rush is a fast, family-friendly brick puzzle that builds focus, spatial reasoning and quick thinking. Snap colourful bricks to fill every gap before the timer hits zero, across 112 villages and 6,000 levels. Free on the App Store and Google Play. Also in the workshop: Rush Delivery 3D, a traffic-jam delivery puzzle, and TicTacTalk, language learning played as tic-tac-toe." />
+  <title>Matri Rush · Brain-boosting brick puzzle, free on the App Store</title>
+  <meta name="description" content="Matri Rush is a fast, family-friendly brick puzzle that builds focus, spatial reasoning and quick thinking. Snap colourful bricks to fill every gap before the timer hits zero, across 112 villages and 6,000 levels. Free on the App Store. Also in the workshop: Rush Delivery 3D, a traffic-jam delivery puzzle, TicTacTalk, language learning played as tic-tac-toe, and BAWA, a marketplace for finding skilled workers near you." />
   <meta name="keywords" content="Matri Rush, brick puzzle, brain game, puzzle game for kids, family-friendly game, brain training, spatial reasoning, logic puzzle, tiling puzzle, free puzzle game, educational game, Rush Delivery 3D, traffic jam puzzle, TicTacTalk, language learning game" />
   <meta name="author" content="Matri Rush" />
   <link rel="canonical" href="https://matrirush.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-  <meta name="theme-color" content="#07090f" />
+  <meta name="theme-color" content="#e9285f" />
   <!-- Open Graph / social preview -->
   <meta property="og:site_name" content="Matri Rush" />
   <meta property="og:title" content="Matri Rush: a brain-boosting brick puzzle for all ages" />
-  <meta property="og:description" content="Snap the bricks. Beat the clock. A family-friendly puzzle that sharpens focus and spatial reasoning. 112 villages, 6,000 levels. Plus two more titles in the workshop." />
+  <meta property="og:description" content="Snap the bricks. Beat the clock. A family-friendly puzzle that sharpens focus and spatial reasoning. 112 villages, 6,000 levels. Free on the App Store." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://matrirush.com/" />
   <meta property="og:image" content="https://matrirush.com/assets/og.png" />
@@ -22,609 +22,511 @@
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Matri Rush: a brain-boosting brick puzzle for all ages" />
-  <meta name="twitter:description" content="A family-friendly timed brick puzzle that sharpens focus and spatial reasoning. Free on the App Store and Google Play." />
+  <meta name="twitter:description" content="A family-friendly timed brick puzzle that sharpens focus and spatial reasoning. Free on the App Store." />
   <meta name="twitter:image" content="https://matrirush.com/assets/og.png" />
   <link rel="icon" type="image/png" href="assets/icon.png" />
   <link rel="apple-touch-icon" href="assets/icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <script>document.documentElement.classList.add('js');</script>
   <style>
     /* ═══════════════════════════════════════════════════════════════════════
-       matrirush.com — "The Reel"
+       matrirush.com — "The Toy Stage"
 
-       The page is a projection room. One dark stage runs the whole length,
-       each title gets an ACT with its own colour grade, and the acts are
-       separated by hard cuts instead of soft section padding. The signature
-       treatment is the act slate: a mono strip with sprocket ticks that hangs
-       over the seam of the section above it, followed by an oversized title
-       that runs off the right edge of the frame.
+       Every act is a saturated colour block cut by a hard horizon: a WALL on
+       top, a FLOOR below. Glossy toy objects stand on extruded pedestal discs
+       on that floor and bleed across the seam into the next section. That
+       stage is the one signature treatment, repeated in three colour worlds:
 
-       Grade is set per act with [data-act] and read through --act / --grade,
-       the same pattern the game itself uses for event palettes, so only one
-       accent is ever live on screen at a time.
+         Act I   Matri Rush      crimson pink
+         Act II  Rush Delivery   rush-hour orange   (the game's own colour)
+         Act III TicTacTalk      pool blue
+
+       Every colour on the page comes from one of those three worlds through
+       --wall / --floor / --accent, so only one world is ever live on screen.
+
+       The page is deliberately short. One screen per idea, no scroll marathon.
        ══════════════════════════════════════════════════════════════════════ */
+
     :root {
-      /* the game's own palette, used only where game art is being depicted */
-      --c-red: #ff5a5f; --c-blue: #3aa0ff; --c-yellow: #ffc62e;
-      --c-green: #39c66d; --c-purple: #a259ff; --c-orange: #ff8c3a;
+      --cream: #fff4e8;
+      --paper: #fffaf3;
+      --plum: #2a0f2c;
+      --ink-dark: #24151c;
+      --body-ink: #6b5560;
+      --hot: #d1246f;          /* the pink that survives on cream */
 
-      /* the stage: neutrals do all the layout work */
-      --stage: #07090f;
-      --ink: #eef1f8;
-      --muted: #8b95ae;
-      --panel: rgba(255, 255, 255, .045);
-      --panel-hi: rgba(255, 255, 255, .075);
-      --line: rgba(255, 255, 255, .10);
-      --line-hi: rgba(255, 255, 255, .22);
-
-      /* per-act grade, overridden by [data-act] below */
-      --act: #ffc62e;
-      --grade: radial-gradient(120% 90% at 50% -10%, #1b2647 0%, #0d1223 55%, var(--stage) 100%);
+      --ink: #ffffff;
+      --ink-soft: rgba(255, 255, 255, .86);
+      --ink-dim: rgba(255, 255, 255, .62);
 
       --display: 'Fredoka', system-ui, sans-serif;
       --body: 'Nunito', system-ui, sans-serif;
-      --slate: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Consolas, monospace;
-      --snap: cubic-bezier(.34, 1.56, .64, 1); /* the board-snap easing, used everywhere */
-      --cut: cubic-bezier(.16, .84, .28, 1);   /* the film-cut easing: fast in, long settle */
-      color-scheme: dark;
+
+      --pop: cubic-bezier(.34, 1.56, .64, 1);      /* toy springiness */
+      --settle: cubic-bezier(.16, .84, .28, 1);    /* fast in, long settle */
+
+      --gut: clamp(20px, 5vw, 64px);
+      --wide: 1240px;
+
+      /* ACT I is the page default so the nav starts pink */
+      --wall: #e9285f; --floor: #c71b4e; --deep: #a3113f;
+      --accent: #ffb627; --chunk: #16a9c4;
+      --cta-bg: linear-gradient(180deg, #ffc44d, #f88f0c);
+      --cta-ink: #3d1f01; --cta-edge: #c66a02;
     }
 
-    /* ACT I — Matri Rush. Deep theatre navy, gold bolt accent. */
+    /* ── the three colour worlds ─────────────────────────────────────────── */
     [data-act="rush"] {
-      --act: #ffc62e;
-      --grade: radial-gradient(125% 105% at 50% -8%, #223159 0%, #121a33 52%, #080b14 100%);
+      --wall: #e9285f; --floor: #c71b4e; --deep: #a3113f;
+      --accent: #ffb627; --chunk: #16a9c4;
+      --cta-bg: linear-gradient(180deg, #ffc44d, #f88f0c);
+      --cta-ink: #3d1f01; --cta-edge: #c66a02;
     }
-    /* ACT II — Rush Delivery 3D. Asphalt at dusk, rush-hour orange. */
     [data-act="delivery"] {
-      --act: #ff7a1a;
-      --grade: radial-gradient(115% 100% at 78% 0%, #35251a 0%, #1a1310 48%, #08090e 100%);
+      --wall: #ff6a16; --floor: #e04d05; --deep: #ae3a02;
+      --accent: #ffe07a; --chunk: #2b8ae6;
+      /* amber on orange has nothing to say, so Act II's button is white */
+      --cta-bg: linear-gradient(180deg, #ffffff, #ffe6cd);
+      --cta-ink: #b93d02; --cta-edge: #d99a63;
     }
-    /* ACT III — TicTacTalk. Cold slate, the app's own sky blue, repainted on
-       hover by whichever language chip you touch (which is what the app does). */
     [data-act="talk"] {
-      --act: #1cb0f6;
-      --grade: radial-gradient(115% 100% at 22% 0%, #0f2a3a 0%, #0a1622 50%, #07090f 100%);
+      --wall: #12a5c8; --floor: #0a7fa1; --deep: #05627f;
+      --accent: #ffc53d; --chunk: #ff5470;
+      --cta-bg: linear-gradient(180deg, #ffd66b, #ff9f1c);
+      --cta-ink: #3a2402; --cta-edge: #cf7a06;
+    }
+    /* ACT IV — BAWA. Its own brand: navy base, gold wordmark, chilli red. */
+    [data-act="bawa"] {
+      --wall: #12263f; --floor: #0a1728; --deep: #050e19;
+      --accent: #ecb000; --chunk: #cd002b;
+      --cta-bg: linear-gradient(180deg, #ffcf3d, #ecb000);
+      --cta-ink: #2a1c00; --cta-edge: #a87e00;
     }
 
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
     body {
-      margin: 0; font-family: var(--body); color: var(--ink); background: var(--stage);
-      line-height: 1.62; font-size: 16.5px; overflow-x: hidden;
+      margin: 0; font-family: var(--body); font-size: 17px; line-height: 1.6;
+      color: var(--ink-dark); background: var(--cream);
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
     }
-    h1, h2, h3, .display { font-family: var(--display); }
-    :focus-visible { outline: 3px solid var(--act); outline-offset: 3px; border-radius: 6px; }
-    img { max-width: 100%; }
+    h1, h2, h3 { font-family: var(--display); font-weight: 700; margin: 0; }
+    /* height:auto is load-bearing: the hero shot carries width/height attributes
+       for layout stability, and without this the attribute height wins over the
+       CSS width and the phone renders stretched. */
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 10px; }
 
-    /* film grain over the whole stage, so flat panels never read as flat */
-    .grain {
-      position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .05;
-      mix-blend-mode: soft-light;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+    .wrap { max-width: var(--wide); margin: 0 auto; padding: 0 var(--gut); }
+
+    .skip {
+      position: fixed; left: 12px; top: -100px; z-index: 200; background: #fff;
+      color: var(--ink-dark); padding: 12px 18px; border-radius: 12px; font-weight: 800; transition: top .2s;
     }
-    /* the flicker lives on .beam only: two flickering layers fight each other
-       and the page ends up feeling unstable rather than projected */
+    .skip:focus { top: 12px; }
 
-    /* ── Scroll reveals (JS adds .in; no-JS users see everything) ── */
-    .js .rv { opacity: 0; transform: translateY(26px); }
-    .js .rv-l { transform: translateX(-32px) translateY(0); }
-    .js .rv-r { transform: translateX(32px) translateY(0); }
-    .js .rv-pop { transform: scale(.85); }
-    /* the hard cut: a title wipes open from its own centre line */
-    .js .rv-cut { opacity: 0; transform: none; clip-path: inset(45% 0 45% 0); }
-    .js .rv.in { opacity: 1; transform: none; clip-path: inset(0 0 0 0); transition: opacity .6s ease, transform .65s var(--snap), clip-path .8s var(--cut); transition-delay: var(--d, 0s); }
-
-    /* ═══ ACT I — the cold open ═════════════════════════════════════════ */
-    .hero {
-      position: relative; overflow: hidden; text-align: center;
-      background: var(--grade); padding: 88px 20px 132px;
+    /* ═══ THE STAGE: a wall, a hard horizon, a floor ═════════════════════ */
+    .stage { position: relative; background: var(--wall); color: var(--ink); isolation: isolate; transition: background .6s var(--settle); }
+    .stage > .floor {
+      position: absolute; left: 0; right: 0; bottom: 0; height: var(--fh, 32%);
+      background: var(--floor); z-index: -2; transition: background .6s var(--settle);
     }
-    /* the letterbox. Two hard black bars: the frame you are watching through. */
-    .hero::before, .hero::after {
-      content: ''; position: absolute; left: 0; right: 0; height: 30px; background: #000; z-index: 4;
-    }
-    .hero::before { top: 0; }
-    .hero::after { bottom: 0; }
-
-    /* the projector beam, widening down the stage. The blur is what keeps the
-       clip-path from reading as a hard-edged wedge of flat colour. */
-    .beam {
-      position: absolute; top: -10%; left: 50%; width: 150%; height: 122%; transform: translateX(-50%);
-      clip-path: polygon(43% 0, 57% 0, 100% 100%, 0 100%);
-      background: linear-gradient(180deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0) 70%);
-      filter: blur(26px); pointer-events: none;
-    }
-    .js .beam { animation: beam-flick 9s ease-in-out infinite; }
-    @keyframes beam-flick { 0%, 100% { opacity: 1; } 37% { opacity: .78; } 63% { opacity: 1.05; } }
-
-    /* dust in the beam: three bricks adrift, slow and faint. Blurred out of
-       focus so they read as depth rather than as three flat slabs. */
-    .drift { position: absolute; border-radius: 22%; opacity: .13; filter: blur(22px); pointer-events: none; }
-    .drift.d1 { width: 130px; height: 130px; background: var(--c-blue); top: 4%; left: -34px; animation: drift1 13s ease-in-out infinite alternate; }
-    .drift.d2 { width: 100px; height: 100px; background: var(--c-red); bottom: 8%; right: -26px; animation: drift2 11s ease-in-out infinite alternate; }
-    .drift.d3 { width: 58px; height: 58px; background: var(--c-yellow); top: 36%; right: 9%; animation: drift3 16s ease-in-out infinite alternate; }
-    @keyframes drift1 { from { transform: rotate(14deg) translateY(0); } to { transform: rotate(26deg) translateY(26px); } }
-    @keyframes drift2 { from { transform: rotate(-12deg) translate(0, 0); } to { transform: rotate(-24deg) translate(-18px, -22px); } }
-    @keyframes drift3 { from { transform: rotate(8deg) translateY(0) scale(1); } to { transform: rotate(-10deg) translateY(-30px) scale(1.12); } }
-    .hero > *:not(.beam):not(.drift) { position: relative; z-index: 2; }
-
-    .appicon {
-      width: 96px; height: 96px; border-radius: 23px; margin: 0 auto 22px; display: block;
-      box-shadow: 0 22px 44px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .09), inset 0 2px 0 rgba(255, 255, 255, .15);
-    }
-    .js .appicon { animation: icon-in .7s var(--snap) both; }
-    @keyframes icon-in { from { opacity: 0; transform: translateY(-46px) scale(.7) rotate(-8deg); } }
-
-    /* the signature: MATRI RUSH snaps onto the page letter by letter */
-    .wordmark {
-      font-weight: 700; font-size: clamp(42px, 11.5vw, 68px); letter-spacing: .5px;
-      margin: 0; line-height: 1; display: flex; justify-content: center; gap: .28em; flex-wrap: wrap;
-    }
-    .wordmark span { display: inline-flex; }
-    .wordmark .L { display: inline-block; transform: rotate(var(--r)); }
-    .wordmark .wa .L { color: var(--c-blue); text-shadow: 0 3px 0 #1d63a3, 0 10px 26px rgba(58, 160, 255, .35); }
-    .wordmark .wb .L { color: var(--c-red); text-shadow: 0 3px 0 #b83b3f, 0 10px 26px rgba(255, 90, 95, .32); }
-    .js .wordmark .L { animation: snap-in .62s var(--snap) both; animation-delay: calc(.25s + var(--i) * .075s); }
-    @keyframes snap-in {
-      0% { opacity: 0; transform: translateY(-70px) rotate(calc(var(--r) * 4)) scale(1.25); }
-      70% { opacity: 1; transform: translateY(5px) rotate(var(--r)) scale(.96); }
-      100% { opacity: 1; transform: translateY(0) rotate(var(--r)) scale(1); }
+    /* a wide pool of light down the wall, so flat never reads flat */
+    .stage > .glow {
+      position: absolute; inset: 0; z-index: -2; pointer-events: none;
+      background: radial-gradient(70% 55% at var(--gx, 50%) -8%, rgba(255, 255, 255, .20), transparent 70%);
     }
 
-    .tagline { font-family: var(--display); font-weight: 600; font-size: clamp(19px, 5vw, 25px); margin: 20px 0 6px; }
-    .sub { font-size: 16.5px; color: #b3bcd4; margin: 0 auto; max-width: 450px; }
-    .js .tagline, .js .sub, .js .clockbar, .js .stores { animation: rise-in .7s ease both; }
-    .js .tagline { animation-delay: 1.05s; } .js .sub { animation-delay: 1.15s; }
-    .js .clockbar { animation-delay: 1.3s; } .js .stores { animation-delay: 1.45s; }
-    @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } }
-
-    /* the level timer, filling up: you are ready to play */
-    .clockbar { width: 176px; height: 8px; border-radius: 999px; background: rgba(255, 255, 255, .12); margin: 24px auto 0; overflow: hidden; }
-    .clockbar i {
-      display: block; height: 100%; width: 0; border-radius: inherit;
-      background: linear-gradient(90deg, #2fd96f, #8ee94f); box-shadow: 0 0 14px rgba(57, 198, 109, .75);
+    /* ambient loop 1: drifting confetti discs */
+    .drift { position: absolute; border-radius: 50%; z-index: -1; opacity: .5; pointer-events: none; }
+    .drift.a { width: 16px; height: 16px; background: var(--accent); left: 7%; top: 26%; animation: drift 13s ease-in-out infinite; }
+    .drift.b { width: 10px; height: 10px; background: #fff; left: 44%; top: 13%; animation: drift 17s ease-in-out infinite -4s; }
+    .drift.c { width: 22px; height: 22px; background: var(--chunk); right: 6%; top: 58%; animation: drift 21s ease-in-out infinite -9s; }
+    .drift.d { width: 12px; height: 12px; background: #fff; left: 22%; bottom: 18%; animation: drift 15s ease-in-out infinite -6s; }
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0, 0, 0) }
+      33% { transform: translate3d(22px, -30px, 0) }
+      66% { transform: translate3d(-18px, 16px, 0) }
     }
-    .js .clockbar i { animation: clock-fill 2.4s cubic-bezier(.2, .7, .3, 1) 1.5s forwards; }
-    @keyframes clock-fill { to { width: 100%; } }
 
-    /* store badges. App Store first, that is where we launch. */
-    .stores { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
-    /* the acts run left-aligned, so their badge pair does too */
-    .stores--act { justify-content: flex-start; margin: 4px 0 20px; }
+    /* ═══ NAV ════════════════════════════════════════════════════════════ */
+    .nav { position: sticky; top: 0; z-index: 90; background: var(--wall); color: #fff; transition: background .6s var(--settle), box-shadow .3s; }
+    .nav.stuck { box-shadow: 0 10px 30px rgba(0, 0, 0, .22); }
+    .nav-in { max-width: var(--wide); margin: 0 auto; padding: 13px var(--gut); display: flex; align-items: center; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 21px; letter-spacing: -.01em; text-decoration: none; color: #fff; flex: none; }
+    .brand img { width: 30px; height: 30px; border-radius: 9px; box-shadow: 0 3px 8px rgba(0, 0, 0, .3); }
+    .brand i { font-style: normal; color: var(--accent); }
 
-    /* ── Play now: the one button on the page that works today ──────────
-       Neither game is listed yet, so the store badges are still dead ends.
-       This is the live route, and it is styled to win the row: the act's own
-       accent, a pressable 3D edge, and a nudge on the arrow. ── */
-    .play-now {
-      display: inline-flex; align-items: center; gap: 11px; text-decoration: none;
-      font-family: var(--display); font-weight: 600; font-size: 17px; line-height: 1.15;
-      color: #12161f; background: var(--act); padding: 13px 22px; border-radius: 15px;
-      box-shadow: 0 6px 0 rgba(0, 0, 0, .45), 0 16px 30px -6px var(--act);
-      transition: transform .15s var(--snap), box-shadow .15s ease;
+    .links { display: flex; gap: 2px; margin-left: auto; }
+    .links a {
+      position: relative; text-decoration: none; white-space: nowrap;
+      font-weight: 800; font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase;
+      padding: 10px 13px 10px 22px; border-radius: 999px; color: rgba(255, 255, 255, .78);
+      transition: color .2s, background .2s;
     }
-    .play-now .sm { display: block; font-family: var(--body); font-size: 11.5px; font-weight: 700; opacity: .62; letter-spacing: .3px; }
-    .play-now .arw { font-size: 19px; transition: transform .2s var(--snap); }
-    .play-now:hover { transform: translateY(-3px); box-shadow: 0 9px 0 rgba(0, 0, 0, .45), 0 22px 38px -6px var(--act); }
-    .play-now:hover .arw { transform: translateX(4px); }
-    .play-now:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0, 0, 0, .45); }
-    /* the hero's row centres, and the button leads the badges rather than joining them */
-    .hero .play-now { margin: 26px auto 0; }
+    /* the dot: pale by default, the act accent when you are inside that act */
+    .links a::before {
+      content: ''; position: absolute; left: 9px; top: 50%; width: 6px; height: 6px;
+      margin-top: -3px; border-radius: 50%; background: rgba(255, 255, 255, .42);
+      transition: background .3s, transform .3s var(--pop);
+    }
+    .links a:hover { color: #fff; background: rgba(255, 255, 255, .12); }
+    .links a.here { color: #fff; }
+    .links a.here::before { background: var(--accent); transform: scale(1.7); }
+
+    .nav-cta {
+      flex: none; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      font-weight: 900; font-size: 14px; padding: 11px 20px; border-radius: 999px;
+      background: var(--cta-bg); color: var(--cta-ink);
+      box-shadow: 0 4px 0 var(--cta-edge), 0 8px 18px rgba(0, 0, 0, .25);
+      transition: transform .16s var(--pop), box-shadow .16s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--cta-edge), 0 12px 22px rgba(0, 0, 0, .3); }
+    .nav-cta:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--cta-edge), 0 4px 10px rgba(0, 0, 0, .25); }
+
+    .burger { display: none; margin-left: auto; flex: none; width: 44px; height: 44px; border-radius: 13px; border: 0; background: rgba(255, 255, 255, .16); cursor: pointer; align-items: center; justify-content: center; }
+    .burger span { display: block; width: 20px; height: 2.5px; border-radius: 2px; background: #fff; box-shadow: 0 -6px 0 #fff, 0 6px 0 #fff; transition: .25s; }
+    .burger[aria-expanded="true"] span { box-shadow: none; transform: rotate(45deg); }
+    .burger[aria-expanded="true"] span::after { content: ''; display: block; width: 20px; height: 2.5px; border-radius: 2px; background: #fff; transform: rotate(-90deg); }
+
+    .sheet { display: none; background: var(--floor); padding: 6px var(--gut) 18px; border-top: 1px solid rgba(255, 255, 255, .16); }
+    .sheet.open { display: block; }
+    .sheet a { display: block; text-decoration: none; color: #fff; font-family: var(--display); font-size: 19px; padding: 12px 4px; border-bottom: 1px solid rgba(255, 255, 255, .14); }
+    .sheet a:last-child { border: 0; color: var(--accent); }
+
+    /* ═══ SHARED TYPE ════════════════════════════════════════════════════ */
+    .kick {
+      display: inline-flex; align-items: center; gap: 9px; font-weight: 900; font-size: 12.5px;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin: 0 0 16px;
+    }
+    .kick::before { content: ''; width: 26px; height: 3px; border-radius: 2px; background: currentColor; }
+    .kick.hot { color: var(--hot); }
+
+    .huge { font-size: clamp(40px, 6.4vw, 76px); line-height: .95; letter-spacing: -.025em; }
+    .big { font-size: clamp(30px, 4.4vw, 52px); line-height: 1.02; letter-spacing: -.02em; }
+    .lede { font-size: clamp(16.5px, 1.4vw, 18.5px); color: var(--ink-soft); max-width: 44ch; }
+
+    /* masked line rise, hand-authored per line so <em> survives */
+    .ln { display: block; overflow: hidden; padding-bottom: .06em; }
+    .ln > i { display: block; font-style: inherit; }
+    .rise .ln > i { transform: translateY(105%) rotate(3deg); transition: transform .8s var(--settle); transition-delay: calc(var(--li, 0) * .09s); }
+    .rise.in .ln > i { transform: none; }
+
+    /* ═══ STORE BADGES ═══════════════════════════════════════════════════ */
+    .stores { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
     .badge {
-      display: inline-flex; align-items: center; gap: 10px; text-decoration: none; text-align: left;
-      padding: 10px 20px 10px 16px; border-radius: 14px; line-height: 1.15;
-      transition: transform .15s var(--snap), box-shadow .15s ease;
+      display: inline-flex; align-items: center; gap: 11px; padding: 9px 18px 9px 15px; border-radius: 14px;
+      background: rgba(0, 0, 0, .28); border: 1.5px solid rgba(255, 255, 255, .30); color: #fff; text-decoration: none;
+      transition: transform .18s var(--pop), background .2s, border-color .2s;
     }
-    .badge .s1 { display: block; font-size: 11.5px; font-weight: 600; opacity: .72; }
-    .badge .s2 { display: block; font-family: var(--display); font-weight: 600; font-size: 18px; }
-    .badge.apple { background: #fff; color: #10162a; box-shadow: 0 6px 0 #8b93ab, 0 18px 34px rgba(0, 0, 0, .55); }
-    .badge.play { background: rgba(255, 255, 255, .06); color: #fff; border: 1.5px solid var(--line-hi); box-shadow: 0 6px 0 rgba(0, 0, 0, .5); }
-    .badge:hover { transform: translateY(-3px); }
-    .badge.apple:hover { box-shadow: 0 9px 0 #8b93ab, 0 22px 38px rgba(0, 0, 0, .6); }
-    .badge:active { transform: translateY(3px); }
-    .badge.apple:active { box-shadow: 0 2px 0 #8b93ab; }
-    .badge.play:active { box-shadow: 0 1px 0 rgba(0, 0, 0, .5); }
+    a.badge:hover { transform: translateY(-3px); background: rgba(0, 0, 0, .42); border-color: rgba(255, 255, 255, .6); }
     .badge svg { flex: none; }
+    .badge .s1 { display: block; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; opacity: .82; line-height: 1.3; }
+    .badge .s2 { display: block; font-family: var(--display); font-size: 16.5px; line-height: 1.1; }
+    /* not listed yet: same shape, visibly inert, never a dead link */
+    .badge.soon { opacity: .5; border-style: dashed; cursor: default; }
+    .badge.soon svg { filter: grayscale(1); }
 
-    /* ── Screenshot rail: leans out of the hero, across the letterbox bar ── */
+    /* ═══ PEDESTAL + GLOSSY BRICK ════════════════════════════════════════ */
+    /* An extruded disc: flat top face, solid rim below it, shadow on the floor. */
+    .ped {
+      position: relative; width: var(--pw, 260px); aspect-ratio: 3 / 1; border-radius: 50%;
+      background: radial-gradient(60% 70% at 42% 26%, rgba(255, 255, 255, .28), transparent 70%), var(--wall);
+      box-shadow: 0 14px 0 0 var(--deep), 0 34px 44px rgba(0, 0, 0, .30);
+    }
+    .ped::after { content: ''; position: absolute; inset: 6% 8% auto 8%; height: 30%; border-radius: 50%; background: rgba(255, 255, 255, .16); }
+
+    /* the glossy brick, built to the same recipe as the app icon */
+    .brik {
+      width: var(--s, 66px); aspect-ratio: 1; border-radius: 26%; flex: none; position: relative;
+      background: linear-gradient(165deg, var(--b1), var(--b2));
+      box-shadow: inset 0 -7px 12px rgba(0, 0, 0, .20), inset 0 4px 8px rgba(255, 255, 255, .28), 0 14px 24px rgba(0, 0, 0, .26);
+    }
+    .brik::before { content: ''; position: absolute; inset: 11% 13% auto 13%; height: 33%; border-radius: 40% 40% 55% 55%; background: rgba(255, 255, 255, .38); }
+    .brik::after {
+      content: ''; position: absolute; left: 50%; top: 42%; width: 21%; aspect-ratio: 1; border-radius: 50%;
+      transform: translateX(-50%); background: radial-gradient(circle at 34% 28%, #fff, rgba(255, 255, 255, .55));
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
+    }
+
+    /* ambient loop 2: things standing on pedestals breathe */
+    .bob { animation: bob 6.5s ease-in-out infinite; }
+    .bob.s2 { animation-duration: 8s; animation-delay: -2.5s; }
+    .bob.s3 { animation-duration: 7.2s; animation-delay: -4s; }
+    @keyframes bob { 0%, 100% { transform: translateY(0) rotate(0) } 50% { transform: translateY(-16px) rotate(-1.5deg) } }
+
+    /* ═══ HERO ═══════════════════════════════════════════════════════════ */
+    .hero { --fh: 30%; padding: clamp(26px, 3.4vw, 44px) 0 clamp(105px, 12vw, 165px); }
+    .hero-in {
+      max-width: var(--wide); margin: 0 auto; padding: 0 var(--gut);
+      display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+      gap: clamp(20px, 4vw, 52px); align-items: center;
+    }
+    .hero h1 { margin-bottom: 16px; }
+    .hero .lede { margin: 0 0 4px; }
+    .hero .stores { margin-top: 28px; }
+    .wordmark { font-family: var(--display); font-size: 14px; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--accent); margin: 0 0 16px; }
+
+    .podium { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: clamp(340px, 40vw, 480px); }
+    .podium .ped { --pw: clamp(196px, 23vw, 278px); margin-top: -5%; }
+    .podium .hero-shot {
+      width: clamp(176px, 20.5vw, 244px); border-radius: 24px; position: relative; z-index: 2;
+      box-shadow: 0 34px 52px rgba(0, 0, 0, .38), 0 0 0 7px rgba(255, 255, 255, .95), 0 0 0 10px rgba(0, 0, 0, .20);
+    }
+    .podium .halo {
+      position: absolute; top: 2%; left: 50%; transform: translateX(-50%);
+      width: clamp(280px, 34vw, 430px); aspect-ratio: 1; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, .22), transparent 62%); z-index: 0; pointer-events: none;
+    }
+
+    /* small props on their own mini pedestals, like the gamepad in the reference */
+    .prop { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 9px; z-index: 3; pointer-events: none; }
+    .prop.p1 { left: -38%; bottom: 6%; }
+    .prop.p2 { right: -9%; top: 2%; }
+    .prop .stack { display: flex; gap: 7px; }
+    .par { transition: transform .5s var(--settle); will-change: transform; }
+
+    /* ═══ PROOF STRIP — screenshots bleed up over the pink seam ══════════ */
+    .proof { background: var(--cream); padding: 0 0 clamp(46px, 6vw, 74px); }
     .shots {
-      display: flex; gap: 18px; overflow-x: auto; padding: 0 20px 20px;
-      max-width: 900px; margin: -86px auto 0; position: relative; z-index: 5;
-      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+      max-width: var(--wide); margin: clamp(-130px, -11vw, -76px) auto 0; padding: 0 var(--gut);
+      display: flex; justify-content: center; align-items: flex-start; gap: clamp(10px, 2.4vw, 32px);
     }
+    /* The fan: only the phone tilts. Captions stay level and drop with the card,
+       so a rotated deck never produces three crooked labels. */
+    .shots figure { margin: 0; width: clamp(132px, 17.5vw, 214px); --rot: 0deg; --dy: 0px; }
+    .shots figure:nth-child(1) { --rot: -6deg; --dy: 26px; }
+    .shots figure:nth-child(3) { --rot: 6deg; --dy: 26px; }
+    /* raw phone captures, so the white bezel is drawn here rather than baked in */
     .shots img {
-      width: 232px; flex: none; border-radius: 20px; scroll-snap-align: center;
-      box-shadow: 0 28px 56px rgba(0, 0, 0, .62); border: 1px solid var(--line-hi);
-      transition: transform .35s var(--snap);
+      border-radius: 20px; transform: rotate(var(--rot)) translateY(var(--dy));
+      transition: transform .4s var(--pop), box-shadow .4s;
+      box-shadow: 0 0 0 6px #fff, 0 0 0 8px rgba(70, 25, 45, .14), 0 26px 44px rgba(60, 20, 35, .26);
     }
-    .shots img:nth-child(1) { transform: rotate(-2.4deg); }
-    .shots img:nth-child(2) { transform: rotate(1.6deg) translateY(10px); }
-    .shots img:nth-child(3) { transform: rotate(-1.4deg); }
-    .shots img:hover { transform: rotate(0) translateY(0) scale(1.02); }
-    .shots::-webkit-scrollbar { height: 6px; }
-    .shots::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .16); border-radius: 999px; }
+    .shots figure:hover img {
+      transform: rotate(var(--rot)) translateY(calc(var(--dy) - 14px)) scale(1.03);
+      box-shadow: 0 0 0 6px #fff, 0 0 0 8px rgba(70, 25, 45, .14), 0 34px 56px rgba(60, 20, 35, .34);
+    }
+    .shots figcaption {
+      text-align: center; margin-top: calc(18px + var(--dy)); font-size: 11.5px;
+      font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: #9a7a87;
+    }
+    .cap-line { text-align: center; margin: 26px auto 0; font-size: 13.5px; font-weight: 700; color: #8a6b78; }
 
-    /* ── Village ticker: the road ahead, always rolling ── */
-    .ticker {
-      overflow: hidden; margin-top: 40px; padding: 14px 0;
-      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, .018);
-    }
-    .ticker .lane { display: flex; width: max-content; gap: 38px; animation: roll 48s linear infinite; }
-    .ticker .w {
-      display: inline-flex; align-items: center; gap: 9px; color: #c3cbe0; font-family: var(--slate);
-      font-weight: 500; font-size: 12.5px; letter-spacing: 2.4px; text-transform: uppercase; white-space: nowrap;
-    }
-    .ticker .w i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
-    @keyframes roll { to { transform: translateX(-50%); } }
+    /* three numbers, deliberately unequal — not a KPI card row */
+    .figs { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(20px, 5vw, 70px); margin-top: clamp(30px, 4vw, 46px); }
+    .figs .f { text-align: center; }
+    .figs .n { display: block; font-family: var(--display); line-height: .88; letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--hot); }
+    .figs .f:nth-child(1) .n { font-size: clamp(46px, 6.4vw, 78px); }
+    .figs .f:nth-child(2) .n { font-size: clamp(38px, 5vw, 60px); color: #7a3fd6; }
+    .figs .f:nth-child(3) .n { font-size: clamp(32px, 4.2vw, 50px); color: #1f8f57; }
+    .figs .l { display: block; font-family: var(--display); font-weight: 600; font-size: 17px; margin-top: 8px; }
+    .figs .s { display: block; font-size: 13.5px; color: var(--body-ink); }
 
-    /* ═══ The act slate: the signature ══════════════════════════════════
-       Mono strip, hairline rules, sprocket ticks down the left. It hangs up
-       over the seam of whatever came before it, so the acts interlock rather
-       than stack. ── */
-    .slate {
-      /* half above the seam, half below it, so the acts interlock instead of
-         stacking. top + matching negative margin shifts it without moving the
-         act underneath. */
-      position: relative; z-index: 6; top: -20px; max-width: 1080px; margin: 0 auto -20px; padding: 11px 18px 11px 46px;
-      display: flex; align-items: baseline; gap: 16px 22px; flex-wrap: wrap;
-      font-family: var(--slate); font-size: 11.5px; letter-spacing: 2.6px; text-transform: uppercase;
-      background: #000; border-top: 1px solid var(--line-hi); border-bottom: 1px solid var(--line-hi);
-    }
-    /* the sprockets */
-    .slate::before {
-      content: ''; position: absolute; left: 14px; top: 0; bottom: 0; width: 14px;
-      background: repeating-linear-gradient(180deg, var(--line-hi) 0 3px, transparent 3px 9px);
-    }
-    .slate .no { color: var(--act); font-weight: 700; }
-    .slate .ttl { color: var(--ink); }
-    .slate .st { margin-left: auto; color: var(--muted); }
-    .slate .st b { color: var(--act); font-weight: 700; }
+    /* ═══ TICKER ═════════════════════════════════════════════════════════ */
+    /* ambient loop 3 */
+    .ticker { background: var(--plum); color: #fff; padding: 14px 0; overflow: hidden; }
+    .ticker .lane { display: flex; gap: 42px; width: max-content; animation: roll 42s linear infinite; }
+    .ticker .w { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 18px; white-space: nowrap; opacity: .92; }
+    .ticker .w i { width: 12px; height: 12px; border-radius: 4px; flex: none; box-shadow: 0 2px 4px rgba(0, 0, 0, .4); }
+    @keyframes roll { to { transform: translateX(-50%) } }
+    .ticker:hover .lane { animation-play-state: paused; }
 
-    /* ═══ Act body ══════════════════════════════════════════════════════ */
-    /* Act I runs long, so its body carries the hero's navy down and lets it
-       fall to black rather than sitting in one flat trough. */
-    .act-body { background: linear-gradient(180deg, #101828 0%, #0b1020 38%, var(--stage) 100%); }
-    .act { position: relative; background: var(--grade); padding: 46px 0 62px; overflow: hidden; }
-    .act-in { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-    /* the oversized title, running off the right edge of the frame */
-    .act-title {
-      font-weight: 700; font-size: clamp(40px, 12vw, 116px); line-height: .92; letter-spacing: -1px;
-      /* a ghost fill under the outline, so the title still reads if a browser
-         ignores -webkit-text-stroke rather than vanishing entirely */
-      margin: 4px 0 26px; color: rgba(255, 255, 255, .07); -webkit-text-stroke: 1.6px var(--line-hi);
+    /* ═══ THE MECHANIC, RUNNING LIVE ═════════════════════════════════════ */
+    .mech { background: var(--paper); padding: clamp(50px, 6.5vw, 86px) 0; }
+    .mech-in { max-width: var(--wide); margin: 0 auto; padding: 0 var(--gut); display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+    .mech h2 { margin-bottom: 14px; }
+    .mech p { color: var(--body-ink); max-width: 46ch; margin: 0; }
+
+    .snap {
+      background: #f0e6ee; border-radius: 26px; padding: 20px; position: relative;
+      box-shadow: inset 0 3px 10px rgba(90, 40, 60, .12);
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+      width: 100%; max-width: 330px; margin: 0 auto;
     }
-    .act-title em { font-style: normal; color: var(--act); -webkit-text-stroke: 0; text-shadow: 0 0 42px rgba(255, 255, 255, .12); }
-    .act-lede { font-size: 17.5px; color: #c3cbe0; max-width: 46ch; margin: 0 0 26px; }
-    .act-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 34px; align-items: start; }
-    .act-grid.flip > .art { order: 2; }
-
-    /* the route: numbered stops down a dotted lane, because this is a delivery game */
-    .route { list-style: none; margin: 0 0 26px; padding: 0 0 0 30px; position: relative; }
-    .route::before {
-      content: ''; position: absolute; left: 6px; top: 8px; bottom: 10px; width: 2px;
-      background: repeating-linear-gradient(180deg, var(--line-hi) 0 5px, transparent 5px 11px);
+    .snap .brik { --s: 100%; }
+    .snap .hole { aspect-ratio: 1; border-radius: 22%; border: 2.5px dashed rgba(150, 70, 100, .42); background: rgba(255, 255, 255, .4); }
+    .snap .flyer { position: absolute; width: calc((100% - 40px - 24px) / 3); right: 20px; bottom: 20px; z-index: 4; }
+    .snap.in .flyer { animation: snapin 4.6s var(--pop) infinite; }
+    @keyframes snapin {
+      0% { transform: translate(20px, -104px) scale(1.14) rotate(9deg); opacity: 0 }
+      14% { transform: translate(15px, -92px) scale(1.12) rotate(7deg); opacity: 1 }
+      42%, 88% { transform: translate(0, 0) scale(1) rotate(0); opacity: 1 }
+      48% { transform: translate(0, 0) scale(.93) }
+      54% { transform: translate(0, 0) scale(1) }
+      100% { transform: translate(20px, -104px) scale(1.14) rotate(9deg); opacity: 0 }
     }
-    .route li { position: relative; margin-bottom: 17px; font-size: 15.5px; color: #b6c0d6; }
-    .route li:last-child { margin-bottom: 0; }
-    .route li b { color: var(--ink); font-family: var(--display); font-weight: 600; display: block; font-size: 16.5px; }
-    .route li::before {
-      content: ''; position: absolute; left: -30px; top: 7px; width: 14px; height: 14px; border-radius: 50%;
-      background: var(--stage); border: 3px solid var(--act);
-    }
-    .js .route.in li::before { animation: stop-pop .45s var(--snap) both; animation-delay: calc(var(--si) * .12s); }
-    @keyframes stop-pop { from { transform: scale(0); } }
+    .snap .ring { position: absolute; right: 20px; bottom: 20px; z-index: 3; width: calc((100% - 40px - 24px) / 3); aspect-ratio: 1; border-radius: 22%; border: 3px solid #2ea55f; opacity: 0; }
+    .snap.in .ring { animation: ring 4.6s ease-out infinite; }
+    @keyframes ring { 0%, 40% { opacity: 0; transform: scale(1) } 46% { opacity: .9 } 68%, 100% { opacity: 0; transform: scale(1.5) } }
 
-    /* the art column: a phone capture with a poster tucked behind it */
-    .art { position: relative; }
-    .art .phone {
-      display: block; width: 100%; max-width: 288px; border-radius: 26px; border: 1px solid var(--line-hi);
-      box-shadow: 0 34px 70px rgba(0, 0, 0, .66); transform: rotate(-2deg);
-      transition: transform .4s var(--snap);
-    }
-    .art:hover .phone { transform: rotate(0) translateY(-6px); }
-    .art .poster {
-      position: absolute; right: 0; bottom: 18px; width: 45%; max-width: 168px; border-radius: 16px;
-      border: 1px solid var(--line-hi); box-shadow: 0 22px 44px rgba(0, 0, 0, .7); transform: rotate(5deg);
-      transition: transform .4s var(--snap);
-    }
-    .art:hover .poster { transform: rotate(2deg) translateY(-4px) scale(1.03); }
-    .art .cap {
-      display: block; margin-top: 14px; font-family: var(--slate); font-size: 11px; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--muted);
-    }
+    .tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 24px; }
+    .tags span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: #fff; font-weight: 800; font-size: 14px; color: #55424c; box-shadow: 0 3px 10px rgba(80, 30, 50, .10); transition: transform .2s var(--pop); }
+    .tags span:hover { transform: translateY(-3px) rotate(-2deg); }
+    .tags i { width: 9px; height: 9px; border-radius: 3px; flex: none; }
 
-    /* act footer: status chips and a real link, no filler CTA */
-    .act-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
-    .tick {
-      display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700;
-      padding: 6px 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: #cfd6e8;
-    }
-    .tick i { width: 8px; height: 8px; border-radius: 50%; background: var(--act); flex: none; }
-    .go {
-      display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 600;
-      font-size: 14.5px; color: var(--act); text-decoration: none; border-bottom: 1.5px solid transparent;
-      transition: border-color .2s ease, gap .2s var(--snap);
-    }
-    .go:hover { border-color: var(--act); gap: 13px; }
-
-    /* ═══ Hard cut: the interstitial band between Act I and Act II ═══════ */
-    .cutband {
-      position: relative; background: #000; padding: 74px 20px 78px; text-align: center; overflow: hidden;
-      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-    }
-    /* margin auto matters here: .cutband p caps every paragraph at 54ch, so a
-       left-margin of 0 would park the short kicker against the left edge */
-    .cutband .kick { font-family: var(--slate); font-size: 11.5px; letter-spacing: 3.4px; text-transform: uppercase; color: var(--muted); margin: 0 auto 16px; }
-    .cutband h2 { font-size: clamp(27px, 6.6vw, 50px); line-height: 1.08; margin: 0 auto 16px; max-width: 20ch; }
-    .cutband p { color: var(--muted); font-size: 16px; max-width: 54ch; margin: 0 auto; }
-    /* the two titles that follow, pinned like stickers on the film can */
-    .peek { display: flex; justify-content: center; gap: 26px; margin: 40px 0 0; }
-    .peek img {
-      width: 84px; height: 84px; border-radius: 21px; border: 1px solid var(--line-hi);
-      box-shadow: 0 24px 48px rgba(0, 0, 0, .8);
-    }
-    .peek img:nth-child(1) { transform: rotate(-7deg); }
-    .peek img:nth-child(2) { transform: rotate(7deg) translateY(12px); }
-
-    /* ═══ Feature mosaic: one wide, one tall, nothing uniform ═══════════ */
-    main { max-width: 900px; margin: 0 auto; padding: 50px 20px 8px; }
-    .mosaic {
-      display: grid; gap: 14px; margin: 0 0 62px;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-areas: "worlds worlds snap" "clock bolt snap" "offline easy easy";
-    }
-    .feat {
-      background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 21px;
-      transition: transform .25s var(--snap), box-shadow .25s ease, border-color .25s ease, background .25s ease;
-    }
-    .feat:hover { transform: translateY(-4px) rotate(-.4deg); background: var(--panel-hi); border-color: var(--line-hi); box-shadow: 0 18px 38px rgba(0, 0, 0, .5); }
-    .feat .t { font-family: var(--display); font-weight: 600; font-size: 17.5px; margin: 12px 0 3px; }
-    .feat .d { font-size: 15px; color: var(--muted); }
-    .f-worlds { grid-area: worlds; } .f-snap { grid-area: snap; display: flex; flex-direction: column; }
-    .f-clock { grid-area: clock; } .f-bolt { grid-area: bolt; }
-    .f-offline { grid-area: offline; } .f-easy { grid-area: easy; }
-
-    /* the wide card: the journey */
-    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 13px; }
-    .chip { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, .03); color: #c3cbe0; }
-    .chip i { width: 9px; height: 9px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .3); }
-
-    /* the tall card: a board mid-level, one gap left, one brick incoming.
-       padding-top % resolves against width, so hover clearance scales with brick size */
-    .board { margin: auto auto 0; width: 100%; max-width: 250px; padding-top: calc((100% - 14px) / 3 + 26px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; position: relative; }
-    .board b { display: block; aspect-ratio: 1; border-radius: 8px; }
-    .board .gap { background: none; border: 2px dashed var(--line-hi); }
-    .board .next { position: absolute; width: calc((100% - 14px) / 3); aspect-ratio: 1; border-radius: 8px; background: var(--c-green); right: 0; top: 0; box-shadow: 0 10px 22px rgba(57, 198, 109, .45); animation: hover-next 2.2s ease-in-out infinite; }
-    @keyframes hover-next { 0%, 100% { transform: translateY(0) rotate(3deg); } 50% { transform: translateY(-7px) rotate(-2deg); } }
-
-    .sec-label { font-family: var(--slate); font-size: 11.5px; text-transform: uppercase; letter-spacing: 3px; color: var(--muted); margin: 0 0 14px; }
-
-    /* ═══ The climb: six eras as a rising stack of bricks ════════════════
-       Not a card grid: a baseline with columns growing out of it, so the shape
-       of the page says "it gets harder" before you read a single word. ── */
-    .climb { margin: 0 0 62px; }
-    .climb h2 { font-size: clamp(23px, 5vw, 32px); margin: 0 0 6px; }
-    .climb .lede { color: var(--muted); font-size: 15.5px; margin: 0 0 28px; max-width: 54ch; }
-    /* Two fixed rows per column: a 72px plot the bricks stand in, then the label.
-       Fixing the plot height is what keeps all six baselines on one line, since
-       the label blocks wrap to different heights and must not push the bricks. */
-    .eras { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; position: relative; }
-    .eras::after { content: ''; position: absolute; left: 0; right: 0; top: 72px; height: 2px; border-radius: 2px; background: var(--line-hi); }
-    .era { text-align: left; display: grid; grid-template-rows: 72px auto; }
-    .era .stack { align-self: end; display: flex; flex-direction: column-reverse; gap: 4px; }
-    .era .txt { min-width: 0; }
-    /* one brick per fused rule: era 1 stacks one, era 6 stacks four */
-    .era .stack b { display: block; height: 13px; border-radius: 4px; background: var(--e); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), 0 0 18px -4px var(--e); transform-origin: bottom center; }
-    .js .era.in .stack b { animation: brick-drop .5s var(--snap) both; animation-delay: calc(var(--d, 0s) + var(--bi) * .07s); }
-    @keyframes brick-drop { from { opacity: 0; transform: translateY(-22px) scaleY(.6); } }
-    .era .n { font-family: var(--display); font-weight: 600; font-size: 14px; line-height: 1.25; margin-top: 12px; }
-    .era .m { font-family: var(--slate); font-size: 10.5px; color: var(--muted); letter-spacing: .6px; }
-    .era .f { font-size: 12px; color: #9aa4bc; margin-top: 4px; font-style: italic; }
-    .era-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; font-size: 13.5px; color: var(--muted); }
-    .era-foot b { font-family: var(--display); color: var(--ink); font-weight: 600; }
-
-    /* ═══ Good for growing minds ════════════════════════════════════════ */
-    .minds { margin: 0 0 62px; }
-    .minds h2 { font-size: clamp(23px, 5vw, 32px); margin: 0 0 6px; }
-    .minds .lede { color: var(--muted); font-size: 15.5px; margin: 0 0 28px; max-width: 58ch; }
-    /* A four-up band divided by hairlines, not four more cards. The mosaic above
-       is already a card grid and the panels below are cards too: this section has
-       to be a different shape or the middle of Act I turns into one long tray of
-       identical rounded rectangles. */
-    .skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); }
-    .skill { padding: 20px 20px 4px; border-left: 1px solid var(--line); transition: background .25s ease; }
-    .skill:first-child { border-left: 0; padding-left: 0; }
-    .skill:hover { background: rgba(255, 255, 255, .03); }
-    /* the glyph sits bare in its own colour: no pale chip, no repeated tile */
-    .skill .g { display: block; margin-bottom: 13px; }
-    .skill .g svg { display: block; }
-    .skill .t { font-family: var(--display); font-weight: 600; font-size: 16.5px; margin: 0 0 3px; }
-    .skill .d { font-size: 14.5px; color: var(--muted); }
-    .family { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-    .family .tag {
-      display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700;
-      padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: #cfd6e8;
-    }
-    .family .tag i { width: 9px; height: 9px; border-radius: 3px; }
-
-    /* ═══ Collect: asymmetric split, deliberately unequal ════════════════ */
-    .collect { display: grid; grid-template-columns: 1.15fr .85fr; gap: 14px; margin: 0 0 62px; align-items: stretch; }
-    /* the two panels stretch to match, so each pins its last row to the bottom
-       rather than leaving a pool of dead space under the shorter one */
-    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 23px; display: flex; flex-direction: column; }
-    .panel .cats, .panel .pity { margin-top: auto; }
-    .panel h3 { margin: 0 0 4px; font-size: 20px; }
-    .panel .d { font-size: 15px; color: var(--muted); margin: 0; }
-    .panel .big { font-family: var(--display); font-weight: 700; font-size: clamp(40px, 8vw, 56px); line-height: 1; color: var(--ink); }
-    .panel .big span { font-size: 18px; color: var(--muted); font-weight: 600; margin-left: 6px; }
-
-    /* awards: three pins, three tiers, real metals rather than three pastel chips */
-    .pins { display: flex; gap: 10px; margin: 20px 0 4px; }
-    .pins svg { transition: transform .3s var(--snap); filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .5)); }
-    .pins svg:nth-child(2) { transform: translateY(-6px); }
-    .panel:hover .pins svg:nth-child(1) { transform: rotate(-7deg) translateY(-3px); }
-    .panel:hover .pins svg:nth-child(2) { transform: translateY(-11px); }
-    .panel:hover .pins svg:nth-child(3) { transform: rotate(7deg) translateY(-3px); }
-    .cats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
-    .cat { font-family: var(--slate); font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 7px; padding: 4px 9px; }
-
-    /* collection: published odds, drawn as the bars they actually are */
-    .odds { margin: 20px 0 0; display: grid; gap: 9px; }
-    .odd { display: grid; grid-template-columns: 74px 1fr 40px; align-items: center; gap: 10px; font-size: 12.5px; }
-    .odd .k { font-weight: 700; }
-    .odd .track { height: 9px; border-radius: 999px; background: rgba(255, 255, 255, .07); overflow: hidden; }
-    .odd .track i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--m1), var(--m2)); }
-    .js .odds.in .odd .track i { animation: odds-fill .8s cubic-bezier(.2, .7, .3, 1) both; animation-delay: calc(var(--oi) * .09s); }
-    @keyframes odds-fill { to { width: var(--w); } }
-    .odd .v { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 700; }
-    .pity { margin-top: 18px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 13px; }
-    .pity b { color: var(--ink); font-family: var(--display); font-weight: 600; }
-
-    /* ═══ Languages: one flat statement, no card, no icon ════════════════ */
-    .langs { margin: 0 0 58px; text-align: center; padding: 6px 0; }
-    .langs .line { font-family: var(--display); font-weight: 600; font-size: clamp(20px, 4.4vw, 28px); margin: 0 0 14px; }
-    .langs .list { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; font-size: 14.5px; color: #b6c0d6; }
-    .langs .list span { white-space: nowrap; }
-    .langs .rtl { display: block; margin-top: 14px; font-size: 13.5px; color: var(--muted); }
-
-    /* ═══ FAQ: plain answers, mirrored as FAQ structured data ════════════ */
-    .faq { margin: 0 0 58px; }
-    .faq h2 { font-size: clamp(23px, 5vw, 32px); margin: 0 0 18px; }
-    .faq details { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 2px 18px; margin-bottom: 10px; transition: border-color .2s ease; }
-    .faq details[open] { border-color: var(--line-hi); }
-    .faq summary {
-      font-family: var(--display); font-weight: 600; font-size: 16.5px; padding: 15px 0; cursor: pointer;
-      list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 14px;
-    }
+    /* ═══ FAQ ════════════════════════════════════════════════════════════ */
+    .faq { background: var(--cream); padding: clamp(46px, 6vw, 76px) 0; }
+    .faq h2 { margin-bottom: 22px; }
+    .faq details { background: #fff; border-radius: 18px; margin-bottom: 10px; overflow: hidden; box-shadow: 0 4px 14px rgba(80, 30, 50, .08); }
+    .faq summary { list-style: none; cursor: pointer; padding: 18px 54px 18px 22px; font-family: var(--display); font-size: 18px; position: relative; }
     .faq summary::-webkit-details-marker { display: none; }
-    .faq summary::after { content: '+'; color: var(--muted); font-size: 24px; font-weight: 700; line-height: 1; transition: transform .2s var(--snap), color .2s; }
-    .faq details[open] summary::after { transform: rotate(45deg); color: var(--act); }
-    .faq .a { font-size: 15px; color: var(--muted); margin: 0; padding: 0 0 17px; max-width: 68ch; }
-
-    /* ═══ ACT III art: a live duel board ════════════════════════════════
-       The mechanic drawn rather than described: a question, two answers, and
-       the mark that only lands if you got it right. ── */
-    .duel { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 20px; box-shadow: 0 30px 60px rgba(0, 0, 0, .5); }
-    .duel .scene { font-family: var(--slate); font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
-    .duel .q { font-family: var(--display); font-weight: 600; font-size: 17px; margin: 0 0 13px; }
-    .duel .opts { display: grid; gap: 8px; margin-bottom: 18px; }
-    .duel .opt {
-      text-align: left; font: inherit; font-size: 14.5px; color: #cfd6e8; cursor: default;
-      background: rgba(255, 255, 255, .035); border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 14px;
-      box-shadow: 0 3px 0 rgba(0, 0, 0, .4);
+    .faq summary::after {
+      content: ''; position: absolute; right: 24px; top: 50%; width: 12px; height: 12px; margin-top: -8px;
+      border-right: 3px solid var(--hot); border-bottom: 3px solid var(--hot); border-radius: 2px;
+      transform: rotate(45deg); transition: transform .3s var(--pop);
     }
-    .duel .opt.right { border-color: var(--act); color: #fff; box-shadow: 0 3px 0 var(--act); background: rgba(255, 255, 255, .06); }
-    .duel .opt.right::after { content: '✓'; float: right; color: var(--act); font-weight: 800; }
-    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
-    .grid3 span {
-      aspect-ratio: 1; border-radius: 12px; background: rgba(255, 255, 255, .035); border: 1px solid var(--line);
-      display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: clamp(26px, 7vw, 48px); color: var(--muted);
-    }
-    .grid3 span.x { color: var(--act); border-color: var(--act); background: rgba(255, 255, 255, .06); }
-    .grid3 span.o { color: #7d8aa4; }
-    .js .grid3.in span.x, .js .grid3.in span.o { animation: mark-in .42s var(--snap) both; animation-delay: calc(var(--mi) * .13s); }
-    @keyframes mark-in { from { opacity: 0; transform: scale(.4) rotate(-14deg); } }
+    .faq details[open] summary::after { transform: rotate(-135deg); margin-top: -3px; }
+    .faq .a { margin: 0; padding: 0 22px 20px; color: var(--body-ink); font-size: 15.5px; }
 
-    /* the language rail: hovering a chip repaints the act, which is the app's
-       actual behaviour when you switch target language */
-    .rail { display: flex; flex-wrap: wrap; gap: 9px; margin: 26px 0 0; padding: 0; list-style: none; }
-    .rail li {
-      display: inline-flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 700; color: #cfd6e8;
-      border: 1px solid var(--line); border-radius: 999px; padding: 7px 15px 7px 11px; cursor: default;
-      transition: transform .2s var(--snap), border-color .2s ease, background .2s ease;
-    }
-    .rail li i { width: 11px; height: 11px; border-radius: 50%; background: var(--lc); flex: none; box-shadow: 0 0 12px -1px var(--lc); }
-    .rail li:hover { transform: translateY(-3px); border-color: var(--lc); background: rgba(255, 255, 255, .05); }
-    .rail li span { font-family: var(--slate); font-size: 10.5px; letter-spacing: 1.6px; color: var(--muted); font-weight: 500; }
+    /* ═══ THE CUT — into the other two ═══════════════════════════════════ */
+    .cut { background: var(--plum); color: #fff; padding: clamp(46px, 6vw, 76px) 0 0; text-align: center; overflow: hidden; }
+    .cut h2 { margin: 0 auto 14px; }
+    .cut p { color: rgba(255, 255, 255, .74); max-width: 56ch; margin: 0 auto; font-size: 16px; }
+    .cut .kick { justify-content: center; }
+    .peek { display: flex; justify-content: center; gap: clamp(24px, 6vw, 70px); margin-top: 36px; }
+    .peek .col { display: flex; flex-direction: column; align-items: center; text-decoration: none; }
+    .peek img { width: clamp(74px, 10vw, 100px); border-radius: 22px; box-shadow: 0 20px 34px rgba(0, 0, 0, .45); position: relative; z-index: 2; }
+    .peek .ped { --pw: clamp(112px, 15vw, 156px); --wall: #3d1a40; --deep: #200a22; margin-top: -12px; }
+    /* the chilli is a tall cutout, not a rounded app tile: no card shadow */
+    .peek img.pep { width: auto; height: clamp(88px, 12vw, 118px); border-radius: 0; box-shadow: none; filter: drop-shadow(0 16px 18px rgba(0, 0, 0, .5)); }
+    .peek .nm { font-family: var(--display); font-size: 15px; margin-top: 20px; color: rgba(255, 255, 255, .82); }
 
-    /* ═══ The workshop: one quiet band, no card ═════════════════════════ */
-    .shop { background: #000; border-top: 1px solid var(--line); padding: 66px 20px 62px; }
-    .shop-in { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 46px; align-items: start; }
-    .shop h2 { font-size: clamp(23px, 5vw, 34px); margin: 0 0 12px; line-height: 1.12; }
-    .shop p { color: var(--muted); font-size: 16px; margin: 0 0 14px; }
-    .shop p:last-child { margin-bottom: 0; }
-    .shop .lit { color: var(--ink); font-weight: 700; }
+    /* ═══ ACT STAGES (II & III) ══════════════════════════════════════════ */
+    .act { --fh: 38%; padding: clamp(48px, 6.5vw, 82px) 0 clamp(48px, 6.5vw, 86px); }
+    .act-in { max-width: var(--wide); margin: 0 auto; padding: 0 var(--gut); display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr); gap: clamp(28px, 5vw, 60px); align-items: center; }
+    .act.flip .act-in > .copy { order: 2; }
+    .act h2 { margin-bottom: 18px; }
+    .act h2 em { font-style: normal; color: var(--accent); }
+    .act .lede { margin: 0 0 24px; }
 
-    /* ═══ Legal & support: one row list ═════════════════════════════════ */
-    .support { max-width: 900px; margin: 0 auto 48px; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--panel); }
-    .row {
-      display: flex; align-items: center; gap: 14px; padding: 15px 18px; text-decoration: none; color: var(--ink);
-      border-bottom: 1px solid var(--line); transition: background .15s ease;
+    /* the steps stand on a rail — no ghost 01 · 02 · 03 chips */
+    .route { list-style: none; margin: 0 0 24px; padding: 0 0 0 30px; position: relative; }
+    .route::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 3px; border-radius: 3px; background: rgba(255, 255, 255, .26); }
+    .route li {
+      position: relative; padding: 0 0 17px; font-size: 15.5px; color: var(--ink-soft);
+      opacity: 0; transform: translateX(-18px);
+      transition: opacity .5s, transform .5s var(--settle); transition-delay: calc(var(--si) * .12s);
     }
-    .row:last-child { border-bottom: 0; }
-    .row:hover { background: var(--panel-hi); }
-    .row .t { font-family: var(--display); font-weight: 600; font-size: 15.5px; }
-    .row .s { font-size: 13.5px; color: var(--muted); }
-    .row .arrow { margin-left: auto; color: var(--muted); font-weight: 800; transition: transform .2s var(--snap), color .2s; }
-    .row:hover .arrow { transform: translateX(5px); color: var(--act); }
+    .route.in li { opacity: 1; transform: none; }
+    .route li:last-child { padding-bottom: 0; }
+    .route li::before { content: ''; position: absolute; left: -30px; top: 5px; width: 17px; height: 17px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--wall); }
+    .route li b { display: block; font-family: var(--display); font-weight: 600; font-size: 18.5px; color: #fff; margin-bottom: 2px; }
 
-    /* ═══ Credits roll ═════════════════════════════════════════════════ */
-    footer {
-      text-align: center; color: var(--muted); font-family: var(--slate); font-size: 11.5px; letter-spacing: 1.8px;
-      text-transform: uppercase; padding: 30px 18px 54px; border-top: 1px solid var(--line); line-height: 2.2;
-    }
-    footer a { color: #b6c0d6; }
-    footer a:hover { color: var(--act); }
+    .act-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin-top: 22px; font-size: 14.5px; color: var(--ink-soft); }
+    .tick { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; }
+    .tick i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .go { color: #fff; font-weight: 800; text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+    .go:hover { border-color: #fff; }
 
-    /* ═══ Responsive ═══════════════════════════════════════════════════ */
-    @media (max-width: 900px) {
-      .act-grid { grid-template-columns: 1fr; gap: 30px; }
-      .act-grid.flip > .art { order: 0; }
-      /* one column means the art is centred, and an absolutely-placed poster
-         then lands on top of the phone instead of beside it: stand them in a
-         row and let the poster sit in the flow */
-      .art { display: flex; align-items: flex-end; justify-content: center; gap: 16px; flex-wrap: wrap; }
-      .art .phone { max-width: 58%; transform: rotate(-1.5deg); }
-      .art .poster { position: static; width: 34%; max-width: 158px; }
-      .art .cap { flex-basis: 100%; text-align: center; }
-      .shop-in { grid-template-columns: 1fr; gap: 20px; }
+    .art { position: relative; display: flex; justify-content: center; }
+    .art .phone { width: clamp(190px, 22vw, 268px); border-radius: 24px; transform: rotate(-3deg); position: relative; z-index: 2; box-shadow: 0 34px 52px rgba(0, 0, 0, .40), 0 0 0 7px rgba(255, 255, 255, .95), 0 0 0 10px rgba(0, 0, 0, .18); }
+    .art .poster { position: absolute; right: -2%; bottom: -4%; width: clamp(112px, 14vw, 166px); border-radius: 18px; transform: rotate(7deg); z-index: 3; box-shadow: 0 26px 40px rgba(0, 0, 0, .42), 0 0 0 5px rgba(255, 255, 255, .92); transition: transform .4s var(--pop); }
+    .art .poster:hover { transform: rotate(3deg) translateY(-10px) scale(1.04); }
+    /* the Act II toy van, rolling out of the jam */
+    .van { position: absolute; left: -13%; bottom: 14%; width: clamp(130px, 15vw, 190px); z-index: 4; }
+    .van svg { width: 100%; height: auto; filter: drop-shadow(0 16px 20px rgba(0, 0, 0, .35)); }
+    .van.in svg { animation: rollout 5.5s var(--settle) infinite; }
+    @keyframes rollout { 0%, 8% { transform: translateX(-30px) } 42%, 62% { transform: translateX(14px) } 96%, 100% { transform: translateX(-30px) } }
+    .van .whl { animation: spin 1.4s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg) } }
+
+    /* the Act III duel card */
+    .duel { background: #fff; color: #17303c; border-radius: 26px; padding: 22px; width: min(100%, 340px); box-shadow: 0 30px 50px rgba(0, 0, 0, .32); transform: rotate(-2deg); }
+    .duel .scene { font-size: 11.5px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: #7d93a0; margin: 0 0 9px; }
+    .duel .q { font-family: var(--display); font-size: 21px; margin: 0 0 13px; }
+    .duel .opt { border: 2.5px solid #dde6ec; border-radius: 14px; padding: 10px 14px; font-weight: 700; font-size: 14.5px; margin-bottom: 8px; }
+    .duel .opt.right { border-color: #2ec27e; background: #eafaf2; color: #14603f; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 14px; }
+    .grid3 span { aspect-ratio: 1; border-radius: 13px; background: #eef4f8; display: grid; place-items: center; font-family: var(--display); font-size: 25px; }
+    .grid3 .x { color: #12a5c8; } .grid3 .o { color: #ff5470; }
+    .grid3 .x, .grid3 .o { opacity: 0; transform: scale(.4); transition: opacity .3s, transform .45s var(--pop); transition-delay: calc(var(--mi) * .13s); }
+    .grid3.in .x, .grid3.in .o { opacity: 1; transform: none; }
+
+    .rail { list-style: none; display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 22px; padding: 0; }
+    .rail li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 15px; border-radius: 999px; background: rgba(0, 0, 0, .22); border: 1.5px solid rgba(255, 255, 255, .24); font-weight: 800; font-size: 14.5px; cursor: default; transition: transform .2s var(--pop), background .2s; }
+    .rail li:hover { transform: translateY(-4px); background: rgba(0, 0, 0, .34); }
+    .rail li i { width: 10px; height: 10px; border-radius: 50%; background: var(--lc); }
+    .rail li span { font-size: 11px; letter-spacing: .1em; opacity: .6; }
+
+    /* ── Act IV art: the lockup standing on a pedestal, with the two sides
+       of the marketplace named in their own colours ─────────────────────── */
+    .bawa-stand { display: flex; flex-direction: column; align-items: center; }
+    .bawa-mark { width: clamp(210px, 26vw, 320px); filter: drop-shadow(0 22px 22px rgba(0, 0, 0, .5)); }
+    .bawa-stand .ped { --pw: clamp(190px, 23vw, 280px); margin-top: -6px; }
+    .sides { display: flex; gap: 12px; margin-top: 30px; }
+    .side {
+      padding: 9px 22px; border-radius: 999px; font-weight: 900; font-size: 14px;
+      letter-spacing: .1em; text-transform: uppercase; color: #fff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .35);
     }
-    @media (max-width: 760px) {
-      .collect { grid-template-columns: 1fr; }
-      .act-title { -webkit-text-stroke-width: 1.3px; }
-      /* the hairline dividers have to be rebuilt whenever the band rewraps, or
-         rules end up drawn between items that are no longer side by side */
-      .skills { grid-template-columns: 1fr 1fr; }
-      .skill:nth-child(odd) { border-left: 0; padding-left: 0; }
-      .skill:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .side.hire { background: #2563eb; }
+    .side.work { background: #cd002b; }
+
+    /* ═══ CLOSE: studio + legal, one dark band ═══════════════════════════ */
+    .close { background: var(--ink-dark); color: #fff; padding: clamp(48px, 6vw, 76px) 0; }
+    .close-in { max-width: var(--wide); margin: 0 auto; padding: 0 var(--gut); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 60px); align-items: start; }
+    .close h2 { margin-bottom: 14px; }
+    .close p { color: rgba(255, 255, 255, .70); margin: 0 0 14px; font-size: 16px; }
+    .close .lit { background: rgba(255, 182, 39, .18); color: #ffd06b; padding: 2px 8px; border-radius: 7px; font-weight: 800; }
+    .rows { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+    .row { display: flex; align-items: center; gap: 12px; text-decoration: none; padding: 13px 16px; border-radius: 16px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .10); transition: transform .2s var(--pop), background .2s; }
+    .row:hover { transform: translateX(6px); background: rgba(255, 255, 255, .12); }
+    .row .t { font-family: var(--display); font-size: 16px; }
+    .row .s { font-size: 12.5px; color: rgba(255, 255, 255, .55); }
+    .row .arrow { margin-left: auto; color: var(--accent); font-size: 19px; }
+
+    footer { background: #150c11; color: rgba(255, 255, 255, .6); text-align: center; padding: 32px 20px 44px; font-size: 14.5px; }
+    footer .fm { font-family: var(--display); font-size: 18px; color: #fff; margin-bottom: 8px; }
+    footer a { color: var(--accent); }
+
+    /* ═══ REVEALS ════════════════════════════════════════════════════════ */
+    .rv { opacity: 0; transform: translateY(28px); transition: opacity .6s, transform .7s var(--settle); transition-delay: var(--d, 0s); }
+    .rv-l { transform: translateX(-38px); }
+    .rv-r { transform: translateX(38px); }
+    .rv-pop { transform: scale(.9); }
+    .rv.in { opacity: 1; transform: none; }
+    html:not(.js) .rv { opacity: 1; transform: none; }
+
+    /* ═══ RESPONSIVE ═════════════════════════════════════════════════════ */
+    @media (max-width: 1000px) {
+      .links, .nav-cta { display: none; }
+      .burger { display: flex; }
+      .hero-in, .mech-in, .act-in, .close-in { grid-template-columns: 1fr; }
+      .act.flip .act-in > .copy { order: 0; }
+      .podium { min-height: 360px; }
+      .prop.p1 { left: 0; bottom: 10%; }
+      .prop.p2 { right: 0; top: 0; }
+      .snap { margin: 0; }
     }
     @media (max-width: 640px) {
-      .mosaic { grid-template-columns: 1fr; grid-template-areas: "worlds" "snap" "clock" "bolt" "offline" "easy"; }
-      .shots img { width: 200px; }
-      .shots { margin-top: -70px; }
-      .hero { padding: 66px 20px 112px; }
-      /* the bar chart stops being legible below six columns: become a list, keep the bricks */
-      .eras { grid-template-columns: 1fr; gap: 0; }
-      .eras::after { display: none; } /* no shared baseline once the columns unstack */
-      .era { grid-template-columns: 46px 1fr; grid-template-rows: auto; gap: 14px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
-      .era .stack { align-self: center; flex-direction: column; }
-      .era .n { margin-top: 0; }
-      .era-foot { flex-direction: column; gap: 5px; }
-      .slate { gap: 6px 18px; padding-left: 42px; }
-      .slate .st { margin-left: 0; }
-      .peek img { width: 70px; height: 70px; }
-    }
-    @media (max-width: 420px) {
-      .skills { grid-template-columns: 1fr; }
-      .skill { border-left: 0; padding-left: 0; }
-      .skill + .skill { border-top: 1px solid var(--line); }
+      body { font-size: 16.5px; }
+      .shots { margin-top: -60px; }
+      .shots figure { width: 42%; }
+      /* less fan on a phone, or the two captions crowd each other */
+      .shots figure:nth-child(1) { --rot: -4deg; --dy: 12px; }
+      /* two skins is enough to make the point on a phone */
+      .shots figure:nth-child(3) { display: none; }
+      .figs { gap: 22px 34px; }
+      .prop, .van { display: none; }
+      .art .poster { right: 0; bottom: -8%; }
     }
 
-    /* ═══ Reduced motion: everything lands instantly, nothing loops ═════ */
+    /* ═══ REDUCED MOTION ═════════════════════════════════════════════════ */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-      .js .rv, .js .rv-l, .js .rv-r, .js .rv-pop, .js .rv-cut { opacity: 1; transform: none; clip-path: none; }
-      .js .clockbar i { width: 100%; }
-      .js .odds .odd .track i { width: var(--w); }
-      .grain { opacity: .04; }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+      .rv, .route li, .rise .ln > i, .grid3 .x, .grid3 .o { opacity: 1 !important; transform: none !important; }
     }
   </style>
 
   <!-- Structured data: helps search engines and AI answer engines understand
        what Matri Rush is, who it suits, that it is free and family-friendly,
-       and which other titles come from the same publisher. -->
+       and which other titles come from the same publisher. The FAQ block below
+       mirrors the three questions actually visible on the page. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -635,29 +537,30 @@
         "name": "Matri Rush",
         "alternateName": "Matri Rush: Brick Puzzle",
         "url": "https://matrirush.com/",
+        "sameAs": "https://apps.apple.com/app/id6787752939",
+        "downloadUrl": "https://apps.apple.com/app/id6787752939",
+        "installUrl": "https://apps.apple.com/app/id6787752939",
         "image": "https://matrirush.com/assets/og.png",
         "description": "Matri Rush is a fast, family-friendly brick puzzle that builds focus, spatial reasoning and quick thinking. Snap colourful bricks to fill every gap before the timer runs out, across 112 themed villages and 6,000 levels.",
         "applicationCategory": "GameApplication",
         "genre": ["Puzzle", "Brain training", "Logic", "Educational"],
-        "gamePlatform": ["iOS", "Android"],
-        "operatingSystem": "iOS, Android",
+        "gamePlatform": ["iOS"],
+        "operatingSystem": "iOS",
         "inLanguage": ["en", "es", "fr", "de", "pt", "ru", "tr", "ar"],
         "contentRating": "Everyone",
         "isFamilyFriendly": true,
-        "audience": {
-          "@type": "PeopleAudience",
-          "suggestedMinAge": 6
-        },
+        "audience": { "@type": "PeopleAudience", "suggestedMinAge": 6 },
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "url": "https://apps.apple.com/app/id6787752939"
         },
         "screenshot": [
-          "https://matrirush.com/assets/shot1.png",
-          "https://matrirush.com/assets/shot2.png",
-          "https://matrirush.com/assets/shot3.png"
+          "https://matrirush.com/assets/lvl-water.png",
+          "https://matrirush.com/assets/lvl-glass.png",
+          "https://matrirush.com/assets/lvl-metal.png"
         ],
         "publisher": { "@id": "https://matrirush.com/#org" },
         "author": { "@id": "https://matrirush.com/#org" }
@@ -675,12 +578,7 @@
         "operatingSystem": "iOS, Android",
         "contentRating": "Everyone",
         "isFamilyFriendly": true,
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/PreOrder"
-        },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder" },
         "publisher": { "@id": "https://matrirush.com/#org" }
       },
       {
@@ -699,24 +597,32 @@
         "inLanguage": ["en", "fr", "tr", "ja", "yo", "es"],
         "contentRating": "Everyone",
         "isFamilyFriendly": true,
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/PreOrder"
-        },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder" },
+        "publisher": { "@id": "https://matrirush.com/#org" }
+      },
+      {
+        "@type": "MobileApplication",
+        "@id": "https://matrirush.com/#bawa",
+        "name": "BAWA",
+        "url": "https://matrirush.com/#act-bawa",
+        "image": "https://matrirush.com/assets/bawa-logo.png",
+        "description": "BAWA is a two-sided marketplace that connects people who need a job doing with skilled workers near them. One install covers both sides: a hiring side and a working side, with in-app payments and payouts.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "iOS, Android",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "NGN", "availability": "https://schema.org/PreOrder" },
         "publisher": { "@id": "https://matrirush.com/#org" }
       },
       {
         "@type": "ItemList",
         "@id": "https://matrirush.com/#titles",
-        "name": "Titles from the Matri Rush workshop",
+        "name": "Apps from the Matri Rush workshop",
         "itemListOrder": "https://schema.org/ItemListOrderAscending",
-        "numberOfItems": 3,
+        "numberOfItems": 4,
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "item": { "@id": "https://matrirush.com/#game" } },
           { "@type": "ListItem", "position": 2, "item": { "@id": "https://matrirush.com/#rushdelivery" } },
-          { "@type": "ListItem", "position": 3, "item": { "@id": "https://matrirush.com/#tictactalk" } }
+          { "@type": "ListItem", "position": 3, "item": { "@id": "https://matrirush.com/#tictactalk" } },
+          { "@type": "ListItem", "position": 4, "item": { "@id": "https://matrirush.com/#bawa" } }
         ]
       },
       {
@@ -726,12 +632,7 @@
         "url": "https://matrirush.com/",
         "email": "support@matrirush.com",
         "logo": "https://matrirush.com/assets/icon.png",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Ikeja",
-          "addressRegion": "Lagos",
-          "addressCountry": "NG"
-        }
+        "address": { "@type": "PostalAddress", "addressLocality": "Ikeja", "addressRegion": "Lagos", "addressCountry": "NG" }
       },
       {
         "@type": "WebSite",
@@ -747,18 +648,18 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Is Matri Rush good for kids?",
+            "name": "Where can I download Matri Rush?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Matri Rush is family-friendly, with no violence and calm, colourblind-friendly visuals, so players of any age can enjoy it. It is a gentle way for younger players to practise focus and spatial reasoning. It does include optional in-app purchases, so we suggest turning on your device's purchase controls for younger players."
+              "text": "It is out now on the App Store for iPhone and iPad, free to download. The Android build is finished but not listed on Google Play yet, so there is no Play link to give you today."
             }
           },
           {
             "@type": "Question",
-            "name": "What skills does Matri Rush help build?",
+            "name": "Is Matri Rush good for kids?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Every level is a timed tiling puzzle that exercises spatial reasoning, planning, pattern recognition and quick decision-making. The difficulty rises gradually across 6,000 levels, so the challenge keeps pace with the player."
+              "text": "Yes. No violence, calm colourblind-friendly visuals, and one-finger controls, so any age can play. It does include optional in-app purchases, so turn on your device's purchase controls for younger players."
             }
           },
           {
@@ -766,23 +667,7 @@
             "name": "Is Matri Rush free?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Matri Rush is free to download and play on the App Store and Google Play. It offers optional in-app purchases and optional rewarded ads you can choose to watch."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What kind of game is Matri Rush?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "It is a fast, timed brick-tiling puzzle. You snap coloured bricks onto a board to fill every gap before the timer runs out, across 112 themed villages and 6,000 levels."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What else are you making?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Two more titles are in development. Rush Delivery 3D is a colour-match traffic-jam puzzle where you free jammed delivery vehicles in the right order to serve a queue of customers. TicTacTalk teaches a language through tic-tac-toe: answer a question about a short scene correctly and your mark goes on the board. Both come from the same independent developer as Matri Rush, in Ikeja, Lagos."
+              "text": "Yes, free to download and play. There are optional in-app purchases and optional rewarded ads you can choose to watch. Nothing is behind a paywall."
             }
           }
         ]
@@ -791,40 +676,13 @@
   }
   </script>
 </head>
-<body>
+<body data-act="rush">
 
-  <div class="grain" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <!-- Shared rigging for the enamel-pin icons (same recipe as the in-game set:
-       gold rim, glossy enamel face, white inlaid glyph) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- Store glyphs, defined once and used by every badge on the page. -->
+  <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
     <defs>
-      <linearGradient id="pinRim" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#ffe9a8" /><stop offset="1" stop-color="#d9a72b" />
-      </linearGradient>
-      <!-- award tiers use their own metals, so a gold pin reads as gold -->
-      <linearGradient id="rimBronze" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#e7b98d" /><stop offset="1" stop-color="#a86a34" />
-      </linearGradient>
-      <linearGradient id="rimSilver" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#eef2f8" /><stop offset="1" stop-color="#98a2b6" />
-      </linearGradient>
-      <radialGradient id="pinGloss" cx="0.36" cy="0.26" r="0.72">
-        <stop offset="0" stop-color="#fff" stop-opacity="0.55" /><stop offset="0.55" stop-color="#fff" stop-opacity="0" />
-      </radialGradient>
-      <filter id="pinEmb" x="-30%" y="-30%" width="160%" height="160%">
-        <feDropShadow dx="0" dy="0.7" stdDeviation="0.3" flood-color="#141a2e" flood-opacity="0.45" />
-      </filter>
-      <linearGradient id="faceRed" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7a7e"/><stop offset="1" stop-color="#e8434a"/></linearGradient>
-      <linearGradient id="faceBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5cb3ff"/><stop offset="1" stop-color="#2b8ae6"/></linearGradient>
-      <linearGradient id="faceGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#63d68b"/><stop offset="1" stop-color="#2aa457"/></linearGradient>
-      <linearGradient id="faceGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd76a"/><stop offset="1" stop-color="#f0a91f"/></linearGradient>
-      <linearGradient id="facePurple" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b57bff"/><stop offset="1" stop-color="#8a3ff0"/></linearGradient>
-      <linearGradient id="faceOrange" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffab5c"/><stop offset="1" stop-color="#f07d20"/></linearGradient>
-      <linearGradient id="faceSlate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9bb0"/><stop offset="1" stop-color="#5b6880"/></linearGradient>
-
-      <!-- store glyphs, defined once: every act carries the same badge pair and
-           these two paths are far too long to repeat three times -->
       <symbol id="glyphApple" viewBox="0 0 384 512">
         <path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
       </symbol>
@@ -838,665 +696,609 @@
   </svg>
 
   <!-- ══════════════════════════════════════════════════════════════════
-       ACT I — MATRI RUSH
+       NAV — repaints itself in whichever act you are currently inside
        ══════════════════════════════════════════════════════════════════ -->
-  <header class="hero" data-act="rush">
-    <span class="beam" aria-hidden="true"></span>
-    <span class="drift d1"></span><span class="drift d2"></span><span class="drift d3"></span>
-    <img class="appicon" src="assets/icon.png" alt="Matri Rush app icon" width="96" height="96" />
-    <h1 class="wordmark" aria-label="Matri Rush">
-      <span class="wa" aria-hidden="true">
-        <span class="L" style="--i:0;--r:-3deg">M</span><span class="L" style="--i:1;--r:2deg">A</span><span class="L" style="--i:2;--r:-2deg">T</span><span class="L" style="--i:3;--r:3deg">R</span><span class="L" style="--i:4;--r:-2deg">I</span>
-      </span>
-      <span class="wb" aria-hidden="true">
-        <span class="L" style="--i:5;--r:2deg">R</span><span class="L" style="--i:6;--r:-3deg">U</span><span class="L" style="--i:7;--r:2deg">S</span><span class="L" style="--i:8;--r:-2deg">H</span>
-      </span>
-    </h1>
-    <p class="tagline">Snap the bricks. Beat the clock.</p>
-    <p class="sub">A fast, satisfying brick puzzle. Tile every gap before the timer hits zero. 112 villages, 6,000 levels.</p>
-    <div class="clockbar" role="presentation"><i></i></div>
-    <!-- TODO: replace # with the Matri Rush store link once the app is live -->
-    <a class="play-now" href="#">
-      <span><span class="sm">Free · iOS and Android</span>Play Matri Rush</span>
-      <span class="arw" aria-hidden="true">&#8594;</span>
-    </a>
-    <div class="stores">
-      <!-- TODO: replace # with the App Store listing URL once the app is live -->
-      <a class="badge apple" href="#">
-        <svg width="22" height="26" aria-hidden="true"><use href="#glyphApple" /></svg>
-        <span><span class="s1">Download on the</span><span class="s2">App Store</span></span>
+  <nav class="nav" id="nav">
+    <div class="nav-in">
+      <a class="brand" href="#top">
+        <img src="assets/icon.png" alt="" width="30" height="30" />
+        <b>Matri<i>Rush</i></b>
       </a>
-      <!-- TODO: replace # with the Google Play listing URL once the app is live -->
-      <a class="badge play" href="#">
-        <svg width="22" height="24" aria-hidden="true"><use href="#glyphPlay" /></svg>
-        <span><span class="s1">Get it on</span><span class="s2">Google Play</span></span>
+      <div class="links" id="links">
+        <a href="#top" data-sec="top">Home</a>
+        <a href="#play" data-sec="play">The game</a>
+        <a href="#act-delivery" data-sec="act-delivery">Rush Delivery</a>
+        <a href="#act-talk" data-sec="act-talk">TicTacTalk</a>
+        <a href="#act-bawa" data-sec="act-bawa">BAWA</a>
+        <a href="#studio" data-sec="studio">Studio</a>
+      </div>
+      <a class="nav-cta" href="https://apps.apple.com/app/id6787752939" target="_blank" rel="noopener">
+        <svg width="15" height="18" aria-hidden="true"><use href="#glyphApple" /></svg>
+        Get Matri Rush
       </a>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Menu"><span></span></button>
+    </div>
+    <div class="sheet" id="sheet">
+      <a href="#play">The game</a>
+      <a href="#act-delivery">Rush Delivery 3D</a>
+      <a href="#act-talk">TicTacTalk</a>
+      <a href="#act-bawa">BAWA</a>
+      <a href="#studio">Studio &amp; support</a>
+      <a href="https://apps.apple.com/app/id6787752939" target="_blank" rel="noopener">Get Matri Rush on the App Store →</a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       ACT I — MATRI RUSH · the crimson stage
+       ══════════════════════════════════════════════════════════════════ -->
+  <header class="stage hero" id="top" data-act="rush">
+    <span class="floor" aria-hidden="true"></span>
+    <span class="glow" aria-hidden="true"></span>
+    <span class="drift a" aria-hidden="true"></span>
+    <span class="drift b" aria-hidden="true"></span>
+    <span class="drift c" aria-hidden="true"></span>
+
+    <div class="hero-in">
+      <div>
+        <p class="wordmark">Matri Rush</p>
+        <h1 class="huge rise in">
+          <span class="ln" style="--li:0"><i>Snap the bricks.</i></span>
+          <span class="ln" style="--li:1"><i>Beat the clock.</i></span>
+        </h1>
+        <p class="lede">
+          Tile every gap before the timer hits zero. 112 villages, 6,000 levels,
+          and a fresh board every time you sit down.
+        </p>
+
+        <div class="stores">
+          <a class="badge" href="https://apps.apple.com/app/id6787752939" target="_blank" rel="noopener">
+            <svg width="20" height="24" aria-hidden="true"><use href="#glyphApple" /></svg>
+            <span><span class="s1">Out now on the</span><span class="s2">App Store</span></span>
+          </a>
+          <span class="badge soon">
+            <svg width="20" height="22" aria-hidden="true"><use href="#glyphPlay" /></svg>
+            <span><span class="s1">Coming soon to</span><span class="s2">Google Play</span></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="podium">
+        <span class="halo" aria-hidden="true"></span>
+
+        <span class="prop p1 par bob s2" data-depth="26" aria-hidden="true">
+          <span class="stack">
+            <span class="brik" style="--s:42px;--b1:#ff8f93;--b2:#e0393f"></span>
+            <span class="brik" style="--s:42px;--b1:#ffd977;--b2:#eeb01c"></span>
+          </span>
+          <span class="ped" style="--pw:112px"></span>
+        </span>
+
+        <span class="prop p2 par bob s3" data-depth="-18" aria-hidden="true">
+          <span class="brik" style="--s:50px;--b1:#7fc9ff;--b2:#2b83d8"></span>
+          <span class="ped" style="--pw:84px"></span>
+        </span>
+
+        <img class="hero-shot par bob" data-depth="14" src="assets/shot1.png"
+             alt="Matri Rush gameplay: snapping bricks onto the board in the Clockwork Yard, 41 seconds left on the clock"
+             width="540" height="960" fetchpriority="high" />
+        <span class="ped par" data-depth="6" aria-hidden="true"></span>
+      </div>
     </div>
   </header>
 
-  <section class="shots" aria-label="Matri Rush screenshots">
-    <img class="rv rv-pop" style="--d:.05s" src="assets/shot1.png" alt="Matri Rush gameplay: snapping bricks onto the board in the Clockwork Yard" loading="lazy" />
-    <img class="rv rv-pop" style="--d:.15s" src="assets/shot2.png" alt="Matri Rush: winning a level and earning Gold Bolts" loading="lazy" />
-    <img class="rv rv-pop" style="--d:.25s" src="assets/shot3.png" alt="Matri Rush: a late-game glass board across 112 villages" loading="lazy" />
+  <!-- ── the shots break the seam, then the three numbers ─────────────── -->
+  <section class="proof" aria-label="Matri Rush screenshots">
+    <div class="shots">
+      <figure class="rv rv-pop" style="--d:.05s">
+        <img src="assets/lvl-water.png" width="660" height="1434" loading="lazy"
+             alt="Matri Rush: the Tidepool village, water-skinned bricks with 40 seconds on the clock" />
+        <figcaption>Tidepool · water</figcaption>
+      </figure>
+      <figure class="rv rv-pop" style="--d:.16s">
+        <img src="assets/lvl-glass.png" width="660" height="1434" loading="lazy"
+             alt="Matri Rush: The Atrium, translucent glass bricks stacked on a pastel board" />
+        <figcaption>The Atrium · glass</figcaption>
+      </figure>
+      <figure class="rv rv-pop" style="--d:.27s">
+        <img src="assets/lvl-metal.png" width="660" height="1434" loading="lazy"
+             alt="Matri Rush: Foundry Deck, brushed metal bricks and a magnet obstacle on the board" />
+        <figcaption>Foundry Deck · metal</figcaption>
+      </figure>
+    </div>
+    <p class="cap-line rv" style="--d:.1s">Three of the ten material skins. Real captures, no mockups.</p>
+
+    <div class="figs rv" style="--d:.14s">
+      <div class="f"><span class="n" data-count="6000">6,000</span><span class="l">levels</span><span class="s">one rule at the start, four by the end</span></div>
+      <div class="f"><span class="n" data-count="112">112</span><span class="l">villages</span><span class="s">ten material skins, eleven rules</span></div>
+      <div class="f"><span class="n" data-count="93">93</span><span class="l">awards</span><span class="s">bronze, silver and gold pins to chase</span></div>
+    </div>
   </section>
 
+  <!-- the ten village skins, in the order you meet them -->
   <div class="ticker" aria-hidden="true">
     <div class="lane">
-      <!-- the ten village skins, in the order you meet them; lane content x2 for a seamless loop -->
       <span class="w"><i style="background:#e9eef4"></i>Clockwork Yard</span><span class="w"><i style="background:#8a5a2b"></i>Timberyard</span><span class="w"><i style="background:#cde8f6"></i>Frostworks</span><span class="w"><i style="background:#9aa1ac"></i>Stone Quarry</span><span class="w"><i style="background:#ffc2e0"></i>Sugar Depot</span><span class="w"><i style="background:#ff6b3a"></i>The Forge</span><span class="w"><i style="background:#3fa9c9"></i>Tidepool</span><span class="w"><i style="background:#bfd8e8"></i>The Atrium</span><span class="w"><i style="background:#8a8f98"></i>Foundry Deck</span><span class="w"><i style="background:#d5c4f7"></i>The Geode</span>
       <span class="w"><i style="background:#e9eef4"></i>Clockwork Yard</span><span class="w"><i style="background:#8a5a2b"></i>Timberyard</span><span class="w"><i style="background:#cde8f6"></i>Frostworks</span><span class="w"><i style="background:#9aa1ac"></i>Stone Quarry</span><span class="w"><i style="background:#ffc2e0"></i>Sugar Depot</span><span class="w"><i style="background:#ff6b3a"></i>The Forge</span><span class="w"><i style="background:#3fa9c9"></i>Tidepool</span><span class="w"><i style="background:#bfd8e8"></i>The Atrium</span><span class="w"><i style="background:#8a8f98"></i>Foundry Deck</span><span class="w"><i style="background:#d5c4f7"></i>The Geode</span>
     </div>
   </div>
 
-  <div class="act-body" data-act="rush">
-    <div class="slate rv rv-cut">
-      <span class="no">Act I</span>
-      <span class="ttl">Matri Rush</span>
-      <span class="st">Timed brick puzzle · <b>Free</b></span>
+  <!-- ── the mechanic, running live ───────────────────────────────────── -->
+  <section class="mech" id="play" data-act="rush">
+    <div class="mech-in">
+      <div class="snap rv rv-l" id="snapBoard" aria-hidden="true">
+        <span class="brik" style="--b1:#ff8f93;--b2:#e0393f"></span>
+        <span class="brik" style="--b1:#7fc9ff;--b2:#2b83d8"></span>
+        <span class="brik" style="--b1:#ffd977;--b2:#eeb01c"></span>
+        <span class="brik" style="--b1:#7fdca0;--b2:#2ea55f"></span>
+        <span class="brik" style="--b1:#c9a2ff;--b2:#8542e0"></span>
+        <span class="hole"></span>
+        <span class="ring"></span>
+        <span class="brik flyer" style="--b1:#ffb98f;--b2:#ee7a2c"></span>
+      </div>
+
+      <div>
+        <p class="kick hot">The whole game, in one move</p>
+        <h2 class="big rv" style="--d:.06s">One gap left. Pick the brick that fits.</h2>
+        <p class="rv" style="--d:.12s">
+          Nothing is hidden and nothing is random. Every board has exactly one solution
+          and a solver proves it before the level ships, so a level you lose is a level
+          you misread, not one you were unlucky in.
+        </p>
+        <div class="tags rv" style="--d:.18s">
+          <span><i style="background:#43b96c"></i>Family-friendly</span>
+          <span><i style="background:#3f9fe8"></i>Plays offline</span>
+          <span><i style="background:#9b5cf0"></i>Colourblind-friendly</span>
+          <span><i style="background:#f5893a"></i>One finger</span>
+          <span><i style="background:#ef4b52"></i>8 languages, Arabic right-to-left</span>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <main>
-      <div class="mosaic">
-        <div class="feat f-worlds rv rv-l">
-          <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Villages" style="overflow:visible">
-            <rect x="4" y="6" width="40" height="40" rx="13" fill="#000" opacity="0.4"/>
-            <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceGreen)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-            <g filter="url(#pinEmb)">
-              <circle cx="15" cy="33.5" r="3" fill="#fff"/><circle cx="24" cy="26.5" r="3" fill="#fff"/><circle cx="33" cy="19.5" r="3" fill="#fff"/>
-              <rect x="32.1" y="9.5" width="1.9" height="8.5" rx="0.9" fill="#fff"/>
-              <path d="M34.3 10 L41 12.6 L34.3 15.2 Z" fill="#fff"/>
-            </g>
-          </svg>
-          <div class="t">112 villages · 6,000 levels</div>
-          <div class="d">Ten material skins, eleven rules that twist them, and villages that fuse up to four rules at once.</div>
-          <div class="chips">
-            <span class="chip"><i style="background:#e9eef4"></i>Clockwork Yard</span>
-            <span class="chip"><i style="background:#8a5a2b"></i>Timberyard</span>
-            <span class="chip"><i style="background:#cde8f6"></i>Frostworks</span>
-            <span class="chip"><i style="background:#9aa1ac"></i>Stone Quarry</span>
-            <span class="chip"><i style="background:#ffc2e0"></i>Sugar Depot</span>
-            <span class="chip"><i style="background:#ff6b3a"></i>The Forge</span>
-            <span class="chip"><i style="background:#3fa9c9"></i>Tidepool</span>
-            <span class="chip"><i style="background:#bfd8e8"></i>The Atrium</span>
-            <span class="chip"><i style="background:#8a8f98"></i>Foundry Deck</span>
-            <span class="chip"><i style="background:#d5c4f7"></i>The Geode</span>
-          </div>
-        </div>
-
-        <div class="feat f-snap rv rv-r" style="--d:.1s">
-          <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Snap bricks" style="overflow:visible">
-            <rect x="4" y="6" width="40" height="40" rx="13" fill="#000" opacity="0.4"/>
-            <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceRed)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-            <g filter="url(#pinEmb)">
-              <rect x="17" y="18.5" width="14" height="6.5" rx="1.8" fill="#fff"/>
-              <rect x="12.5" y="27" width="9" height="6.5" rx="1.8" fill="#fff"/>
-              <rect x="23" y="27" width="12.5" height="6.5" rx="1.8" fill="#fff"/>
-              <path d="M33 12 Q33.4 15.6 37 16 Q33.4 16.4 33 20 Q32.6 16.4 29 16 Q32.6 15.6 33 12 Z" fill="#fff3c4"/>
-            </g>
-          </svg>
-          <div class="t">Snap, fit, win</div>
-          <div class="d">Every level is a tiny timed puzzle with a satisfying click. One gap left.</div>
-          <div class="board" aria-hidden="true">
-            <span class="next"></span>
-            <b style="background:var(--c-red)"></b><b style="background:var(--c-blue)"></b><b style="background:var(--c-yellow)"></b>
-            <b style="background:var(--c-blue)"></b><b style="background:var(--c-yellow)"></b><b class="gap"></b>
-          </div>
-        </div>
-
-        <div class="feat f-clock rv" style="--d:.15s">
-          <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Timer" style="overflow:visible">
-            <rect x="4" y="6" width="40" height="40" rx="13" fill="#000" opacity="0.4"/>
-            <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceBlue)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-            <g filter="url(#pinEmb)">
-              <circle cx="24" cy="25" r="11" fill="#fff"/>
-              <rect x="22.9" y="16.5" width="2.2" height="9.5" rx="1.1" fill="#1f5da0"/>
-              <rect x="23" y="24" width="8" height="2.2" rx="1.1" fill="#1f5da0"/>
-              <rect x="20" y="10.5" width="8" height="3" rx="1.5" fill="#fff"/>
-            </g>
-          </svg>
-          <div class="t">Beat the clock</div>
-          <div class="d">The countdown is always ticking. Chase that three-star finish.</div>
-        </div>
-
-        <div class="feat f-bolt rv" style="--d:.25s">
-          <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Boosters" style="overflow:visible">
-            <rect x="4" y="6" width="40" height="40" rx="13" fill="#000" opacity="0.4"/>
-            <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceGold)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-            <g filter="url(#pinEmb)">
-              <path d="M26.5 9.5 L14.5 27.5 H22 L20 38.5 L33.5 20.5 H25.5 Z" fill="#fff"/>
-            </g>
-          </svg>
-          <div class="t">Boosters &amp; Gold Bolts</div>
-          <div class="d">Hint, +15s, Auto-place and Calm. All bought with bolts you earn by winning.</div>
-        </div>
-
-        <div class="feat f-offline rv rv-l" style="--d:.1s">
-          <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="Offline play" style="overflow:visible">
-            <rect x="4" y="6" width="40" height="40" rx="13" fill="#000" opacity="0.4"/>
-            <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#facePurple)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-            <g filter="url(#pinEmb)">
-              <path d="M24 9.5 c1.6 0 2.6 3.2 2.6 6.2 v3.8 l9.4 6.2 v3.2 l-9.4 -3.1 v6.2 l3.1 2.6 v2.6 l-5.7 -1.6 -5.7 1.6 v-2.6 l3.1 -2.6 v-6.2 l-9.4 3.1 v-3.2 l9.4 -6.2 v-3.8 c0 -3 1 -6.2 2.6 -6.2 z" fill="#fff"/>
-            </g>
-          </svg>
-          <div class="t">Play offline</div>
-          <div class="d">Quick levels, anywhere. Perfect for a spare minute.</div>
-        </div>
-
-        <div class="feat f-easy rv rv-r" style="--d:.2s">
-          <svg width="40" height="40" viewBox="0 0 48 48" role="img" aria-label="One-finger controls" style="overflow:visible">
-            <rect x="4" y="6" width="40" height="40" rx="13" fill="#000" opacity="0.4"/>
-            <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceOrange)"/>
-            <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-            <g filter="url(#pinEmb)">
-              <circle cx="24" cy="28.5" r="4.2" fill="#fff"/>
-              <path d="M17 21 a7.5 7.5 0 0 1 14 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
-              <path d="M12.5 18.5 a12.5 12.5 0 0 1 23 0" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".55"/>
-            </g>
-          </svg>
-          <div class="t">Easy to pick up</div>
-          <div class="d">One-finger controls and colourblind-friendly patterns.</div>
-        </div>
-      </div>
-
-      <!-- ── The climb ─────────────────────────────────────────────────── -->
-      <section class="climb">
-        <h2 class="rv">It gets harder. On purpose.</h2>
-        <p class="lede rv" style="--d:.06s">
-          Six eras, each fusing more rules into the same board. You meet every mechanic
-          alone before anything combines. By the Infinite Forge, four are running at once.
-        </p>
-        <div class="eras">
-          <!-- bricks stacked = rules fused in that era; they stand on a shared baseline -->
-          <div class="era rv" style="--e:#3aa0ff;--d:0s">
-            <div class="stack"><b style="--bi:0"></b></div>
-            <div class="txt">
-              <div class="n">Foundational</div>
-              <div class="m">20 villages · 1–700</div>
-              <div class="f">One mechanic. Pure fundamentals.</div>
-            </div>
-          </div>
-          <div class="era rv" style="--e:#39c66d;--d:.08s">
-            <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b></div>
-            <div class="txt">
-              <div class="n">Fusion Duals</div>
-              <div class="m">24 villages · 701–1,780</div>
-              <div class="f">Two rules, fused.</div>
-            </div>
-          </div>
-          <div class="era rv" style="--e:#ffc62e;--d:.16s">
-            <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b><b style="--bi:2"></b></div>
-            <div class="txt">
-              <div class="n">Fusion Trios</div>
-              <div class="m">22 villages · 1,781–2,990</div>
-              <div class="f">Three rules at once.</div>
-            </div>
-          </div>
-          <div class="era rv" style="--e:#a259ff;--d:.24s">
-            <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b></div>
-            <div class="txt">
-              <div class="n">Masked Mutations</div>
-              <div class="m">20 villages · 2,991–4,190</div>
-              <div class="f">The board hides its shape.</div>
-            </div>
-          </div>
-          <div class="era rv" style="--e:#ff5a5f;--d:.32s">
-            <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b><b style="--bi:2"></b></div>
-            <div class="txt">
-              <div class="n">Master Gates</div>
-              <div class="m">16 villages · 4,191–5,230</div>
-              <div class="f">Only masters pass.</div>
-            </div>
-          </div>
-          <div class="era rv" style="--e:#ff7a1a;--d:.4s">
-            <div class="stack"><b style="--bi:0"></b><b style="--bi:1"></b><b style="--bi:2"></b><b style="--bi:3"></b></div>
-            <div class="txt">
-              <div class="n">Infinite Forge</div>
-              <div class="m">10 villages · 5,231–6,000</div>
-              <div class="f">Four rules. No mercy.</div>
-            </div>
-          </div>
-        </div>
-        <div class="era-foot rv" style="--d:.2s">
-          <span>Each brick above is <b>one rule</b> fused into that era's boards.</span>
-          <span>Masked eras add <b>obstacles</b>. The board stops being a rectangle.</span>
-        </div>
-      </section>
-
-      <!-- ── Good for growing minds ────────────────────────────────────── -->
-      <section class="minds">
-        <h2 class="rv">Good for growing minds.</h2>
-        <p class="lede rv" style="--d:.06s">
-          Every level is a small puzzle you have to reason your way through. It is a calm,
-          colourful way for players of any age, kids included, to stretch the parts of the
-          brain that plan, focus and fit shapes together.
-        </p>
-        <div class="skills">
-          <div class="skill rv" style="--d:0s">
-            <span class="g" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--c-blue)"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2" opacity=".45"/></svg>
-            </span>
-            <div class="t">Spatial reasoning</div>
-            <div class="d">Turning shapes over in your head and seeing where they fit.</div>
-          </div>
-          <div class="skill rv" style="--d:.07s">
-            <span class="g" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--c-green)" stroke-width="2.4"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.4" fill="var(--c-green)" stroke="none"/></svg>
-            </span>
-            <div class="t">Focus &amp; patience</div>
-            <div class="d">One board, one goal, and a timer that rewards a clear head.</div>
-          </div>
-          <div class="skill rv" style="--d:.14s">
-            <span class="g" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--c-purple)"><rect x="3" y="14" width="5" height="7" rx="1.4"/><rect x="9.5" y="9" width="5" height="12" rx="1.4"/><rect x="16" y="4" width="5" height="17" rx="1.4"/></svg>
-            </span>
-            <div class="t">Planning ahead</div>
-            <div class="d">Read the whole board first, then place with a plan.</div>
-          </div>
-          <div class="skill rv" style="--d:.21s">
-            <span class="g" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--c-orange)"><path d="M13 2 L5 13 h5 l-2 9 8 -12 h-5 z"/></svg>
-            </span>
-            <div class="t">Quick thinking</div>
-            <div class="d">The clock keeps it lively and sharpens fast decisions.</div>
-          </div>
-        </div>
-        <div class="family rv" style="--d:.1s" aria-label="Family-friendly by design">
-          <span class="tag"><i style="background:var(--c-green)"></i>Family-friendly</span>
-          <span class="tag"><i style="background:var(--c-blue)"></i>No violence</span>
-          <span class="tag"><i style="background:var(--c-purple)"></i>Colourblind-friendly</span>
-          <span class="tag"><i style="background:var(--c-orange)"></i>Gentle, unhurried pace</span>
-        </div>
-      </section>
-
-      <!-- ── Collect ───────────────────────────────────────────────────── -->
-      <div class="collect">
-        <div class="panel rv rv-l">
-          <div class="big">93<span>awards</span></div>
-          <h3>Something to chase</h3>
-          <p class="d">
-            Bronze, silver and gold pins for the levels you clear, the combos you land,
-            the twists you survive, and a few you'll only find by accident.
-          </p>
-          <div class="pins" aria-hidden="true">
-            <svg width="44" height="44" viewBox="0 0 48 48" style="overflow:visible">
-              <rect x="4" y="6" width="40" height="40" rx="13" fill="#000" opacity="0.4"/>
-              <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#rimBronze)"/>
-              <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceOrange)"/>
-              <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-              <g filter="url(#pinEmb)"><path d="M24 13 l3.2 6.9 7.3 .9 -5.4 5 1.4 7.4 -6.5 -3.6 -6.5 3.6 1.4 -7.4 -5.4 -5 7.3 -.9 Z" fill="#fff"/></g>
-            </svg>
-            <svg width="44" height="44" viewBox="0 0 48 48" style="overflow:visible">
-              <rect x="4" y="6" width="40" height="40" rx="13" fill="#000" opacity="0.4"/>
-              <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#rimSilver)"/>
-              <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceSlate)"/>
-              <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-              <g filter="url(#pinEmb)"><path d="M26.5 9.5 L14.5 27.5 H22 L20 38.5 L33.5 20.5 H25.5 Z" fill="#fff"/></g>
-            </svg>
-            <svg width="44" height="44" viewBox="0 0 48 48" style="overflow:visible">
-              <rect x="4" y="6" width="40" height="40" rx="13" fill="#000" opacity="0.4"/>
-              <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-              <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceGold)"/>
-              <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-              <g filter="url(#pinEmb)">
-                <path d="M12 18 l5 6 7 -10 7 10 5 -6 -2.5 17 h-19 Z" fill="#fff"/>
-              </g>
-            </svg>
-          </div>
-          <div class="cats">
-            <span class="cat">Progression</span><span class="cat">Mastery</span><span class="cat">Exploration</span><span class="cat">Dedication</span><span class="cat">Secrets</span>
-          </div>
-        </div>
-
-        <div class="panel rv rv-r" style="--d:.1s">
-          <div class="big">28<span>cards</span></div>
-          <h3>The Collection</h3>
-          <p class="d">Pull cards for 100 Gold Bolts, earned in-game, never sold for cash. Odds are published, right here and in the app.</p>
-          <div class="odds">
-            <div class="odd" style="--m1:#cdd6e4;--m2:#8a93ac;--w:60%;--oi:0"><span class="k">Common</span><span class="track"><i></i></span><span class="v">60%</span></div>
-            <div class="odd" style="--m1:#7fe3c0;--m2:#22a37a;--w:27%;--oi:1"><span class="k">Rare</span><span class="track"><i></i></span><span class="v">27%</span></div>
-            <div class="odd" style="--m1:#c79bff;--m2:#8a3ff0;--w:10%;--oi:2"><span class="k">Epic</span><span class="track"><i></i></span><span class="v">10%</span></div>
-            <div class="odd" style="--m1:#ffe9a8;--m2:#d9a72b;--w:3%;--oi:3"><span class="k">Legendary</span><span class="track"><i></i></span><span class="v">3%</span></div>
-          </div>
-          <p class="pity">
-            Unlucky ten times? The tenth pull is a <b>guaranteed Epic or better</b>.
-            Duplicates melt into shards, and shards craft any card you're missing,
-            so no card is ever out of reach.
-          </p>
-        </div>
-      </div>
-
-      <!-- ── Languages ─────────────────────────────────────────────────── -->
-      <section class="langs rv">
-        <p class="line">Matri Rush speaks your language.</p>
-        <div class="list">
-          <span>English</span><span>Español</span><span>Français</span><span>Deutsch</span>
-          <span>Português</span><span>Русский</span><span>Türkçe</span><span>العربية</span>
-        </div>
-        <span class="rtl">It follows your phone's language automatically. Arabic included, laid out right-to-left.</span>
-      </section>
-
-      <!-- ── FAQ ───────────────────────────────────────────────────────── -->
-      <section class="faq">
-        <h2 class="rv">Questions parents and players ask</h2>
-        <details class="rv">
-          <summary>Is Matri Rush good for kids?</summary>
-          <p class="a">Yes. Matri Rush is family-friendly, with no violence and calm, colourblind-friendly visuals, so players of any age can enjoy it. It is a gentle way for younger players to practise focus and spatial reasoning. It does include optional in-app purchases, so we suggest turning on your device's purchase controls for younger players.</p>
-        </details>
-        <details class="rv">
-          <summary>What skills does Matri Rush help build?</summary>
-          <p class="a">Every level is a timed tiling puzzle that exercises spatial reasoning, planning, pattern recognition and quick decision-making. The difficulty rises gradually across 6,000 levels, so the challenge keeps pace with the player.</p>
-        </details>
-        <details class="rv">
-          <summary>Is Matri Rush free?</summary>
-          <p class="a">Yes. Matri Rush is free to download and play on the App Store and Google Play. It offers optional in-app purchases and optional rewarded ads you can choose to watch.</p>
-        </details>
-        <details class="rv">
-          <summary>What kind of game is Matri Rush?</summary>
-          <p class="a">It is a fast, timed brick-tiling puzzle. You snap coloured bricks onto a board to fill every gap before the timer runs out, across 112 themed villages and 6,000 levels.</p>
-        </details>
-        <details class="rv">
-          <summary>What else are you making?</summary>
-          <p class="a">Two more titles, both in development and both below on this page. Rush Delivery 3D is a colour-match traffic-jam puzzle, and TicTacTalk teaches a language through tic-tac-toe. Same desk, same engine work, same habit of shipping the mechanic before the marketing.</p>
-        </details>
-      </section>
-    </main>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════════════════════
-       HARD CUT
-       ══════════════════════════════════════════════════════════════════ -->
-  <section class="cutband">
-    <p class="kick rv">Same desk · Same engine</p>
-    <h2 class="rv" style="--d:.06s">The other two we made.</h2>
-    <p class="rv" style="--d:.12s">
-      Matri Rush taught us how to build a puzzle that stays fair for six thousand levels.
-      These two reuse that engine work and point it somewhere new: one jams a delivery
-      lot, one turns tic-tac-toe into a language lesson. Every shot below is the real
-      build, not a mockup.
-    </p>
-    <div class="peek rv rv-pop" style="--d:.2s" aria-hidden="true">
-      <img src="assets/rush-icon.png" alt="" width="84" height="84" loading="lazy" />
-      <img src="assets/talk-icon.png" alt="" width="84" height="84" loading="lazy" />
+  <!-- ── three questions, no more ─────────────────────────────────────── -->
+  <section class="faq">
+    <div class="wrap" style="max-width:820px">
+      <p class="kick hot">Straight answers</p>
+      <h2 class="big rv">Before you tap install</h2>
+      <details class="rv">
+        <summary>Where can I download Matri Rush?</summary>
+        <p class="a">It is out now on the App Store for iPhone and iPad, free to download. The Android build is finished but not listed on Google Play yet, so there is no Play link to give you today. This page gets one the moment there is.</p>
+      </details>
+      <details class="rv" style="--d:.06s">
+        <summary>Is it good for kids?</summary>
+        <p class="a">Yes. No violence, calm colourblind-friendly visuals, and one-finger controls, so any age can play. It does include optional in-app purchases, so turn on your device's purchase controls for younger players.</p>
+      </details>
+      <details class="rv" style="--d:.12s">
+        <summary>Is it free?</summary>
+        <p class="a">Yes, free to download and play. There are optional in-app purchases and optional rewarded ads you can choose to watch. Nothing is behind a paywall.</p>
+      </details>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════════
-       ACT II — RUSH DELIVERY 3D
+       THE CUT — into the other two
        ══════════════════════════════════════════════════════════════════ -->
-  <div data-act="delivery" id="act-delivery">
-    <div class="slate rv rv-cut">
-      <span class="no">Act II</span>
-      <span class="ttl">Rush Delivery 3D</span>
-      <span class="st">Traffic-jam puzzle · <b>In development</b></span>
+  <section class="cut">
+    <div class="wrap">
+      <p class="kick rv">Same desk · Same engine</p>
+      <h2 class="big rv" style="--d:.06s">The other three we made.</h2>
+      <p class="rv" style="--d:.12s">
+        Two more puzzles and one that is not a game at all. Everything below is
+        the real build, not a mockup.
+      </p>
+      <div class="peek rv rv-pop" style="--d:.2s">
+        <a class="col bob" href="#act-delivery">
+          <img src="assets/rush-icon.png" alt="Rush Delivery 3D app icon" width="100" height="100" loading="lazy" />
+          <span class="ped" aria-hidden="true"></span>
+          <span class="nm">Rush Delivery 3D</span>
+        </a>
+        <a class="col bob s3" href="#act-talk">
+          <img src="assets/talk-icon.png" alt="TicTacTalk app icon" width="100" height="100" loading="lazy" />
+          <span class="ped" aria-hidden="true"></span>
+          <span class="nm">TicTacTalk</span>
+        </a>
+        <a class="col bob s2" href="#act-bawa">
+          <img class="pep" src="assets/bawa-icon.png" alt="BAWA app icon" width="100" height="163" loading="lazy" />
+          <span class="ped" aria-hidden="true"></span>
+          <span class="nm">BAWA</span>
+        </a>
+      </div>
     </div>
-    <section class="act">
-      <div class="act-in">
-        <h2 class="act-title rv rv-cut">Clear the jam.<br /><em>Make the drop.</em></h2>
-        <div class="act-grid">
-          <div class="act-copy">
-            <p class="act-lede rv rv-l">
-              A queue of hungry customers waits at the shop door. Below them, the lot is a
-              knot of vans, buses and scooters, and every one of them can only reverse the
-              way its own arrow points.
-            </p>
-            <ol class="route rv" style="--d:.08s">
-              <li style="--si:0"><b>Read the knot</b>Every vehicle has one direction. Tap it and it goes, if nothing is in the way.</li>
-              <li style="--si:1"><b>Fill the bays</b>Whatever escapes parks in a bay and loads the customers matching its colour.</li>
-              <li style="--si:2"><b>Only the front boards</b>The queue loads strictly from the front, so the wrong colour in a bay is a bay you have lost.</li>
-              <li style="--si:3"><b>Break your own rule</b>The heli airlifts a customer out of the middle of the queue. It is the one thing on the board that ignores the front-of-line rule.</li>
-            </ol>
-            <!-- TODO: replace # with the Rush Delivery 3D store link once it lists -->
-            <a class="play-now rv" style="--d:.12s" href="#">
-              <span><span class="sm">Free · iOS first</span>Play Rush Delivery 3D</span>
-              <span class="arw" aria-hidden="true">&#8594;</span>
-            </a>
-            <div class="stores stores--act rv" style="--d:.16s">
-              <!-- TODO: replace # with the Rush Delivery 3D App Store URL once it lists -->
-              <a class="badge apple" href="#">
-                <svg width="22" height="26" aria-hidden="true"><use href="#glyphApple" /></svg>
-                <span><span class="s1">Download on the</span><span class="s2">App Store</span></span>
-              </a>
-              <!-- TODO: replace # with the Rush Delivery 3D Google Play URL once it lists -->
-              <a class="badge play" href="#">
-                <svg width="22" height="24" aria-hidden="true"><use href="#glyphPlay" /></svg>
-                <span><span class="s1">Get it on</span><span class="s2">Google Play</span></span>
-              </a>
-            </div>
-            <div class="act-foot rv" style="--d:.2s">
-              <span class="tick"><i></i>9,000 levels</span>
-              <span class="tick"><i></i>Free with optional purchases</span>
-              <a class="go" href="https://legal.matrirush.com/">Support &amp; legal pages <span aria-hidden="true">→</span></a>
-            </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       ACT II — RUSH DELIVERY 3D · the orange stage (the game's own colour)
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="stage act" id="act-delivery" data-act="delivery">
+    <span class="floor" aria-hidden="true"></span>
+    <span class="glow" aria-hidden="true"></span>
+    <span class="drift a" aria-hidden="true"></span>
+    <span class="drift c" aria-hidden="true"></span>
+
+    <div class="act-in">
+      <div class="copy">
+        <p class="kick">Rush Delivery 3D · in development</p>
+        <h2 class="huge rise">
+          <span class="ln" style="--li:0"><i>Clear the jam.</i></span>
+          <span class="ln" style="--li:1"><i><em>Make the drop.</em></i></span>
+        </h2>
+        <p class="lede">
+          Customers queue at the shop door. Below them the lot is a knot of vans,
+          buses and scooters, and each one can only pull out the way its arrow points.
+        </p>
+        <ol class="route">
+          <li style="--si:0"><b>Read the knot</b>Tap a vehicle and it goes, if nothing is in its way.</li>
+          <li style="--si:1"><b>Only the front boards</b>The queue loads strictly from the front, so a wrong colour in a bay is a bay you have lost.</li>
+          <li style="--si:2"><b>Break your own rule</b>The heli airlifts someone out of the middle of the queue. It is the one thing on the board that ignores the front-of-line rule.</li>
+        </ol>
+
+        <div class="stores">
+          <span class="badge soon">
+            <svg width="20" height="24" aria-hidden="true"><use href="#glyphApple" /></svg>
+            <span><span class="s1">Coming soon to the</span><span class="s2">App Store</span></span>
+          </span>
+          <span class="badge soon">
+            <svg width="20" height="22" aria-hidden="true"><use href="#glyphPlay" /></svg>
+            <span><span class="s1">Coming soon to</span><span class="s2">Google Play</span></span>
+          </span>
+        </div>
+
+        <div class="act-foot">
+          <span class="tick"><i></i>9,000 levels</span>
+          <span class="tick"><i></i>Free with optional purchases</span>
+        </div>
+      </div>
+
+      <div class="art rv rv-r" style="--d:.1s">
+        <img class="phone" src="assets/rush-shot.png" alt="Rush Delivery 3D: level 20, customers queued at the shop while colour-coded vans and scooters jam the lot below" loading="lazy" />
+        <img class="poster" src="assets/rush-event.png" alt="Rush Delivery 3D live event poster: a head-to-head PVP duel on the same board" loading="lazy" />
+        <span class="van" id="van" aria-hidden="true">
+          <!-- painted in the game's own van blue: a white box on an orange wall
+               read as an unfinished rectangle -->
+          <svg viewBox="0 0 200 96" role="presentation">
+            <rect x="52" y="20" width="126" height="46" rx="9" fill="#3f9fe8"/>
+            <rect x="52" y="20" width="126" height="15" rx="9" fill="#7fc4f5" opacity=".85"/>
+            <rect x="60" y="41" width="108" height="18" rx="4" fill="#2b83d8"/>
+            <path d="M10 66 V42 c0-4 2-7 6-9 l16-8 c3-1 5-2 8-2 h14 v43 z" fill="#2b83d8"/>
+            <path d="M10 66 V42 c0-4 2-7 6-9 l16-8 c3-1 5-2 8-2 h14 v10 H34 c-8 0-14 6-14 14 v19 z" fill="#5aabee" opacity=".75"/>
+            <path d="M22 40 l12-6 h12 v13 H20 z" fill="#d8f1ff"/>
+            <path d="M22 40 l12-6 h6 l-9 13 h-9 z" fill="#ffffff" opacity=".8"/>
+            <rect x="6" y="52" width="9" height="7" rx="3" fill="#ffd447"/>
+            <rect x="6" y="63" width="172" height="7" rx="3.5" fill="#1f5f9e"/>
+            <g class="whl" style="transform-origin:40px 74px">
+              <circle cx="40" cy="74" r="13" fill="#28303c"/><circle cx="40" cy="74" r="6" fill="#c2cad6"/>
+              <rect x="38.5" y="63" width="3" height="22" rx="1.5" fill="#9aa5b4"/>
+            </g>
+            <g class="whl" style="transform-origin:148px 74px">
+              <circle cx="148" cy="74" r="13" fill="#28303c"/><circle cx="148" cy="74" r="6" fill="#c2cad6"/>
+              <rect x="146.5" y="63" width="3" height="22" rx="1.5" fill="#9aa5b4"/>
+            </g>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       ACT III — TICTACTALK · the pool-blue stage
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="stage act flip" id="act-talk" data-act="talk">
+    <span class="floor" aria-hidden="true"></span>
+    <span class="glow" aria-hidden="true"></span>
+    <span class="drift b" aria-hidden="true"></span>
+    <span class="drift d" aria-hidden="true"></span>
+
+    <div class="act-in">
+      <div class="copy">
+        <p class="kick">TicTacTalk · in development</p>
+        <h2 class="huge rise">
+          <span class="ln" style="--li:0"><i>Get it right,</i></span>
+          <span class="ln" style="--li:1"><i><em>get the square.</em></i></span>
+        </h2>
+        <p class="lede">
+          A language app that is actually a game of tic-tac-toe. Read a short everyday
+          scene, answer a question about it. Right answer, your mark goes down. Wrong
+          answer, the bot takes the square.
+        </p>
+        <ol class="route">
+          <li style="--si:0"><b>Scenes, not flashcards</b>Meeting a neighbour, asking for directions, ordering a coffee.</li>
+          <li style="--si:1"><b>Comprehension is the move</b>The board only advances when you understood the line, so guessing costs you the square.</li>
+        </ol>
+
+        <ul class="rail" id="rail">
+          <li style="--lc:#1cb0f6"><i></i>English <span>EN</span></li>
+          <li style="--lc:#4c6fff"><i></i>Français <span>FR</span></li>
+          <li style="--lc:#e23b54"><i></i>Türkçe <span>TR</span></li>
+          <li style="--lc:#ff5470"><i></i>日本語 <span>JA</span></li>
+          <li style="--lc:#0ca678"><i></i>Yorùbá <span>YO</span></li>
+          <li style="--lc:#ff9f1c"><i></i>Español <span>ES</span></li>
+        </ul>
+        <p class="lede" style="font-size:15px;margin-bottom:22px">
+          Each language repaints the whole app in its own flag colour. Point at a chip
+          to see it happen here.
+        </p>
+
+        <div class="stores">
+          <span class="badge soon">
+            <svg width="20" height="24" aria-hidden="true"><use href="#glyphApple" /></svg>
+            <span><span class="s1">Coming soon to the</span><span class="s2">App Store</span></span>
+          </span>
+          <span class="badge soon">
+            <svg width="20" height="22" aria-hidden="true"><use href="#glyphPlay" /></svg>
+            <span><span class="s1">Coming soon to</span><span class="s2">Google Play</span></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="art rv rv-l" style="--d:.1s">
+        <div class="duel">
+          <p class="scene">Scene · Meeting a Neighbor · Beginner</p>
+          <p class="q">"Stop by" means…</p>
+          <div class="opts">
+            <div class="opt right">Make a short, casual visit</div>
+            <div class="opt">Stop talking</div>
           </div>
-          <div class="art rv rv-r" style="--d:.1s">
-            <img class="phone" src="assets/rush-shot.png" alt="Rush Delivery 3D: level 20, customers queued at the shop while colour-coded vans and scooters jam the lot below" loading="lazy" />
-            <img class="poster" src="assets/rush-event.png" alt="Rush Delivery 3D live event poster: a head-to-head PVP duel on the same board" loading="lazy" />
-            <span class="cap">Level 20, rush hour · plus the live PVP duel</span>
+          <div class="grid3" id="grid3" aria-label="Tic-tac-toe board mid-game">
+            <span class="x" style="--mi:0">X</span><span></span><span class="o" style="--mi:3">O</span>
+            <span></span><span class="x" style="--mi:1">X</span><span></span>
+            <span class="o" style="--mi:4">O</span><span></span><span class="x" style="--mi:2">X</span>
           </div>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
   <!-- ══════════════════════════════════════════════════════════════════
-       ACT III — TICTACTALK
+       ACT IV — BAWA · the navy stage. Not a game: a marketplace, so it gets
+       its own brand colours rather than a games palette.
        ══════════════════════════════════════════════════════════════════ -->
-  <div data-act="talk" id="act-talk">
-    <div class="slate rv rv-cut">
-      <span class="no">Act III</span>
-      <span class="ttl">TicTacTalk</span>
-      <span class="st">Language app · <b>In development</b></span>
-    </div>
-    <section class="act">
-      <div class="act-in">
-        <h2 class="act-title rv rv-cut">Get it right,<br /><em>get the square.</em></h2>
-        <div class="act-grid flip">
-          <div class="act-copy">
-            <p class="act-lede rv rv-r">
-              A language app that is actually a game of tic-tac-toe. You read a short
-              everyday scene, then answer a question about it. Right answer, your mark
-              goes down. Wrong answer, the bot takes the square instead.
-            </p>
-            <ol class="route rv" style="--d:.08s">
-              <li style="--si:0"><b>Scenes, not flashcards</b>Meeting a neighbour, asking for directions, ordering a coffee. Real sentences you would actually say.</li>
-              <li style="--si:1"><b>Comprehension is the move</b>The board only advances when you understood the line, so guessing costs you the square.</li>
-              <li style="--si:2"><b>Two languages at once</b>Pick the language you are learning and the language you are comfortable in. Any pairing works.</li>
-            </ol>
-            <p class="sec-label rv" style="--d:.12s;margin-top:26px">Six languages seeded</p>
-            <ul class="rail rv" style="--d:.16s">
-              <li style="--lc:#1cb0f6"><i></i>English <span>EN</span></li>
-              <li style="--lc:#4c6fff"><i></i>Français <span>FR</span></li>
-              <li style="--lc:#e23b54"><i></i>Türkçe <span>TR</span></li>
-              <li style="--lc:#ff5470"><i></i>日本語 <span>JA</span></li>
-              <li style="--lc:#0ca678"><i></i>Yorùbá <span>YO</span></li>
-              <li style="--lc:#ff9f1c"><i></i>Español <span>ES</span></li>
-            </ul>
-            <p class="act-lede rv" style="--d:.2s;margin:20px 0 0;font-size:15px;color:var(--muted)">
-              Each one repaints the whole app in its own flag colour, so switching what you
-              are learning changes how the app looks.
-            </p>
-            <!-- TODO: replace # with the TicTacTalk store link once it lists -->
-            <a class="play-now rv" style="--d:.24s;margin-top:24px" href="#">
-              <span><span class="sm">Free · iOS and Android</span>Play TicTacTalk</span>
-              <span class="arw" aria-hidden="true">&#8594;</span>
-            </a>
-            <div class="stores stores--act rv" style="--d:.28s;margin-top:18px">
-              <!-- TODO: replace # with the TicTacTalk App Store URL once it lists -->
-              <a class="badge apple" href="#">
-                <svg width="22" height="26" aria-hidden="true"><use href="#glyphApple" /></svg>
-                <span><span class="s1">Download on the</span><span class="s2">App Store</span></span>
-              </a>
-              <!-- TODO: replace # with the TicTacTalk Google Play URL once it lists -->
-              <a class="badge play" href="#">
-                <svg width="22" height="24" aria-hidden="true"><use href="#glyphPlay" /></svg>
-                <span><span class="s1">Get it on</span><span class="s2">Google Play</span></span>
-              </a>
-            </div>
-          </div>
-          <div class="art rv rv-l" style="--d:.1s">
-            <div class="duel">
-              <p class="scene">Scene · Meeting a Neighbor · Beginner</p>
-              <p class="q">"Stop by" means…</p>
-              <div class="opts">
-                <div class="opt right">Make a short, casual visit</div>
-                <div class="opt">Stop talking</div>
-              </div>
-              <div class="grid3" aria-label="Tic-tac-toe board mid-game">
-                <span class="x" style="--mi:0">X</span><span></span><span class="o" style="--mi:3">O</span>
-                <span></span><span class="x" style="--mi:1">X</span><span></span>
-                <span class="o" style="--mi:4">O</span><span></span><span class="x" style="--mi:2">X</span>
-              </div>
-            </div>
-            <span class="cap">The duel board, drawn from the live build</span>
+  <section class="stage act" id="act-bawa" data-act="bawa">
+    <span class="floor" aria-hidden="true"></span>
+    <span class="glow" aria-hidden="true"></span>
+    <span class="drift a" aria-hidden="true"></span>
+    <span class="drift c" aria-hidden="true"></span>
+
+    <div class="act-in">
+      <div class="copy">
+        <p class="kick">BAWA · in development</p>
+        <h2 class="huge rise">
+          <span class="ln" style="--li:0"><i>Find a hand,</i></span>
+          <span class="ln" style="--li:1"><i><em>close by.</em></i></span>
+        </h2>
+        <p class="lede">
+          The one thing here that is not a game. BAWA puts skilled workers and
+          the people who need them on the same map, and handles the awkward part
+          in the middle: agreeing the job, and getting paid for it.
+        </p>
+        <ol class="route">
+          <li style="--si:0"><b>Two apps in one</b>Hiring side and working side, in the same install. Pick a side and the whole app changes colour with you: blue to hire, red to work.</li>
+          <li style="--si:1"><b>Near you, not nationwide</b>Search is built around where you actually are, so the plumber you find is one who can turn up today.</li>
+          <li style="--si:2"><b>Paid in the app</b>Card payments in, payouts out, so nobody has to argue about a transfer screenshot.</li>
+        </ol>
+
+        <div class="stores">
+          <span class="badge soon">
+            <svg width="20" height="24" aria-hidden="true"><use href="#glyphApple" /></svg>
+            <span><span class="s1">Coming soon to the</span><span class="s2">App Store</span></span>
+          </span>
+          <span class="badge soon">
+            <svg width="20" height="22" aria-hidden="true"><use href="#glyphPlay" /></svg>
+            <span><span class="s1">Coming soon to</span><span class="s2">Google Play</span></span>
+          </span>
+        </div>
+
+        <div class="act-foot">
+          <span class="tick"><i></i>Built for Nigeria first</span>
+          <span class="tick"><i></i>Light and dark mode</span>
+        </div>
+      </div>
+
+      <div class="art rv rv-r" style="--d:.1s">
+        <div class="bawa-stand">
+          <img class="bawa-mark bob" src="assets/bawa-logo.png"
+               alt="The BAWA logo: a gold wordmark beside a red chilli pepper" width="760" height="387" loading="lazy" />
+          <span class="ped" aria-hidden="true"></span>
+          <div class="sides" aria-hidden="true">
+            <span class="side hire">Hire</span>
+            <span class="side work">Work</span>
           </div>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
   <!-- ══════════════════════════════════════════════════════════════════
-       CREDITS
+       CLOSE — studio + legal in one band
        ══════════════════════════════════════════════════════════════════ -->
-  <section class="shop" data-act="rush">
-    <div class="shop-in">
+  <section class="close" id="studio" data-act="rush">
+    <div class="close-in">
       <div class="rv rv-l">
-        <h2>Three titles, one desk in Ikeja.</h2>
+        <p class="kick">The workshop</p>
+        <h2 class="big">Four apps, one desk in Ikeja.</h2>
         <p>
-          Independent and self-published, out of Ikeja in Lagos. No publisher, no live-ops
-          department, no growth team. Three titles now, and all three lean on the same
-          engine work: a generator, a solver, and the habit of shipping the mechanic
-          before the marketing.
-        </p>
-      </div>
-      <div class="rv rv-r" style="--d:.08s">
-        <p>
-          Every Matri Rush level is machine-checked before it ships: one solution,
-          reachable without guessing. Every Rush Delivery jam is cleared by a search
-          first. A board that rewards guessing under a timer is the one thing neither
-          generator is allowed to produce.
+          Independent and self-published, out of Lagos. No publisher, no live-ops
+          department. The three games lean on the same engine work, a generator and
+          a solver, and BAWA leans on the same habit: ship the thing that actually
+          works before the marketing.
         </p>
         <p>
-          Questions, bug reports, or a level that felt unfair go to
+          Bug reports, or a level that felt unfair, go to
           <span class="lit">support@matrirush.com</span>. We read all of it.
         </p>
       </div>
+      <div class="rv rv-r" style="--d:.08s">
+        <div class="rows">
+          <a class="row" href="privacy.html">
+            <span class="brik" style="--s:32px;--b1:#7fc9ff;--b2:#2b83d8"></span>
+            <span><span class="t">Privacy Policy</span><br /><span class="s">How we handle your data</span></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="row" href="terms.html">
+            <span class="brik" style="--s:32px;--b1:#c9a2ff;--b2:#8542e0"></span>
+            <span><span class="t">Terms of Service</span><br /><span class="s">The rules of play</span></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="row" href="help.html">
+            <span class="brik" style="--s:32px;--b1:#7fdca0;--b2:#2ea55f"></span>
+            <span><span class="t">Help Center</span><br /><span class="s">Answers &amp; contact</span></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="row" href="delete-account.html">
+            <span class="brik" style="--s:32px;--b1:#ff8f93;--b2:#e0393f"></span>
+            <span><span class="t">Delete Your Account</span><br /><span class="s">Remove your data</span></span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <p class="sec-label rv" style="max-width:900px;margin:44px auto 14px;padding:0 20px">Legal &amp; support · Matri Rush</p>
-  <div class="support rv" style="--d:.1s" data-act="rush">
-    <a class="row" href="privacy.html">
-      <svg width="34" height="34" viewBox="0 0 48 48" role="img" aria-label="" style="overflow:visible">
-        <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-        <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceBlue)"/>
-        <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-        <g filter="url(#pinEmb)">
-          <path d="M18.5 22 v-4.5 a5.5 5.5 0 0 1 11 0 V22" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
-          <rect x="14.5" y="21.5" width="19" height="14.5" rx="3.5" fill="#fff"/>
-          <circle cx="24" cy="27.5" r="2.2" fill="#1f5da0"/><rect x="23" y="28" width="2" height="4.5" rx="1" fill="#1f5da0"/>
-        </g>
-      </svg>
-      <span><span class="t">Privacy Policy</span><br /><span class="s">How we handle your data</span></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="row" href="terms.html">
-      <svg width="34" height="34" viewBox="0 0 48 48" role="img" aria-label="" style="overflow:visible">
-        <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-        <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#facePurple)"/>
-        <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-        <g filter="url(#pinEmb)">
-          <rect x="16" y="11.5" width="16" height="25" rx="2.8" fill="#fff"/>
-          <rect x="19.5" y="17" width="9" height="2.1" rx="1" fill="#5b2fa8"/>
-          <rect x="19.5" y="22" width="9" height="2.1" rx="1" fill="#5b2fa8"/>
-          <rect x="19.5" y="27" width="6" height="2.1" rx="1" fill="#5b2fa8"/>
-        </g>
-      </svg>
-      <span><span class="t">Terms of Service</span><br /><span class="s">The rules of play</span></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="row" href="help.html">
-      <svg width="34" height="34" viewBox="0 0 48 48" role="img" aria-label="" style="overflow:visible">
-        <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-        <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceGreen)"/>
-        <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-        <g filter="url(#pinEmb)">
-          <path d="M18.8 18.6 a5.4 5.4 0 1 1 8 4.7 c-1.9 1.1 -2.8 2.2 -2.8 4.3" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
-          <circle cx="24" cy="33.5" r="2.3" fill="#fff"/>
-        </g>
-      </svg>
-      <span><span class="t">Help Center</span><br /><span class="s">Answers &amp; contact</span></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="row" href="delete-account.html">
-      <svg width="34" height="34" viewBox="0 0 48 48" role="img" aria-label="" style="overflow:visible">
-        <rect x="2.5" y="2.5" width="43" height="43" rx="13.5" fill="url(#pinRim)"/>
-        <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#faceRed)"/>
-        <rect x="5.5" y="5.5" width="37" height="37" rx="10.5" fill="url(#pinGloss)"/>
-        <g filter="url(#pinEmb)">
-          <rect x="20.5" y="11.5" width="7" height="3" rx="1.5" fill="#fff"/>
-          <rect x="15" y="14.8" width="18" height="3" rx="1.5" fill="#fff"/>
-          <path d="M17 20 h14 l-1.1 13.6 a2.6 2.6 0 0 1 -2.6 2.4 h-6.6 a2.6 2.6 0 0 1 -2.6 -2.4 Z" fill="#fff"/>
-          <rect x="20.7" y="23" width="1.9" height="9" rx="0.95" fill="#a82c31"/>
-          <rect x="25.4" y="23" width="1.9" height="9" rx="0.95" fill="#a82c31"/>
-        </g>
-      </svg>
-      <span><span class="t">Delete Your Account</span><br /><span class="s">Remove your data</span></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
-  </div>
+  </main>
 
-  <footer data-act="rush">
-    Matri Rush · Rush Delivery 3D · TicTacTalk<br />
+  <footer>
+    <div class="fm">Matri Rush · Rush Delivery 3D · TicTacTalk · BAWA</div>
     Ikeja, Lagos, Nigeria · <a href="mailto:support@matrirush.com">support@matrirush.com</a><br />
     © <span id="y">2026</span>
   </footer>
 
   <script>
+  (function () {
+    'use strict';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var fine = window.matchMedia('(pointer: fine)').matches;
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Staggered scroll reveals. Each element carries its own delay via --d, and
-    // .rv-l / .rv-r / .rv-pop / .rv-cut vary the direction so the page never
-    // reads as one fade applied to everything.
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
+    /* ── staggered reveals ───────────────────────────────────────────────
+       Each element carries its own delay via --d, and .rv-l / .rv-r /
+       .rv-pop vary the direction, so the page never reads as one fade
+       applied to everything. */
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
       });
     }, { threshold: 0.12 });
-    document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+    document.querySelectorAll('.rv, .rise').forEach(function (el) { io.observe(el); });
 
-    // Runs that animate their own children once the group is properly on screen:
-    // the odds bars, the route stops, and the tic-tac-toe marks.
-    var groupIo = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); groupIo.unobserve(e.target); }
+    /* groups that animate their own children once properly on screen */
+    var gio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); gio.unobserve(e.target); }
       });
     }, { threshold: 0.35 });
-    document.querySelectorAll('.odds, .route, .grid3').forEach(function (el) { groupIo.observe(el); });
+    ['#grid3', '#snapBoard', '#van'].forEach(function (s) {
+      var el = document.querySelector(s); if (el) gio.observe(el);
+    });
+    document.querySelectorAll('.route').forEach(function (el) { gio.observe(el); });
 
-    // Act III repaints itself in the flag colour of whichever language you point
-    // at, which is what the app does when you switch target language. Decorative
-    // reinforcement of the sentence beside it, so it is hover-only: the chips are
-    // not controls and should not become six tab stops.
-    var talkAct = document.getElementById('act-talk');
-    if (talkAct) {
-      var base = getComputedStyle(talkAct).getPropertyValue('--act');
-      talkAct.querySelectorAll('.rail li').forEach(function (li) {
-        var c = li.style.getPropertyValue('--lc');
-        li.addEventListener('mouseenter', function () { talkAct.style.setProperty('--act', c); });
-        li.addEventListener('mouseleave', function () { talkAct.style.setProperty('--act', base); });
+    /* ── count-ups ───────────────────────────────────────────────────────
+       6,000 levels is the most persuasive fact on the page, so it gets
+       counted rather than printed. */
+    function countUp(el) {
+      var target = parseInt(el.dataset.count, 10);
+      if (reduce || !target) return;
+      var t0 = null, dur = 1400;
+      function frame(t) {
+        if (!t0) t0 = t;
+        var p = Math.min((t - t0) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US');
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+    var nio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { countUp(e.target); nio.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('[data-count]').forEach(function (el) { nio.observe(el); });
+
+    /* ── the nav repaints itself in the act you are currently inside ─────
+       Same [data-act] pattern the games use for event palettes: one world
+       live at a time, everything else follows the variables. */
+    var nav = document.getElementById('nav');
+    var meta = document.querySelector('meta[name="theme-color"]');
+    var wallOf = { rush: '#e9285f', delivery: '#ff6a16', talk: '#12a5c8', bawa: '#12263f' };
+    var aio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var act = e.target.getAttribute('data-act');
+        if (document.body.dataset.act !== act) {
+          document.body.dataset.act = act;
+          if (meta) meta.setAttribute('content', wallOf[act] || '#e9285f');
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    document.querySelectorAll('[data-act]').forEach(function (el) { aio.observe(el); });
+
+    /* nav dots light up for whichever section owns the viewport */
+    var linkFor = {};
+    document.querySelectorAll('#links a').forEach(function (a) { linkFor[a.dataset.sec] = a; });
+    var sio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var a = linkFor[e.target.id];
+        if (a && e.isIntersecting) {
+          Object.keys(linkFor).forEach(function (k) { linkFor[k].classList.remove('here'); });
+          a.classList.add('here');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    Object.keys(linkFor).forEach(function (id) {
+      var el = document.getElementById(id); if (el) sio.observe(el);
+    });
+
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('stuck', window.scrollY > 12);
+    }, { passive: true });
+
+    /* ── mobile sheet ────────────────────────────────────────────────── */
+    var burger = document.getElementById('burger'), sheet = document.getElementById('sheet');
+    burger.addEventListener('click', function () {
+      burger.setAttribute('aria-expanded', sheet.classList.toggle('open') ? 'true' : 'false');
+    });
+    sheet.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') { sheet.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+    });
+
+    if (reduce || !fine) return;
+
+    /* ── pointer parallax on the hero stage ──────────────────────────────
+       Props lag the cursor by different depths, so the group reads as
+       objects sitting at different distances rather than one flat picture
+       that tilts as a unit. */
+    var hero = document.querySelector('.hero');
+    var pars = Array.prototype.slice.call(document.querySelectorAll('.par'));
+    if (hero && pars.length) {
+      hero.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect();
+        var dx = (e.clientX - r.left) / r.width - .5;
+        var dy = (e.clientY - r.top) / r.height - .5;
+        hero.style.setProperty('--gx', (30 + (dx + .5) * 40) + '%');
+        pars.forEach(function (el) {
+          var d = parseFloat(el.dataset.depth || 10);
+          el.style.transform = 'translate3d(' + (dx * d) + 'px,' + (dy * d * .6) + 'px,0)';
+        });
+      });
+      hero.addEventListener('pointerleave', function () {
+        pars.forEach(function (el) { el.style.transform = ''; });
+        hero.style.setProperty('--gx', '50%');
       });
     }
+
+    /* ── Act III repaints itself in the flag colour of whichever language
+       you point at, which is what the app does when you switch target
+       language. Decorative reinforcement of the sentence beside it, so it
+       is hover-only: the chips are not controls and should not become six
+       tab stops. ─────────────────────────────────────────────────────── */
+    var talk = document.getElementById('act-talk');
+    if (talk) {
+      var base = getComputedStyle(talk).getPropertyValue('--accent');
+      talk.querySelectorAll('#rail li').forEach(function (li) {
+        var c = li.style.getPropertyValue('--lc');
+        li.addEventListener('mouseenter', function () { talk.style.setProperty('--accent', c); });
+        li.addEventListener('mouseleave', function () { talk.style.setProperty('--accent', base); });
+      });
+    }
+  })();
   </script>
 </body>
 </html>
