@@ -7,25 +7,25 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://matrirush.com/help.html</loc>
+    <loc>https://matrirush.com/help/</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://matrirush.com/privacy.html</loc>
+    <loc>https://matrirush.com/privacy/</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://matrirush.com/terms.html</loc>
+    <loc>https://matrirush.com/terms/</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://matrirush.com/delete-account.html</loc>
+    <loc>https://matrirush.com/delete-account/</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
