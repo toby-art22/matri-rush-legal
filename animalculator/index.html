@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Animalculator · Support</title>
+  <meta name="description" content="Support, help and legal pages for Animalculator, a calculator with a menagerie behind it. No ads, no accounts, no tracking." />
+  <link rel="icon" type="image/png" href="../assets/animalculator-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../legal.css" />
+  <meta name="theme-color" content="#07090f" />
+  <style>
+    /* The one page in this folder that is a front door rather than a document,
+       so it gets a hero and link rows. Everything else comes from legal.css. */
+    .hero { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 6px; }
+    .hero img {
+      width: 92px; height: 92px; border-radius: 21px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .55);
+    }
+    .hero h1 { margin: 0; }
+    .hero .tag { color: var(--muted); font-size: 15px; margin: 2px 0 0; }
+
+    .rows { margin: 26px 0 6px; }
+    .row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; margin-bottom: 10px;
+      background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+      color: var(--body-ink); text-decoration: none;
+      transition: border-color .15s ease, transform .15s ease;
+    }
+    .row:hover { border-color: var(--line-hi); transform: translateX(2px); color: var(--body-ink); }
+    .row .t { font-family: var(--display); font-weight: 600; color: var(--ink); }
+    .row .s { font-size: 13.5px; color: var(--muted); }
+    .row .arrow { margin-left: auto; color: var(--act); }
+    .dot { width: 30px; height: 30px; border-radius: 9px; flex: none; background: linear-gradient(160deg, var(--c1), var(--c2)); }
+
+    .facts { list-style: none; padding: 0; }
+    .facts li { padding-left: 26px; position: relative; }
+    .facts li::before { content: "·"; position: absolute; left: 8px; color: var(--act); font-weight: 800; }
+  </style>
+</head>
+<body>
+  <div class="pagebar">
+    <a href="../index.html">&#8592; Matri Rush</a>
+    <span>Animalculator</span>
+  </div>
+
+  <div class="hero">
+    <img src="../assets/animalculator-icon.png" alt="The Animalculator icon: a paw print whose pads are calculator keys" width="92" height="92" />
+    <div>
+      <h1>Animalculator</h1>
+      <p class="tag">A calculator with a menagerie behind it.</p>
+    </div>
+  </div>
+
+  <p>
+    Do a sum, get an animal. 199 illustrations across 22 packs, cut out to stand
+    on the backdrop rather than sit in a frame, plus one animal a day with a fact
+    about it worth knowing. Birds, house cats and the pandas are free. One
+    payment opens everything else, forever.
+  </p>
+
+  <div class="rows">
+    <a class="row" href="help.html">
+      <span class="dot" style="--c1:#ffd479;--c2:#e8873c"></span>
+      <span><span class="t">Help &amp; contact</span><br /><span class="s">Answers, and a real address that a person reads</span></span>
+      <span class="arrow" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="row" href="privacy.html">
+      <span class="dot" style="--c1:#7fc9ff;--c2:#2b83d8"></span>
+      <span><span class="t">Privacy Policy</span><br /><span class="s">What we do with your data, which is almost nothing</span></span>
+      <span class="arrow" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="row" href="terms.html">
+      <span class="dot" style="--c1:#c9a2ff;--c2:#8542e0"></span>
+      <span><span class="t">Terms of Use</span><br /><span class="s">One payment, no subscription, and what the tip jar is not</span></span>
+      <span class="arrow" aria-hidden="true">&#8594;</span>
+    </a>
+  </div>
+
+  <h2>What it does not do</h2>
+  <ul class="facts">
+    <li>No adverts, of any kind.</li>
+    <li>No account, no sign-in, nothing to forget.</li>
+    <li>No analytics, no crash reporting, no advertising identifier.</li>
+    <li>No subscription. One optional purchase, kept forever.</li>
+    <li>No connection required. The whole menagerie ships inside the app.</li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>
+    Bugs, ideas, an animal you think is missing:<br />
+    <strong><a href="mailto:support@matrirush.com?subject=Animalculator">support@matrirush.com</a></strong><br />
+    Matri Rush · Ikeja, Lagos, Nigeria
+  </p>
+</body>
+</html>
