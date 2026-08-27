@@ -1,0 +1,139 @@
+/* ===========================================================
+   Matri Rush — legal & support pages
+   Same art direction as the games: warm wood ground, cream
+   paper sheet, gold header, thick brown line work. Readable
+   first; decorated second. Drop this on matrirush.com next
+   to the .html files.
+   =========================================================== */
+:root{
+  --wood-lite:#d59a56;
+  --wood-mid:#a96a2e;
+  --wood-deep:#8a5220;
+  --ink:#7a2010;
+  --ink-soft:#a8341f;
+  --ink-brown:#5e3712;
+  --gold-hi:#ffe36b;
+  --gold:#ffd23a;
+  --gold-deep:#f0a91e;
+  --cream:#fff3d4;
+  --paper:#fffaf0;
+  --body:#4a3520;
+  --muted:#8a6438;
+  --blue:#1f88b0;
+  --ui:"Nunito","Arial Rounded MT Bold",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+body{
+  font-family:var(--ui);
+  background:
+    radial-gradient(120% 60% at 50% 0%, #d59a56 0%, #a96a2e 55%, #8a5220 100%) fixed;
+  color:var(--body);
+  line-height:1.6;
+  padding:24px 16px 64px;
+  -webkit-text-size-adjust:100%;
+}
+
+.wrap{ max-width:760px; margin:0 auto; }
+
+/* --- masthead ------------------------------------------------ */
+.brand{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  margin-bottom:18px; text-decoration:none;
+}
+.brand-mark{
+  width:38px; height:38px; border-radius:12px;
+  border:3px solid var(--ink); background:linear-gradient(180deg,var(--gold-hi),var(--gold-deep));
+  box-shadow:0 3px 0 rgba(94,55,18,.55);
+  display:grid; place-items:center;
+  font-weight:900; font-size:18px; color:#8a4a08; letter-spacing:-.04em;
+}
+.brand-name{
+  font-weight:900; font-size:20px; letter-spacing:.14em; color:var(--cream);
+  text-shadow:0 2px 0 rgba(94,55,18,.75);
+}
+
+/* --- the sheet ----------------------------------------------- */
+.sheet{
+  background:var(--paper);
+  border:4px solid var(--ink);
+  border-radius:22px;
+  box-shadow:0 8px 0 rgba(94,55,18,.45), 0 18px 40px rgba(60,30,10,.35);
+  overflow:hidden;
+}
+.sheet-head{
+  background:linear-gradient(180deg,var(--gold-hi),var(--gold-deep));
+  border-bottom:4px solid var(--ink);
+  padding:22px 26px 18px;
+}
+.sheet-head h1{
+  font-size:clamp(22px,5.5vw,32px); font-weight:900; letter-spacing:.03em;
+  color:#7a2010; text-shadow:0 2px 0 rgba(255,240,190,.6); line-height:1.15;
+}
+.sheet-head .sub{
+  margin-top:6px; font-size:12px; font-weight:900; letter-spacing:.14em;
+  text-transform:uppercase; color:#8a4a08;
+}
+.sheet-body{ padding:26px; }
+
+/* --- type ---------------------------------------------------- */
+.sheet-body h2{
+  font-size:17px; font-weight:900; color:var(--ink-soft);
+  letter-spacing:.02em; margin:30px 0 8px;
+  padding-top:18px; border-top:3px dashed #eadcc0;
+}
+.sheet-body h2:first-child{ margin-top:0; padding-top:0; border-top:0; }
+.sheet-body h3{
+  font-size:14px; font-weight:900; color:var(--ink-brown);
+  letter-spacing:.04em; margin:18px 0 6px;
+}
+.sheet-body p{ margin:0 0 12px; font-size:15px; font-weight:600; }
+.sheet-body ul, .sheet-body ol{ margin:0 0 14px 22px; font-size:15px; font-weight:600; }
+.sheet-body li{ margin-bottom:7px; }
+.sheet-body a{ color:var(--blue); font-weight:800; }
+.sheet-body strong{ font-weight:900; color:var(--ink-brown); }
+.lede{ font-size:16px !important; font-weight:700 !important; color:var(--ink-brown); }
+
+/* --- the loud "we collect nothing" panel --------------------- */
+.callout{
+  margin:0 0 22px; padding:16px 18px;
+  background:var(--cream); border:3px solid var(--ink); border-radius:16px;
+  box-shadow:0 4px 0 rgba(94,55,18,.35);
+}
+.callout p:last-child{ margin-bottom:0; }
+.callout .big{
+  display:block; font-size:19px; font-weight:900; color:var(--ink);
+  letter-spacing:.02em; margin-bottom:6px;
+}
+
+/* --- tables --------------------------------------------------- */
+.tbl-wrap{ overflow-x:auto; margin:0 0 16px; }
+table{ border-collapse:collapse; width:100%; min-width:420px; font-size:14px; }
+th,td{ text-align:left; padding:9px 12px; border:2px solid #eadcc0; vertical-align:top; }
+th{ background:var(--cream); font-weight:900; color:var(--ink-brown); }
+td{ font-weight:600; }
+
+/* --- footer nav ---------------------------------------------- */
+.foot{
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+  margin-top:22px;
+}
+.foot a{
+  text-decoration:none; padding:9px 20px; border-radius:14px;
+  border:3px solid var(--ink-brown);
+  background:linear-gradient(180deg,var(--wood-lite),var(--wood-mid));
+  box-shadow:inset 0 2px 0 rgba(255,236,200,.45), 0 4px 0 #5e3712;
+  font-size:12px; font-weight:900; letter-spacing:.1em; color:var(--cream);
+  text-shadow:0 2px 0 rgba(94,55,18,.8);
+}
+.foot a:hover{ filter:brightness(1.06); }
+.foot a.here{
+  background:linear-gradient(180deg,var(--gold-hi),var(--gold-deep));
+  color:#7a2010; text-shadow:0 2px 0 rgba(255,240,190,.6);
+  border-color:var(--ink);
+}
+.copyright{
+  margin-top:16px; text-align:center; font-size:12px; font-weight:800;
+  color:rgba(255,243,212,.8); text-shadow:0 1px 0 rgba(94,55,18,.5);
+}

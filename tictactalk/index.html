@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>TicTacTalk — language learning played as tic-tac-toe</title>
+  <meta name="description" content="TicTacTalk teaches a language through tic-tac-toe. Read a short everyday scene, answer a question about it: right answer, your mark goes on the board; wrong answer, the bot takes the square. Six languages, in development at Matri Rush." />
+  <meta name="keywords" content="TicTacTalk, language learning game, learn English, learn French, learn Japanese, learn Yoruba, learn Turkish, learn Spanish, tic tac toe game, Matri Rush" />
+  <meta name="author" content="Matri Rush" />
+  <link rel="canonical" href="https://matrirush.com/tictactalk/" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="theme-color" content="#12a5c8" />
+
+  <meta property="og:site_name" content="Matri Rush" />
+  <meta property="og:title" content="TicTacTalk — language learning played as tic-tac-toe" />
+  <meta property="og:description" content="Get it right, get the square. A language app that is actually a game of tic-tac-toe, in six languages. In development at Matri Rush." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://matrirush.com/tictactalk/" />
+  <meta property="og:image" content="https://matrirush.com/assets/og-tictactalk.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="TicTacTalk: the app icon on a pool-blue stage, marked in development." />
+  <meta property="og:locale" content="en" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TicTacTalk — language learning played as tic-tac-toe" />
+  <meta name="twitter:description" content="Read a scene, answer a question, take the square. Six languages. In development at Matri Rush." />
+  <meta name="twitter:image" content="https://matrirush.com/assets/og-tictactalk.png" />
+
+  <link rel="icon" type="image/png" href="../assets/talk-icon.png" />
+  <link rel="apple-touch-icon" href="../assets/talk-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../app.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["MobileApplication", "LearningResource"],
+        "@id": "https://matrirush.com/#tictactalk",
+        "name": "TicTacTalk",
+        "url": "https://matrirush.com/tictactalk/",
+        "mainEntityOfPage": "https://matrirush.com/tictactalk/",
+        "image": "https://matrirush.com/assets/og-tictactalk.png",
+        "description": "TicTacTalk teaches a language through tic-tac-toe. Read a short everyday scene, then answer a question about it: get it right and your mark goes on the board, get it wrong and the bot moves instead.",
+        "applicationCategory": "EducationalApplication",
+        "learningResourceType": "Game",
+        "educationalUse": "Practice",
+        "teaches": "Language comprehension and vocabulary",
+        "gamePlatform": ["iOS", "Android"],
+        "operatingSystem": "iOS, Android",
+        "inLanguage": ["en", "fr", "tr", "ja", "yo", "es"],
+        "contentRating": "Everyone",
+        "isFamilyFriendly": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/PreOrder"
+        },
+        "publisher": { "@id": "https://matrirush.com/#org" },
+        "author": { "@id": "https://matrirush.com/#org" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://matrirush.com/tictactalk/#webpage",
+        "url": "https://matrirush.com/tictactalk/",
+        "name": "TicTacTalk — language learning played as tic-tac-toe",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://matrirush.com/#website" },
+        "about": { "@id": "https://matrirush.com/#tictactalk" },
+        "primaryImageOfPage": "https://matrirush.com/assets/talk-icon.png",
+        "publisher": { "@id": "https://matrirush.com/#org" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://matrirush.com/tictactalk/#crumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Matri Rush", "item": "https://matrirush.com/" },
+          { "@type": "ListItem", "position": 2, "name": "TicTacTalk", "item": "https://matrirush.com/tictactalk/" }
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://matrirush.com/#org",
+        "name": "Matri Rush",
+        "url": "https://matrirush.com/",
+        "email": "support@matrirush.com",
+        "logo": "https://matrirush.com/assets/icon.png"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://matrirush.com/tictactalk/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I download TicTacTalk yet?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not yet. TicTacTalk is still in development at Matri Rush and is not listed on the App Store or Google Play. This page is where the release will be announced."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which languages will TicTacTalk teach?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "English, French, Turkish, Japanese, Yorùbá and Spanish at the start. Each language repaints the whole app in its own colour."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does TicTacTalk work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You read a short everyday scene — meeting a neighbour, asking for directions, ordering a coffee — and answer a question about it. A right answer puts your mark on the tic-tac-toe board; a wrong one hands the square to the bot."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body data-act="talk">
+
+  <a class="skip" href="#main">Skip to content</a>
+
+  <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+    <defs>
+      <symbol id="glyphApple" viewBox="0 0 384 512">
+        <path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+      </symbol>
+      <symbol id="glyphPlay" viewBox="0 0 512 512">
+        <polygon points="70,40 70,472 286,256" fill="#00d7fe"/>
+        <polygon points="70,40 353,189 286,256" fill="#00f076"/>
+        <polygon points="286,256 353,189 424,256 353,323" fill="#ffce00"/>
+        <polygon points="70,472 353,323 286,256" fill="#ff3a44"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <nav class="nav" id="nav">
+    <div class="nav-in">
+      <a class="brand" href="../">
+        <img src="../assets/icon.png" alt="" width="30" height="30" />
+        <b>Matri<i>Rush</i></b>
+      </a>
+      <div class="links">
+        <a href="../">Home</a>
+        <a href="../rush-delivery-3d/">Rush Delivery</a>
+        <a href="../bottle-rush-shooting-3d/">Bottle Rush</a>
+        <a href="../animalculator/">Animalculator</a>
+        <a href="./" aria-current="page">TicTacTalk</a>
+        <a href="../bawa/">BAWA</a>
+      </div>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Menu"><span></span></button>
+    </div>
+    <div class="sheet" id="sheet">
+      <a href="../">Matri Rush home</a>
+      <a href="../rush-delivery-3d/">Rush Delivery 3D</a>
+      <a href="../bottle-rush-shooting-3d/">Bottle Rush Shooting 3D</a>
+      <a href="../animalculator/">Animalculator</a>
+      <a href="../bawa/">BAWA</a>
+      <a href="mailto:support@matrirush.com?subject=TicTacTalk">Ask about TicTacTalk →</a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+  <header class="stage hero" data-act="talk">
+    <span class="floor" aria-hidden="true"></span>
+    <span class="glow" aria-hidden="true"></span>
+    <span class="drift a" aria-hidden="true"></span>
+    <span class="drift b" aria-hidden="true"></span>
+    <span class="drift d" aria-hidden="true"></span>
+
+    <div class="hero-in">
+      <div>
+        <p class="crumb">
+          <a href="../">Matri Rush</a> <span aria-hidden="true">›</span> <b>TicTacTalk</b>
+        </p>
+
+        <div class="idtag">
+          <img src="../assets/talk-icon.png" alt="The TicTacTalk app icon" width="62" height="62" />
+          <span class="who">In development at<b>Matri Rush</b></span>
+        </div>
+
+        <h1 class="huge">TicTacTalk</h1>
+        <p class="sub">Get it right, get the square.</p>
+        <p class="lede">
+          A language app that is actually a game of tic-tac-toe. Read a short everyday
+          scene, answer a question about it. Right answer, your mark goes down. Wrong
+          answer, the bot takes the square.
+        </p>
+
+        <div class="stores">
+          <span class="badge soon">
+            <svg width="20" height="24" aria-hidden="true"><use href="#glyphApple" /></svg>
+            <span><span class="s1">Coming soon to the</span><span class="s2">App Store</span></span>
+          </span>
+          <span class="badge soon">
+            <svg width="20" height="22" aria-hidden="true"><use href="#glyphPlay" /></svg>
+            <span><span class="s1">Coming soon to</span><span class="s2">Google Play</span></span>
+          </span>
+        </div>
+
+        <div class="act-foot">
+          <span class="tick"><i></i>Not released yet — no download link to give you</span>
+        </div>
+      </div>
+
+      <div class="podium">
+        <span class="halo" aria-hidden="true"></span>
+        <img class="hero-tile bob" src="../assets/talk-icon.png"
+             alt="The TicTacTalk app icon" width="256" height="256" fetchpriority="high" />
+        <span class="ped" aria-hidden="true"></span>
+      </div>
+    </div>
+  </header>
+
+  <section class="stage act" data-act="talk" aria-labelledby="how">
+    <span class="floor" aria-hidden="true"></span>
+    <span class="glow" aria-hidden="true"></span>
+    <span class="drift c" aria-hidden="true"></span>
+
+    <div class="act-in">
+      <div class="copy">
+        <p class="kick">How it will play</p>
+        <h2 class="big" id="how">Comprehension <em>is the move.</em></h2>
+        <ol class="route">
+          <li><b>Scenes, not flashcards</b>Meeting a neighbour, asking for directions, ordering a coffee.</li>
+          <li><b>Comprehension is the move</b>The board only advances when you understood the line, so guessing costs you the square.</li>
+          <li><b>Every language its own colour</b>Pick a language and the whole app repaints itself in that flag's colour.</li>
+        </ol>
+
+        <div class="act-foot">
+          <a class="go" href="mailto:support@matrirush.com?subject=TicTacTalk">Ask to hear when it ships →</a>
+        </div>
+      </div>
+
+      <div class="art">
+        <div class="slab">
+          <h3>Languages at launch</h3>
+          <dl>
+            <dt>EN</dt><dd>English</dd>
+            <dt>FR</dt><dd>Français</dd>
+            <dt>TR</dt><dd>Türkçe</dd>
+            <dt>JA</dt><dd>日本語</dd>
+            <dt>YO</dt><dd>Yorùbá</dd>
+            <dt>ES</dt><dd>Español</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" aria-labelledby="faqh">
+    <div class="faq-in">
+      <p class="kick hot">Questions</p>
+      <h2 class="big" id="faqh">Where it stands</h2>
+
+      <details>
+        <summary>Can I download TicTacTalk yet?</summary>
+        <p class="a">Not yet. It is still in development and is not listed on the App Store or
+          Google Play. This page is where the release will be announced, and
+          <a href="mailto:support@matrirush.com?subject=TicTacTalk">support@matrirush.com</a>
+          will tell you when it lands if you ask.</p>
+      </details>
+      <details>
+        <summary>Which languages will it teach?</summary>
+        <p class="a">English, French, Turkish, Japanese, Yorùbá and Spanish at the start.</p>
+      </details>
+      <details>
+        <summary>How does it work?</summary>
+        <p class="a">You read a short everyday scene and answer a question about it. A right answer
+          puts your mark on the tic-tac-toe board; a wrong one hands the square to the bot.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="shelf" aria-labelledby="more">
+    <div class="shelf-in">
+      <p class="kick">Out now instead</p>
+      <h2 class="big" id="more">More from Matri Rush</h2>
+      <p class="note">Four apps you can download today, and one more still in the workshop.</p>
+      <div class="tiles">
+        <a class="tile" href="../">
+          <img src="../assets/icon.png" alt="" width="52" height="52" />
+          <span class="t">Matri Rush</span>
+          <span class="s">The brick puzzle. 112 villages, 6,000 levels.</span>
+          <span class="badge-mini">App Store</span>
+        </a>
+        <a class="tile" href="../rush-delivery-3d/">
+          <img src="../assets/rush-icon.png" alt="" width="52" height="52" />
+          <span class="t">Rush Delivery 3D</span>
+          <span class="s">Clear the traffic jam, make the drop.</span>
+          <span class="badge-mini">App Store</span>
+        </a>
+        <a class="tile" href="../bottle-rush-shooting-3d/">
+          <img src="../assets/bottle-icon.png" alt="" width="52" height="52" />
+          <span class="t">Bottle Rush Shooting 3D</span>
+          <span class="s">A fairground arcade shooter with a combo chain.</span>
+          <span class="badge-mini">App Store</span>
+        </a>
+        <a class="tile" href="../animalculator/">
+          <img src="../assets/animalculator-icon.png" alt="" width="52" height="52" />
+          <span class="t">Animalculator</span>
+          <span class="s">A calculator with 199 animals behind it.</span>
+          <span class="badge-mini">App Store</span>
+        </a>
+        <a class="tile" href="../bawa/">
+          <img class="tall" src="../assets/bawa-icon.png" alt="" height="52" />
+          <span class="t">BAWA</span>
+          <span class="s">Skilled workers, and the people who need them.</span>
+          <span class="badge-mini dev">In development</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer>
+    <div class="fm"><a href="../">Matri Rush</a> · <a href="../rush-delivery-3d/">Rush Delivery 3D</a> · <a href="../bottle-rush-shooting-3d/">Bottle Rush Shooting 3D</a> · <a href="../animalculator/">Animalculator</a> · TicTacTalk · <a href="../bawa/">BAWA</a></div>
+    Ikeja, Lagos, Nigeria · <a href="mailto:support@matrirush.com">support@matrirush.com</a><br />
+    © <span id="y">2026</span>
+  </footer>
+
+  <script src="../app.js" defer></script>
+</body>
+</html>
